@@ -10,6 +10,7 @@ import { DelegateTree, Rule, SchematicContext, Tree } from '@angular-devkit/sche
 import { Observable } from 'rxjs/Observable';
 export declare class UnitTestTree extends DelegateTree {
     readonly files: string[];
+    readContent(path: string): string;
 }
 export declare class SchematicTestRunner {
     private _collectionName;
