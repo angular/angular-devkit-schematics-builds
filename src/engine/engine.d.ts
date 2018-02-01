@@ -7,11 +7,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { CollectionDescription, SchematicDescription, TypedSchematicContext } from '@angular-devkit/schematics';
 import { Observable } from 'rxjs/Observable';
 import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
-import { Collection, Engine, EngineHost, Schematic, Source } from './interface';
+import { Collection, CollectionDescription, Engine, EngineHost, Schematic, SchematicDescription, Source, TypedSchematicContext } from './interface';
 export declare class UnknownUrlSourceProtocol extends BaseException {
     constructor(url: string);
 }

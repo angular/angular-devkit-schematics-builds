@@ -7,9 +7,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '@angular-devkit/schematics';
 import { Observable } from 'rxjs/Observable';
 import { Url } from 'url';
+import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
 import { FileSystemCollection, FileSystemCollectionDesc, FileSystemCollectionDescription, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
 export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T) => Observable<R>;
 export declare class CollectionCannotBeResolvedException extends BaseException {
