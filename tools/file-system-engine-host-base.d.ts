@@ -65,7 +65,7 @@ export declare abstract class FileSystemEngineHostBase implements EngineHost<Fil
      * @return {{path: string}}
      */
     createCollectionDescription(name: string): FileSystemCollectionDesc;
-    createSchematicDescription(name: string, collection: FileSystemCollectionDesc): FileSystemSchematicDesc;
+    createSchematicDescription(name: string, collection: FileSystemCollectionDesc): FileSystemSchematicDesc | null;
     createSourceFromUrl(url: Url): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: FileSystemSchematicDesc, options: OptionT): Observable<ResultT>;
     getSchematicRuleFactory<OptionT extends object>(schematic: FileSystemSchematicDesc, _collection: FileSystemCollectionDesc): RuleFactory<OptionT>;

@@ -17,6 +17,9 @@ export declare class UnknownUrlSourceProtocol extends BaseException {
 export declare class UnknownCollectionException extends BaseException {
     constructor(name: string);
 }
+export declare class CircularCollectionException extends BaseException {
+    constructor(name: string);
+}
 export declare class UnknownSchematicException extends BaseException {
     constructor(name: string, collection: CollectionDescription<{}>);
 }
@@ -34,6 +37,7 @@ export declare class SchematicEngine<CollectionT extends object, SchematicT exte
     constructor(_host: EngineHost<CollectionT, SchematicT>);
     readonly defaultMergeStrategy: MergeStrategy;
     createCollection(name: string): Collection<CollectionT, SchematicT>;
+    private _createCollectionDescription(name, parentNames?);
     createContext(schematic: Schematic<CollectionT, SchematicT>, parent?: Partial<TypedSchematicContext<CollectionT, SchematicT>>): TypedSchematicContext<CollectionT, SchematicT>;
     createSchematic(name: string, collection: Collection<CollectionT, SchematicT>): Schematic<CollectionT, SchematicT>;
     listSchematicNames(collection: Collection<CollectionT, SchematicT>): string[];
