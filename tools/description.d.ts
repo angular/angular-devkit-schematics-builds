@@ -11,7 +11,7 @@ export interface FileSystemCollectionDescription {
     readonly path: string;
     readonly version?: string;
     readonly schematics: {
-        [name: string]: FileSystemSchematicJsonDescription;
+        [name: string]: FileSystemSchematicDesc;
     };
 }
 export interface FileSystemSchematicJsonDescription {

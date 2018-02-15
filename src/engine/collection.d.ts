@@ -14,6 +14,6 @@ export declare class CollectionImpl<CollectionT extends object, SchematicT exten
     constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: CollectionDescription<CollectionT>[] | undefined);
     readonly description: CollectionDescription<CollectionT>;
     readonly name: string;
-    createSchematic(name: string): Schematic<CollectionT, SchematicT>;
+    createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
     listSchematicNames(): string[];
 }
