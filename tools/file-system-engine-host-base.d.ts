@@ -57,7 +57,7 @@ export declare abstract class FileSystemEngineHostBase implements EngineHost<Fil
      * @deprecated Use `listSchematicNames`.
      */
     listSchematics(collection: FileSystemCollection): string[];
-    listSchematicNames(collection: FileSystemCollectionDesc): string[];
+    listSchematicNames(collection: FileSystemCollectionDescription): string[];
     registerOptionsTransform<T extends object, R extends object>(t: OptionTransform<T, R>): void;
     /**
      *

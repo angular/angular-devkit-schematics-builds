@@ -28,8 +28,6 @@ export declare type CollectionDescription<CollectionMetadataT extends object> = 
 export declare type SchematicDescription<CollectionMetadataT extends object, SchematicMetadataT extends object> = SchematicMetadataT & {
     readonly collection: CollectionDescription<CollectionMetadataT>;
     readonly name: string;
-    readonly private?: boolean;
-    readonly hidden?: boolean;
 };
 /**
  * The Host for the Engine. Specifically, the piece of the tooling responsible for resolving
@@ -77,7 +75,7 @@ export interface Engine<CollectionMetadataT extends object, SchematicMetadataT e
 export interface Collection<CollectionMetadataT extends object, SchematicMetadataT extends object> {
     readonly description: CollectionDescription<CollectionMetadataT>;
     readonly baseDescriptions?: Array<CollectionDescription<CollectionMetadataT>>;
-    createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionMetadataT, SchematicMetadataT>;
+    createSchematic(name: string): Schematic<CollectionMetadataT, SchematicMetadataT>;
     listSchematicNames(): string[];
 }
 /**
