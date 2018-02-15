@@ -6,9 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export * from './description';
-export * from './file-system-host';
 export * from './file-system-engine-host-base';
-export { FallbackEngineHost } from './fallback-engine-host';
+export * from './file-system-host';
 export { FileSystemEngineHost } from './file-system-engine-host';
 export { NodeModulesEngineHost } from './node-module-engine-host';
 export { NodeModulesTestEngineHost } from './node-modules-test-engine-host';
