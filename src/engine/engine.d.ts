@@ -23,6 +23,9 @@ export declare class CircularCollectionException extends BaseException {
 export declare class UnknownSchematicException extends BaseException {
     constructor(name: string, collection: CollectionDescription<{}>);
 }
+export declare class PrivateSchematicException extends BaseException {
+    constructor(name: string, collection: CollectionDescription<{}>);
+}
 export declare class SchematicEngineConflictingException extends BaseException {
     constructor();
 }
@@ -39,7 +42,7 @@ export declare class SchematicEngine<CollectionT extends object, SchematicT exte
     createCollection(name: string): Collection<CollectionT, SchematicT>;
     private _createCollectionDescription(name, parentNames?);
     createContext(schematic: Schematic<CollectionT, SchematicT>, parent?: Partial<TypedSchematicContext<CollectionT, SchematicT>>): TypedSchematicContext<CollectionT, SchematicT>;
-    createSchematic(name: string, collection: Collection<CollectionT, SchematicT>): Schematic<CollectionT, SchematicT>;
+    createSchematic(name: string, collection: Collection<CollectionT, SchematicT>, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
     listSchematicNames(collection: Collection<CollectionT, SchematicT>): string[];
     transformOptions<OptionT extends object, ResultT extends object>(schematic: Schematic<CollectionT, SchematicT>, options: OptionT): Observable<ResultT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionT, SchematicT>): Source;
