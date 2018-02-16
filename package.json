@@ -21,15 +21,15 @@
     "rxjs": "^5.5.6"
   },
   "peerDependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#b2b7544"
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#933d427"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/devkit.git"
   },
   "engines": {
-    "node": ">= 6.9.0",
-    "npm": ">= 3.0.0"
+    "node": ">= 8.9.0",
+    "npm": ">= 5.5.1"
   },
   "author": "Angular Authors",
   "license": "MIT",
