@@ -10,6 +10,7 @@ import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs/Observable';
 import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
+import { Workflow } from '../workflow';
 import { Collection, CollectionDescription, Engine, EngineHost, Schematic, SchematicDescription, Source, TypedSchematicContext } from './interface';
 export declare class UnknownUrlSourceProtocol extends BaseException {
     constructor(url: string);
@@ -34,10 +35,12 @@ export declare class UnregisteredTaskException extends BaseException {
 }
 export declare class SchematicEngine<CollectionT extends object, SchematicT extends object> implements Engine<CollectionT, SchematicT> {
     private _host;
+    protected _workflow: Workflow | undefined;
     private _collectionCache;
     private _schematicCache;
     private _taskSchedulers;
-    constructor(_host: EngineHost<CollectionT, SchematicT>);
+    constructor(_host: EngineHost<CollectionT, SchematicT>, _workflow?: Workflow | undefined);
+    readonly workflow: Workflow | null;
     readonly defaultMergeStrategy: MergeStrategy;
     createCollection(name: string): Collection<CollectionT, SchematicT>;
     private _createCollectionDescription(name, parentNames?);

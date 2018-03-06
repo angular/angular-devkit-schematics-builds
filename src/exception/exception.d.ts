@@ -23,6 +23,9 @@ export declare class InvalidUpdateRecordException extends BaseException {
 export declare class MergeConflictException extends BaseException {
     constructor(path: string);
 }
+export declare class UnsuccessfulWorkflowExecution extends BaseException {
+    constructor();
+}
 export declare class UnimplementedException extends BaseException {
     constructor();
 }

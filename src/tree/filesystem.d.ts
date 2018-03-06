@@ -27,6 +27,8 @@ export declare class FileSystemTree extends VirtualTree {
     protected _copyTo<T extends VirtualTree>(tree: T): void;
     protected _recursiveFileList(): Path[];
 }
+export declare class HostTree extends FileSystemTree {
+}
 export declare class FileSystemCreateTree extends FileSystemTree {
     constructor(host: virtualFs.Host);
 }

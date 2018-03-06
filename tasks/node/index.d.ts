@@ -11,4 +11,5 @@ import { RepositoryInitializerTaskFactoryOptions } from '../repo-init/options';
 export declare class BuiltinTaskExecutor {
     static readonly NodePackage: TaskExecutorFactory<NodePackageTaskFactoryOptions>;
     static readonly RepositoryInitializer: TaskExecutorFactory<RepositoryInitializerTaskFactoryOptions>;
+    static readonly RunSchematic: TaskExecutorFactory<{}>;
 }

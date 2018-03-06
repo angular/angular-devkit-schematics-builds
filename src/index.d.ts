@@ -30,8 +30,11 @@ export * from './engine/schematic';
 export * from './sink/dryrun';
 export * from './sink/filesystem';
 export * from './sink/host';
+export * from './sink/sink';
 import * as formats from './formats';
 export { formats };
+import * as workflow from './workflow';
+export { workflow };
 export interface TreeConstructor {
     empty(): TreeInterface;
     branch(tree: TreeInterface): TreeInterface;

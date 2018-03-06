@@ -10,6 +10,7 @@ import { logging } from '@angular-devkit/core';
 import { Observable } from 'rxjs/Observable';
 import { Url } from 'url';
 import { FileEntry, MergeStrategy, Tree } from '../tree/interface';
+import { Workflow } from '../workflow';
 import { TaskConfigurationGenerator, TaskExecutor, TaskId } from './task';
 /**
  * The description (metadata) of a collection. This type contains every information the engine
@@ -69,6 +70,7 @@ export interface Engine<CollectionMetadataT extends object, SchematicMetadataT e
     transformOptions<OptionT extends object, ResultT extends object>(schematic: Schematic<CollectionMetadataT, SchematicMetadataT>, options: OptionT): Observable<ResultT>;
     executePostTasks(): Observable<void>;
     readonly defaultMergeStrategy: MergeStrategy;
+    readonly workflow: Workflow | null;
 }
 /**
  * A Collection as created by the Engine. This should be used by the tool to create schematics,
