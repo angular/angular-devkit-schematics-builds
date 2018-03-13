@@ -7,7 +7,7 @@
  */
 import { logging } from '@angular-devkit/core';
 import { Observable } from 'rxjs/Observable';
-import { DelegateTree, Rule, SchematicContext, Tree } from '../src';
+import { DelegateTree, Rule, SchematicContext, TaskConfiguration, Tree } from '../src';
 export declare class UnitTestTree extends DelegateTree {
     readonly files: string[];
     readContent(path: string): string;
@@ -20,6 +20,7 @@ export declare class SchematicTestRunner {
     private _logger;
     constructor(_collectionName: string, collectionPath: string);
     readonly logger: logging.Logger;
+    readonly tasks: TaskConfiguration[];
     runSchematicAsync<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
     runSchematic<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): UnitTestTree;
     runExternalSchematicAsync<SchematicSchemaT>(collectionName: string, schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;

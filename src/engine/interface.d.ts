@@ -48,6 +48,7 @@ export interface EngineHost<CollectionMetadataT extends object, SchematicMetadat
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, collection: CollectionDescription<CollectionMetadataT>): RuleFactory<OptionT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, options: OptionT): Observable<ResultT>;
+    transformContext(context: TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>): TypedSchematicContext<CollectionMetadataT, SchematicMetadataT> | void;
     createTaskExecutor(name: string): Observable<TaskExecutor>;
     hasTaskExecutor(name: string): boolean;
     readonly defaultMergeStrategy?: MergeStrategy;

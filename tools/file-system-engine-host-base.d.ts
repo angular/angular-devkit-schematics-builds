@@ -10,7 +10,7 @@ import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs/Observable';
 import { Url } from 'url';
 import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
-import { FileSystemCollection, FileSystemCollectionDesc, FileSystemCollectionDescription, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
+import { FileSystemCollection, FileSystemCollectionDesc, FileSystemCollectionDescription, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
 export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T) => Observable<R>;
 export declare class CollectionCannotBeResolvedException extends BaseException {
     constructor(name: string);
@@ -68,6 +68,7 @@ export declare abstract class FileSystemEngineHostBase implements EngineHost<Fil
     createSchematicDescription(name: string, collection: FileSystemCollectionDesc): FileSystemSchematicDesc | null;
     createSourceFromUrl(url: Url): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: FileSystemSchematicDesc, options: OptionT): Observable<ResultT>;
+    transformContext(context: FileSystemSchematicContext): FileSystemSchematicContext;
     getSchematicRuleFactory<OptionT extends object>(schematic: FileSystemSchematicDesc, _collection: FileSystemCollectionDesc): RuleFactory<OptionT>;
     registerTaskExecutor<T>(factory: TaskExecutorFactory<T>, options?: T): void;
     createTaskExecutor(name: string): Observable<TaskExecutor>;
