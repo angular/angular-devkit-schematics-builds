@@ -9,8 +9,8 @@ import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { RepositoryInitializerTaskOptions } from './options';
 export interface CommitOptions {
     message?: string;
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
 }
 export declare class RepositoryInitializerTask implements TaskConfigurationGenerator<RepositoryInitializerTaskOptions> {
     workingDirectory: string | undefined;

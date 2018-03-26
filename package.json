@@ -21,7 +21,7 @@
     "rxjs": "^5.5.6"
   },
   "peerDependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#da7fe5e"
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#bee027f"
   },
   "repository": {
     "type": "git",
