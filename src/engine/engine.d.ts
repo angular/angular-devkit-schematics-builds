@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
 import { Workflow } from '../workflow';

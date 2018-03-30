@@ -7,8 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { virtualFs } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { HostSink } from './host';
 export interface DryRunErrorEvent {
     kind: 'error';

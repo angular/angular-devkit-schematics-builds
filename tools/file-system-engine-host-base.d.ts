@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
 import { FileSystemCollection, FileSystemCollectionDesc, FileSystemCollectionDescription, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';

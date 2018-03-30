@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Tree } from '../tree/interface';
 import { Collection, Engine, RuleFactory, Schematic, SchematicDescription, TypedSchematicContext } from './interface';
 export declare class InvalidSchematicsNameException extends BaseException {

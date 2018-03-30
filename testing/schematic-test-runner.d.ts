@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { logging } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { DelegateTree, Rule, SchematicContext, TaskConfiguration, Tree } from '../src';
 export declare class UnitTestTree extends DelegateTree {
     readonly files: string[];

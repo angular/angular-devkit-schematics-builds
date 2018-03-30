@@ -6,5 +6,5 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { JsonObject, JsonValue, schema } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 export declare function formatValidator(data: JsonValue, dataSchema: JsonObject, formats: schema.SchemaFormat[]): Observable<schema.SchemaValidatorResult>;

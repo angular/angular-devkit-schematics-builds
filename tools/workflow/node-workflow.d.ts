@@ -7,8 +7,7 @@
  */
 import { schema, virtualFs } from '@angular-devkit/core';
 import { SchematicEngine, workflow } from '@angular-devkit/schematics';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { NodeModulesEngineHost } from '..';
 import { DryRunEvent } from '../../src/sink/dryrun';
 export declare class NodeWorkflow implements workflow.Workflow {

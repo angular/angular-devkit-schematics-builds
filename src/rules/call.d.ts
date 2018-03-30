@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { BaseException } from '@angular-devkit/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Rule, SchematicContext, Source } from '../engine/interface';
 import { Tree } from '../tree/interface';
 /**
