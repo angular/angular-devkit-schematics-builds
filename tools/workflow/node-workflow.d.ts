@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { schema, virtualFs } from '@angular-devkit/core';
+import { Path, schema, virtualFs } from '@angular-devkit/core';
 import { SchematicEngine, workflow } from '@angular-devkit/schematics';
 import { Observable, Subject } from 'rxjs';
 import { NodeModulesEngineHost } from '..';
@@ -15,6 +15,8 @@ export declare class NodeWorkflow implements workflow.Workflow {
     protected _options: {
         force?: boolean;
         dryRun?: boolean;
+        root?: Path;
+        packageManager?: string;
     };
     protected _engine: SchematicEngine<{}, {}>;
     protected _engineHost: NodeModulesEngineHost;
@@ -24,6 +26,8 @@ export declare class NodeWorkflow implements workflow.Workflow {
     constructor(_host: virtualFs.Host, _options: {
         force?: boolean;
         dryRun?: boolean;
+        root?: Path;
+        packageManager?: string;
     });
     readonly context: Readonly<workflow.WorkflowExecutionContext>;
     readonly registry: schema.SchemaRegistry;

@@ -9,10 +9,12 @@ export declare const NodePackageName = "node-package";
 export interface NodePackageTaskFactoryOptions {
     rootDirectory?: string;
     packageManager?: string;
+    allowPackageManagerOverride?: boolean;
 }
 export interface NodePackageTaskOptions {
     command: string;
     quiet?: boolean;
     workingDirectory?: string;
     packageName?: string;
+    packageManager?: string;
 }
