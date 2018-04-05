@@ -12,4 +12,5 @@ export declare class BuiltinTaskExecutor {
     static readonly NodePackage: TaskExecutorFactory<NodePackageTaskFactoryOptions>;
     static readonly RepositoryInitializer: TaskExecutorFactory<RepositoryInitializerTaskFactoryOptions>;
     static readonly RunSchematic: TaskExecutorFactory<{}>;
+    static readonly TslintFix: TaskExecutorFactory<{}>;
 }
