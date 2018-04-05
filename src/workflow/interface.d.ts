@@ -18,6 +18,9 @@ export interface WorkflowExecutionContext extends RequiredWorkflowExecutionConte
     parentContext?: Readonly<WorkflowExecutionContext>;
     allowPrivate?: boolean;
 }
+export interface LifeCycleEvent {
+    kind: 'start' | 'end' | 'workflow-start' | 'workflow-end' | 'post-tasks-start' | 'post-tasks-end';
+}
 export interface Workflow {
     readonly context: Readonly<WorkflowExecutionContext>;
     execute(options: Partial<WorkflowExecutionContext> & RequiredWorkflowExecutionContext): Observable<void>;

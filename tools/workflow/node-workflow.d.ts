@@ -22,6 +22,7 @@ export declare class NodeWorkflow implements workflow.Workflow {
     protected _engineHost: NodeModulesEngineHost;
     protected _registry: schema.CoreSchemaRegistry;
     protected _reporter: Subject<DryRunEvent>;
+    protected _lifeCycle: Subject<workflow.LifeCycleEvent>;
     protected _context: workflow.WorkflowExecutionContext[];
     constructor(_host: virtualFs.Host, _options: {
         force?: boolean;
@@ -32,5 +33,6 @@ export declare class NodeWorkflow implements workflow.Workflow {
     readonly context: Readonly<workflow.WorkflowExecutionContext>;
     readonly registry: schema.SchemaRegistry;
     readonly reporter: Observable<DryRunEvent>;
+    readonly lifeCycle: Observable<workflow.LifeCycleEvent>;
     execute(options: Partial<workflow.WorkflowExecutionContext> & workflow.RequiredWorkflowExecutionContext): Observable<void>;
 }
