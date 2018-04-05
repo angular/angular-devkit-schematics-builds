@@ -16,6 +16,7 @@ export interface WorkflowExecutionContext extends RequiredWorkflowExecutionConte
     debug: boolean;
     logger: logging.Logger;
     parentContext?: Readonly<WorkflowExecutionContext>;
+    allowPrivate?: boolean;
 }
 export interface Workflow {
     readonly context: Readonly<WorkflowExecutionContext>;
