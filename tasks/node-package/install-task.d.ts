@@ -9,6 +9,7 @@ import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { NodePackageTaskOptions } from './options';
 export declare class NodePackageInstallTaskOptions {
     packageManager: string;
+    packageName: string;
     workingDirectory: string;
     quiet: boolean;
 }
@@ -16,6 +17,7 @@ export declare class NodePackageInstallTask implements TaskConfigurationGenerato
     quiet: boolean;
     workingDirectory?: string;
     packageManager?: string;
+    packageName?: string;
     constructor(workingDirectory?: string);
     constructor(options: Partial<NodePackageInstallTaskOptions>);
     toConfiguration(): TaskConfiguration<NodePackageTaskOptions>;
