@@ -7,10 +7,11 @@
  */
 import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { RunSchematicTaskOptions } from './options';
-export declare class RunSchematicTask implements TaskConfigurationGenerator<RunSchematicTaskOptions> {
-    protected _collection: string;
+export declare class RunSchematicTask<T> implements TaskConfigurationGenerator<RunSchematicTaskOptions<T>> {
+    protected _collection: string | null;
     protected _schematic: string;
-    protected _options: object;
-    constructor(_collection: string, _schematic: string, _options: object);
-    toConfiguration(): TaskConfiguration<RunSchematicTaskOptions>;
+    protected _options: T;
+    constructor(s: string, o: T);
+    constructor(c: string, s: string, o: T);
+    toConfiguration(): TaskConfiguration<RunSchematicTaskOptions<T>>;
 }
