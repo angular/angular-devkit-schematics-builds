@@ -1,6 +1,17 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { BaseException } from '@angular-devkit/core';
 import { RuleFactory } from '../src';
 import { FileSystemCollectionDesc, FileSystemSchematicDesc } from './description';
 import { FileSystemEngineHostBase } from './file-system-engine-host-base';
+export declare class NodePackageDoesNotSupportSchematics extends BaseException {
+    constructor(name: string);
+}
 /**
  * A simple EngineHost that uses NodeModules to resolve collections.
  */
