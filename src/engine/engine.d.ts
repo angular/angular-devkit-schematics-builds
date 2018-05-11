@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
 import { Workflow } from '../workflow';
-import { Collection, CollectionDescription, Engine, EngineHost, Schematic, SchematicDescription, Source, TypedSchematicContext } from './interface';
+import { Collection, CollectionDescription, Engine, EngineHost, Schematic, SchematicContext, SchematicDescription, Source, TaskConfiguration, TaskId, TaskInfo, TypedSchematicContext } from './interface';
 export declare class UnknownUrlSourceProtocol extends BaseException {
     constructor(url: string);
 }
@@ -32,6 +32,30 @@ export declare class SchematicEngineConflictingException extends BaseException {
 }
 export declare class UnregisteredTaskException extends BaseException {
     constructor(name: string, schematic?: SchematicDescription<{}, {}>);
+}
+export declare class UnknownTaskDependencyException extends BaseException {
+    constructor(id: TaskId);
+}
+export declare class CollectionImpl<CollectionT extends object, SchematicT extends object> implements Collection<CollectionT, SchematicT> {
+    private _description;
+    private _engine;
+    readonly baseDescriptions: CollectionDescription<CollectionT>[] | undefined;
+    constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: CollectionDescription<CollectionT>[] | undefined);
+    readonly description: CollectionDescription<CollectionT>;
+    readonly name: string;
+    createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
+    listSchematicNames(): string[];
+}
+export declare class TaskScheduler {
+    private _context;
+    private _queue;
+    private _taskIds;
+    private static _taskIdCounter;
+    constructor(_context: SchematicContext);
+    private _calculatePriority(dependencies);
+    private _mapDependencies(dependencies?);
+    schedule<T>(taskConfiguration: TaskConfiguration<T>): TaskId;
+    finalize(): ReadonlyArray<TaskInfo>;
 }
 export declare class SchematicEngine<CollectionT extends object, SchematicT extends object> implements Engine<CollectionT, SchematicT> {
     private _host;

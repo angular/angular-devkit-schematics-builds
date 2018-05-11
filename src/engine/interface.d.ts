@@ -11,7 +11,28 @@ import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { FileEntry, MergeStrategy, Tree } from '../tree/interface';
 import { Workflow } from '../workflow';
-import { TaskConfigurationGenerator, TaskExecutor, TaskId } from './task';
+export interface TaskConfiguration<T = {}> {
+    name: string;
+    dependencies?: Array<TaskId>;
+    options?: T;
+}
+export interface TaskConfigurationGenerator<T = {}> {
+    toConfiguration(): TaskConfiguration<T>;
+}
+export declare type TaskExecutor<T = {}> = (options: T | undefined, context: SchematicContext) => Promise<void> | Observable<void>;
+export interface TaskExecutorFactory<T> {
+    readonly name: string;
+    create(options?: T): Promise<TaskExecutor> | Observable<TaskExecutor>;
+}
+export interface TaskId {
+    readonly id: number;
+}
+export interface TaskInfo {
+    readonly id: number;
+    readonly priority: number;
+    readonly configuration: TaskConfiguration;
+    readonly context: SchematicContext;
+}
 /**
  * The description (metadata) of a collection. This type contains every information the engine
  * needs to run. The CollectionMetadataT type parameter contains additional metadata that you
