@@ -8,8 +8,8 @@
 import { Path, schema, virtualFs } from '@angular-devkit/core';
 import { SchematicEngine, workflow } from '@angular-devkit/schematics';
 import { Observable, Subject } from 'rxjs';
-import { NodeModulesEngineHost } from '..';
 import { DryRunEvent } from '../../src/sink/dryrun';
+import { NodeModulesEngineHost } from '../node-module-engine-host';
 export declare class NodeWorkflow implements workflow.Workflow {
     protected _host: virtualFs.Host;
     protected _options: {
