@@ -1,0 +1,47 @@
+/// <reference types="node" />
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Path, PathFragment, virtualFs } from '@angular-devkit/core';
+import { Action } from './action';
+import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
+export declare class HostDirEntry implements DirEntry {
+    readonly parent: DirEntry | null;
+    readonly path: Path;
+    protected _host: virtualFs.SyncDelegateHost;
+    protected _tree: Tree;
+    constructor(parent: DirEntry | null, path: Path, _host: virtualFs.SyncDelegateHost, _tree: Tree);
+    readonly subdirs: PathFragment[];
+    readonly subfiles: PathFragment[];
+    dir(name: PathFragment): DirEntry;
+    file(name: PathFragment): FileEntry | null;
+    visit(visitor: FileVisitor): void;
+}
+export declare class HostTree implements Tree {
+    private _id;
+    private _record;
+    private _recordSync;
+    private _dirCache;
+    constructor(backend?: virtualFs.ReadonlyHost<{}>);
+    protected _normalizePath(path: string): Path;
+    branch(): Tree;
+    merge(other: Tree, strategy?: MergeStrategy): void;
+    readonly root: DirEntry;
+    read(path: string): Buffer | null;
+    exists(path: string): boolean;
+    get(path: string): FileEntry | null;
+    getDir(path: string): DirEntry;
+    visit(visitor: FileVisitor): void;
+    overwrite(path: string, content: Buffer | string): void;
+    beginUpdate(path: string): UpdateRecorder;
+    commitUpdate(record: UpdateRecorder): void;
+    create(path: string, content: Buffer | string): void;
+    delete(path: string): void;
+    rename(from: string, to: string): void;
+    apply(action: Action, strategy?: MergeStrategy): void;
+    readonly actions: Action[];
+}
