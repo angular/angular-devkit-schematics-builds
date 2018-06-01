@@ -22,12 +22,17 @@ export declare class HostDirEntry implements DirEntry {
     visit(visitor: FileVisitor): void;
 }
 export declare class HostTree implements Tree {
+    protected _backend: virtualFs.ReadonlyHost<{}>;
     private _id;
     private _record;
     private _recordSync;
     private _dirCache;
-    constructor(backend?: virtualFs.ReadonlyHost<{}>);
+    constructor(_backend?: virtualFs.ReadonlyHost<{}>);
     protected _normalizePath(path: string): Path;
+    protected _willCreate(path: Path): boolean;
+    protected _willOverwrite(path: Path): boolean;
+    protected _willDelete(path: Path): boolean;
+    protected _willRename(path: Path): boolean;
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
     readonly root: DirEntry;
