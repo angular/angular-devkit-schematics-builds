@@ -8,7 +8,7 @@
  */
 import { Path, PathFragment, virtualFs } from '@angular-devkit/core';
 import { Action } from './action';
-import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
+import { DirEntry, FileEntry, FilePredicate, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
 export declare class HostDirEntry implements DirEntry {
     readonly parent: DirEntry | null;
     readonly path: Path;
@@ -23,9 +23,10 @@ export declare class HostDirEntry implements DirEntry {
 }
 export declare class HostTree implements Tree {
     protected _backend: virtualFs.ReadonlyHost<{}>;
-    private _id;
+    private readonly _id;
     private _record;
     private _recordSync;
+    private _ancestry;
     private _dirCache;
     constructor(_backend?: virtualFs.ReadonlyHost<{}>);
     protected _normalizePath(path: string): Path;
@@ -49,4 +50,10 @@ export declare class HostTree implements Tree {
     rename(from: string, to: string): void;
     apply(action: Action, strategy?: MergeStrategy): void;
     readonly actions: Action[];
+}
+export declare class HostCreateTree extends HostTree {
+    constructor(host: virtualFs.ReadonlyHost);
+}
+export declare class FilterHostTree extends HostTree {
+    constructor(tree: HostTree, filter?: FilePredicate<boolean>);
 }
