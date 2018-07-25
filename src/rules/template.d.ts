@@ -16,15 +16,18 @@ export declare class UnknownPipeException extends BaseException {
 export declare class InvalidPipeException extends BaseException {
     constructor(name: string);
 }
-export declare const kPathTemplateComponentRE: RegExp;
-export declare const kPathTemplatePipeRE: RegExp;
-export declare type TemplateValue = boolean | string | number | undefined;
-export declare type TemplatePipeFunction = (x: string) => TemplateValue;
-export declare type TemplateOptions = {
-    [key: string]: TemplateValue | TemplateOptions | TemplatePipeFunction;
+export declare type PathTemplateValue = boolean | string | number | undefined;
+export declare type PathTemplatePipeFunction = (x: string) => PathTemplateValue;
+export declare type PathTemplateData = {
+    [key: string]: PathTemplateValue | PathTemplateData | PathTemplatePipeFunction;
 };
-export declare function applyContentTemplate<T extends TemplateOptions>(options: T): FileOperator;
-export declare function contentTemplate<T extends TemplateOptions>(options: T): Rule;
-export declare function applyPathTemplate<T extends TemplateOptions>(options: T): FileOperator;
-export declare function pathTemplate<T extends TemplateOptions>(options: T): Rule;
-export declare function template<T extends TemplateOptions>(options: T): Rule;
+export interface PathTemplateOptions {
+    interpolationStart: string;
+    interpolationEnd: string;
+    pipeSeparator?: string;
+}
+export declare function applyContentTemplate<T>(options: T): FileOperator;
+export declare function contentTemplate<T>(options: T): Rule;
+export declare function applyPathTemplate<T extends PathTemplateData>(data: T, options?: PathTemplateOptions): FileOperator;
+export declare function pathTemplate<T extends PathTemplateData>(options: T): Rule;
+export declare function template<T>(options: T): Rule;
