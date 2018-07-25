@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#38fda3e",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#1caf708",
     "rxjs": "^6.0.0"
   },
   "repository": {
