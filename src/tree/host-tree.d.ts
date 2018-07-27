@@ -34,6 +34,7 @@ export declare class HostTree implements Tree {
     protected _willOverwrite(path: Path): boolean;
     protected _willDelete(path: Path): boolean;
     protected _willRename(path: Path): boolean;
+    optimize(): this;
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
     readonly root: DirEntry;
