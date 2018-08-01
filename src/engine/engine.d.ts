@@ -10,7 +10,7 @@ import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
-import { Workflow } from '../workflow';
+import { Workflow } from '../workflow/interface';
 import { Collection, CollectionDescription, Engine, EngineHost, Schematic, SchematicContext, SchematicDescription, Source, TaskConfiguration, TaskId, TaskInfo, TypedSchematicContext } from './interface';
 export declare class UnknownUrlSourceProtocol extends BaseException {
     constructor(url: string);
