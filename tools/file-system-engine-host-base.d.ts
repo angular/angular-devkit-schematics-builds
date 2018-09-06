@@ -6,7 +6,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BaseException } from '@angular-devkit/core';
+import { BaseException, InvalidJsonCharacterException, UnexpectedEndOfInputException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
@@ -16,7 +16,7 @@ export declare class CollectionCannotBeResolvedException extends BaseException {
     constructor(name: string);
 }
 export declare class InvalidCollectionJsonException extends BaseException {
-    constructor(_name: string, path: string);
+    constructor(_name: string, path: string, jsonException?: UnexpectedEndOfInputException | InvalidJsonCharacterException);
 }
 export declare class SchematicMissingFactoryException extends BaseException {
     constructor(name: string);
