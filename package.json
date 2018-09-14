@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "0.9.0-beta.2",
+  "version": "0.9.0-beta.3",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#c63b4d8",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#b6793bd",
     "rxjs": "6.2.2"
   },
   "repository": {
@@ -26,8 +26,8 @@
     "url": "https://github.com/angular/angular-cli.git"
   },
   "engines": {
-    "node": ">=10.9.0 <11.0.0",
-    "yarn": ">=1.9.0 <2.0.0"
+    "node": ">= 8.9.0",
+    "npm": ">= 5.5.1"
   },
   "author": "Angular Authors",
   "license": "MIT",
