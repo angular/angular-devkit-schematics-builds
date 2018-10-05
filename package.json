@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "7.0.0-rc.1",
+  "version": "7.0.0-rc.2",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#d1b6e71",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#248d531",
     "rxjs": "6.3.3"
   },
   "repository": {
