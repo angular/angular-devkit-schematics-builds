@@ -34,6 +34,7 @@ export interface TaskInfo {
     readonly context: SchematicContext;
 }
 export interface ExecutionOptions {
+    scope: string;
     interactive: boolean;
 }
 /**
