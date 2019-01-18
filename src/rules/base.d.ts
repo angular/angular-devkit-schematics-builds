@@ -28,3 +28,4 @@ export declare function when(predicate: FilePredicate<boolean>, operator: FileOp
 export declare function partitionApplyMerge(predicate: FilePredicate<boolean>, ruleYes: Rule, ruleNo?: Rule): Rule;
 export declare function forEach(operator: FileOperator): Rule;
 export declare function composeFileOperators(operators: FileOperator[]): FileOperator;
+export declare function applyToSubtree(path: string, rules: Rule[]): Rule;

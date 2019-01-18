@@ -42,5 +42,6 @@ export declare class ScopedTree implements Tree {
     apply(action: Action, strategy?: MergeStrategy): void;
     readonly actions: Action[];
     private _fullPath;
+    private _fullPathAction;
 }
 export {};
