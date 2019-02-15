@@ -10,6 +10,7 @@ export interface Schema {
 }
 export declare type Extends = string[] | string;
 export interface Schematic {
+    aliases?: string[];
     /**
      * A description for the schematic
      */
