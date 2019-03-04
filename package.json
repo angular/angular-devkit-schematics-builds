@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#214e8ef",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#f204910",
     "rxjs": "6.4.0"
   },
   "repository": {
@@ -34,5 +34,11 @@
   "bugs": {
     "url": "https://github.com/angular/angular-cli/issues"
   },
-  "homepage": "https://github.com/angular/angular-cli"
+  "homepage": "https://github.com/angular/angular-cli",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "node ./bin/devkit-admin hooks/pre-push"
+    }
+  }
 }
