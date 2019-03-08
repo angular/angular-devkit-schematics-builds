@@ -1,20 +1,37 @@
 "use strict";
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
-// Must start with a letter, and must contain only alphanumeric characters or dashes.
-// When adding a dash the segment after the dash must also start with a letter.
-exports.htmlSelectorRe = /^[a-zA-Z][.0-9a-zA-Z]*(:?-[a-zA-Z][.0-9a-zA-Z]*)*$/;
+// As per https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
+// * Without mandatory `-` as the application prefix will generally cover its inclusion
+// * And an allowance for upper alpha characters
+// NOTE: This should eventually be broken out into two formats: full and partial (allows for prefix)
+const unicodeRanges = [
+    [0xC0, 0xD6],
+    [0xD8, 0xF6],
+    [0xF8, 0x37D],
+    [0x37F, 0x1FFF],
+    [0x200C, 0x200D],
+    [0x203F, 0x2040],
+    [0x2070, 0x218F],
+    [0x2C00, 0x2FEF],
+    [0x3001, 0xD7FF],
+    [0xF900, 0xFDCF],
+    [0xFDF0, 0xFFFD],
+    [0x10000, 0xEFFFF],
+];
+function isValidElementName(name) {
+    let regex = '^[a-zA-Z][';
+    regex += '-.0-9_a-zA-Z\\u{B7}';
+    for (const range of unicodeRanges) {
+        regex += `\\u{${range[0].toString(16)}}-\\u{${range[1].toString(16)}}`;
+    }
+    regex += ']*$';
+    return new RegExp(regex, 'u').test(name);
+}
 exports.htmlSelectorFormat = {
     name: 'html-selector',
     formatter: {
         async: false,
-        validate: (selector) => exports.htmlSelectorRe.test(selector),
+        validate: name => typeof name === 'string' && isValidElementName(name),
     },
 };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaHRtbC1zZWxlY3Rvci5qcyIsInNvdXJjZVJvb3QiOiIuLyIsInNvdXJjZXMiOlsicGFja2FnZXMvYW5ndWxhcl9kZXZraXQvc2NoZW1hdGljcy9zcmMvZm9ybWF0cy9odG1sLXNlbGVjdG9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQTs7Ozs7O0dBTUc7O0FBS0gscUZBQXFGO0FBQ3JGLCtFQUErRTtBQUNsRSxRQUFBLGNBQWMsR0FBRyxvREFBb0QsQ0FBQztBQUV0RSxRQUFBLGtCQUFrQixHQUF3QjtJQUNyRCxJQUFJLEVBQUUsZUFBZTtJQUNyQixTQUFTLEVBQUU7UUFDVCxLQUFLLEVBQUUsS0FBSztRQUNaLFFBQVEsRUFBRSxDQUFDLFFBQWdCLEVBQUUsRUFBRSxDQUFDLHNCQUFjLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQztLQUM5RDtDQUNGLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIEluYy4gQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7IHNjaGVtYSB9IGZyb20gJ0Bhbmd1bGFyLWRldmtpdC9jb3JlJztcblxuXG4vLyBNdXN0IHN0YXJ0IHdpdGggYSBsZXR0ZXIsIGFuZCBtdXN0IGNvbnRhaW4gb25seSBhbHBoYW51bWVyaWMgY2hhcmFjdGVycyBvciBkYXNoZXMuXG4vLyBXaGVuIGFkZGluZyBhIGRhc2ggdGhlIHNlZ21lbnQgYWZ0ZXIgdGhlIGRhc2ggbXVzdCBhbHNvIHN0YXJ0IHdpdGggYSBsZXR0ZXIuXG5leHBvcnQgY29uc3QgaHRtbFNlbGVjdG9yUmUgPSAvXlthLXpBLVpdWy4wLTlhLXpBLVpdKig6Py1bYS16QS1aXVsuMC05YS16QS1aXSopKiQvO1xuXG5leHBvcnQgY29uc3QgaHRtbFNlbGVjdG9yRm9ybWF0OiBzY2hlbWEuU2NoZW1hRm9ybWF0ID0ge1xuICBuYW1lOiAnaHRtbC1zZWxlY3RvcicsXG4gIGZvcm1hdHRlcjoge1xuICAgIGFzeW5jOiBmYWxzZSxcbiAgICB2YWxpZGF0ZTogKHNlbGVjdG9yOiBzdHJpbmcpID0+IGh0bWxTZWxlY3RvclJlLnRlc3Qoc2VsZWN0b3IpLFxuICB9LFxufTtcbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaHRtbC1zZWxlY3Rvci5qcyIsInNvdXJjZVJvb3QiOiIuLyIsInNvdXJjZXMiOlsicGFja2FnZXMvYW5ndWxhcl9kZXZraXQvc2NoZW1hdGljcy9zcmMvZm9ybWF0cy9odG1sLXNlbGVjdG9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBU0EsK0ZBQStGO0FBQy9GLHVGQUF1RjtBQUN2RixnREFBZ0Q7QUFFaEQsb0dBQW9HO0FBRXBHLE1BQU0sYUFBYSxHQUFHO0lBQ3BCLENBQUMsSUFBSSxFQUFFLElBQUksQ0FBQztJQUNaLENBQUMsSUFBSSxFQUFFLElBQUksQ0FBQztJQUNaLENBQUMsSUFBSSxFQUFFLEtBQUssQ0FBQztJQUNiLENBQUMsS0FBSyxFQUFFLE1BQU0sQ0FBQztJQUNmLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQztJQUNoQixDQUFDLE1BQU0sRUFBRSxNQUFNLENBQUM7SUFDaEIsQ0FBQyxNQUFNLEVBQUUsTUFBTSxDQUFDO0lBQ2hCLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQztJQUNoQixDQUFDLE1BQU0sRUFBRSxNQUFNLENBQUM7SUFDaEIsQ0FBQyxNQUFNLEVBQUUsTUFBTSxDQUFDO0lBQ2hCLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQztJQUNoQixDQUFDLE9BQU8sRUFBRSxPQUFPLENBQUM7Q0FDbkIsQ0FBQztBQUVGLFNBQVMsa0JBQWtCLENBQUMsSUFBWTtJQUN0QyxJQUFJLEtBQUssR0FBRyxZQUFZLENBQUM7SUFFekIsS0FBSyxJQUFJLHFCQUFxQixDQUFDO0lBRS9CLEtBQUssTUFBTSxLQUFLLElBQUksYUFBYSxFQUFFO1FBQ2pDLEtBQUssSUFBSSxPQUFPLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUMsRUFBRSxDQUFDLFNBQVMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxFQUFFLENBQUMsR0FBRyxDQUFDO0tBQ3hFO0lBRUQsS0FBSyxJQUFJLEtBQUssQ0FBQztJQUVmLE9BQU8sSUFBSSxNQUFNLENBQUMsS0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztBQUMzQyxDQUFDO0FBRVksUUFBQSxrQkFBa0IsR0FBd0I7SUFDckQsSUFBSSxFQUFFLGVBQWU7SUFDckIsU0FBUyxFQUFFO1FBQ1QsS0FBSyxFQUFFLEtBQUs7UUFDWixRQUFRLEVBQUUsSUFBSSxDQUFDLEVBQUUsQ0FBQyxPQUFPLElBQUksS0FBSyxRQUFRLElBQUksa0JBQWtCLENBQUMsSUFBSSxDQUFDO0tBQ3ZFO0NBQ0YsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgSW5jLiBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cbmltcG9ydCB7IHNjaGVtYSB9IGZyb20gJ0Bhbmd1bGFyLWRldmtpdC9jb3JlJztcblxuLy8gQXMgcGVyIGh0dHBzOi8vaHRtbC5zcGVjLndoYXR3Zy5vcmcvbXVsdGlwYWdlL2N1c3RvbS1lbGVtZW50cy5odG1sI3ZhbGlkLWN1c3RvbS1lbGVtZW50LW5hbWVcbi8vICogV2l0aG91dCBtYW5kYXRvcnkgYC1gIGFzIHRoZSBhcHBsaWNhdGlvbiBwcmVmaXggd2lsbCBnZW5lcmFsbHkgY292ZXIgaXRzIGluY2x1c2lvblxuLy8gKiBBbmQgYW4gYWxsb3dhbmNlIGZvciB1cHBlciBhbHBoYSBjaGFyYWN0ZXJzXG5cbi8vIE5PVEU6IFRoaXMgc2hvdWxkIGV2ZW50dWFsbHkgYmUgYnJva2VuIG91dCBpbnRvIHR3byBmb3JtYXRzOiBmdWxsIGFuZCBwYXJ0aWFsIChhbGxvd3MgZm9yIHByZWZpeClcblxuY29uc3QgdW5pY29kZVJhbmdlcyA9IFtcbiAgWzB4QzAsIDB4RDZdLFxuICBbMHhEOCwgMHhGNl0sXG4gIFsweEY4LCAweDM3RF0sXG4gIFsweDM3RiwgMHgxRkZGXSxcbiAgWzB4MjAwQywgMHgyMDBEXSxcbiAgWzB4MjAzRiwgMHgyMDQwXSxcbiAgWzB4MjA3MCwgMHgyMThGXSxcbiAgWzB4MkMwMCwgMHgyRkVGXSxcbiAgWzB4MzAwMSwgMHhEN0ZGXSxcbiAgWzB4RjkwMCwgMHhGRENGXSxcbiAgWzB4RkRGMCwgMHhGRkZEXSxcbiAgWzB4MTAwMDAsIDB4RUZGRkZdLFxuXTtcblxuZnVuY3Rpb24gaXNWYWxpZEVsZW1lbnROYW1lKG5hbWU6IHN0cmluZykge1xuICBsZXQgcmVnZXggPSAnXlthLXpBLVpdWyc7XG5cbiAgcmVnZXggKz0gJy0uMC05X2EtekEtWlxcXFx1e0I3fSc7XG5cbiAgZm9yIChjb25zdCByYW5nZSBvZiB1bmljb2RlUmFuZ2VzKSB7XG4gICAgcmVnZXggKz0gYFxcXFx1eyR7cmFuZ2VbMF0udG9TdHJpbmcoMTYpfX0tXFxcXHV7JHtyYW5nZVsxXS50b1N0cmluZygxNil9fWA7XG4gIH1cblxuICByZWdleCArPSAnXSokJztcblxuICByZXR1cm4gbmV3IFJlZ0V4cChyZWdleCwgJ3UnKS50ZXN0KG5hbWUpO1xufVxuXG5leHBvcnQgY29uc3QgaHRtbFNlbGVjdG9yRm9ybWF0OiBzY2hlbWEuU2NoZW1hRm9ybWF0ID0ge1xuICBuYW1lOiAnaHRtbC1zZWxlY3RvcicsXG4gIGZvcm1hdHRlcjoge1xuICAgIGFzeW5jOiBmYWxzZSxcbiAgICB2YWxpZGF0ZTogbmFtZSA9PiB0eXBlb2YgbmFtZSA9PT0gJ3N0cmluZycgJiYgaXNWYWxpZEVsZW1lbnROYW1lKG5hbWUpLFxuICB9LFxufTtcbiJdfQ==
