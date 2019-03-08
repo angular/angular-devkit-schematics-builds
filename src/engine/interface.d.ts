@@ -156,4 +156,4 @@ export declare type AsyncFileOperator = (tree: FileEntry) => Observable<FileEntr
  * know which types is the schematic or collection metadata, as they are both tooling specific.
  */
 export declare type Source = (context: SchematicContext) => Tree | Observable<Tree>;
-export declare type Rule = (tree: Tree, context: SchematicContext) => Tree | Observable<Tree> | Rule | void;
+export declare type Rule = (tree: Tree, context: SchematicContext) => Tree | Observable<Tree> | Rule | Promise<void> | void;
