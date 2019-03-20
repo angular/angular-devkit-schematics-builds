@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { JsonObject } from '@angular-devkit/core';
-import { Collection, CollectionDescription, RuleFactory, Schematic, SchematicDescription, TypedSchematicContext } from '../src';
+import { Collection, CollectionDescription, Engine, EngineHost, RuleFactory, Schematic, SchematicDescription, TypedSchematicContext } from '../src';
 export interface FileSystemCollectionDescription {
     readonly path: string;
     readonly version?: string;
@@ -29,6 +29,8 @@ export interface FileSystemSchematicDescription extends FileSystemSchematicJsonD
 /**
  * Used to simplify typings.
  */
+export declare type FileSystemEngine = Engine<FileSystemCollectionDescription, FileSystemSchematicDescription>;
+export declare type FileSystemEngineHost = EngineHost<FileSystemCollectionDescription, FileSystemSchematicDescription>;
 export declare type FileSystemCollection = Collection<FileSystemCollectionDescription, FileSystemSchematicDescription>;
 export declare type FileSystemSchematic = Schematic<FileSystemCollectionDescription, FileSystemSchematicDescription>;
 export declare type FileSystemCollectionDesc = CollectionDescription<FileSystemCollectionDescription>;

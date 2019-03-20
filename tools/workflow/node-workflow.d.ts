@@ -7,6 +7,8 @@
  */
 import { Path, virtualFs } from '@angular-devkit/core';
 import { workflow } from '@angular-devkit/schematics';
+import { FileSystemEngine } from '../description';
+import { NodeModulesEngineHost } from '../node-module-engine-host';
 /**
  * A workflow specifically for Node tools.
  */
@@ -17,4 +19,6 @@ export declare class NodeWorkflow extends workflow.BaseWorkflow {
         root?: Path;
         packageManager?: string;
     });
+    readonly engine: FileSystemEngine;
+    readonly engineHost: NodeModulesEngineHost;
 }

@@ -9,9 +9,10 @@
 import { BaseException, InvalidJsonCharacterException, UnexpectedEndOfInputException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
-import { EngineHost, RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
-import { FileSystemCollection, FileSystemCollectionDesc, FileSystemCollectionDescription, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
-export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R>;
+import { RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
+import { FileSystemCollection, FileSystemCollectionDesc, FileSystemEngineHost, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
+export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R> | PromiseLike<R> | R;
+export declare type ContextTransform = (context: FileSystemSchematicContext) => FileSystemSchematicContext;
 export declare class CollectionCannotBeResolvedException extends BaseException {
     constructor(name: string);
 }
@@ -43,7 +44,7 @@ export declare class SchematicNameCollisionException extends BaseException {
  * A EngineHost base class that uses the file system to resolve collections. This is the base of
  * all other EngineHost provided by the tooling part of the Schematics library.
  */
-export declare abstract class FileSystemEngineHostBase implements EngineHost<FileSystemCollectionDescription, FileSystemSchematicDescription> {
+export declare abstract class FileSystemEngineHostBase implements FileSystemEngineHost {
     protected abstract _resolveCollectionPath(name: string): string;
     protected abstract _resolveReferenceString(name: string, parentPath: string): {
         ref: RuleFactory<{}>;
@@ -52,6 +53,7 @@ export declare abstract class FileSystemEngineHostBase implements EngineHost<Fil
     protected abstract _transformCollectionDescription(name: string, desc: Partial<FileSystemCollectionDesc>): FileSystemCollectionDesc;
     protected abstract _transformSchematicDescription(name: string, collection: FileSystemCollectionDesc, desc: Partial<FileSystemSchematicDesc>): FileSystemSchematicDesc;
     private _transforms;
+    private _contextTransforms;
     private _taskFactories;
     /**
      * @deprecated Use `listSchematicNames`.
@@ -59,6 +61,7 @@ export declare abstract class FileSystemEngineHostBase implements EngineHost<Fil
     listSchematics(collection: FileSystemCollection): string[];
     listSchematicNames(collection: FileSystemCollectionDesc): string[];
     registerOptionsTransform<T extends object, R extends object>(t: OptionTransform<T, R>): void;
+    registerContextTransform(t: ContextTransform): void;
     /**
      *
      * @param name

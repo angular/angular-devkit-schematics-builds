@@ -7,7 +7,7 @@
  */
 import { schema, virtualFs } from '@angular-devkit/core';
 import { Observable, Subject } from 'rxjs';
-import { EngineHost, SchematicEngine } from '../engine';
+import { Engine, EngineHost } from '../engine';
 import { DryRunEvent } from '../sink/dryrun';
 import { Sink } from '../sink/sink';
 import { LifeCycleEvent, RequiredWorkflowExecutionContext, Workflow, WorkflowExecutionContext } from './interface';
@@ -30,7 +30,7 @@ export interface BaseWorkflowOptions {
  * @public
  */
 export declare abstract class BaseWorkflow implements Workflow {
-    protected _engine: SchematicEngine<{}, {}>;
+    protected _engine: Engine<{}, {}>;
     protected _engineHost: EngineHost<{}, {}>;
     protected _registry: schema.CoreSchemaRegistry;
     protected _host: virtualFs.Host;
@@ -41,6 +41,8 @@ export declare abstract class BaseWorkflow implements Workflow {
     protected _dryRun: boolean;
     constructor(options: BaseWorkflowOptions);
     readonly context: Readonly<WorkflowExecutionContext>;
+    readonly engine: Engine<{}, {}>;
+    readonly engineHost: EngineHost<{}, {}>;
     readonly registry: schema.SchemaRegistry;
     readonly reporter: Observable<DryRunEvent>;
     readonly lifeCycle: Observable<LifeCycleEvent>;
