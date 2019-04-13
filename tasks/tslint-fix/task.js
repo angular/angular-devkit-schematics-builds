@@ -17,7 +17,11 @@ class TslintFixTask {
         const config = typeof this._configOrPath == 'object' && this._configOrPath !== null
             ? { tslintConfig: this._configOrPath }
             : {};
-        const options = Object.assign({}, this._options, path, config);
+        const options = {
+            ...this._options,
+            ...path,
+            ...config,
+        };
         return { name: options_1.TslintFixName, options };
     }
 }

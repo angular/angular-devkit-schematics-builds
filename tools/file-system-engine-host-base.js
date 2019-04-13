@@ -121,7 +121,10 @@ class FileSystemEngineHostBase {
         if (typeof jsonValue['extends'] === 'string') {
             jsonValue['extends'] = [jsonValue['extends']];
         }
-        const description = this._transformCollectionDescription(name, Object.assign({}, jsonValue, { path }));
+        const description = this._transformCollectionDescription(name, {
+            ...jsonValue,
+            path,
+        });
         if (!description || !description.name) {
             throw new InvalidCollectionJsonException(name, path);
         }
@@ -193,10 +196,15 @@ class FileSystemEngineHostBase {
         const maybePath = path_1.join(collectionPath, partialDesc.factory);
         const path = fs_1.existsSync(maybePath) && fs_1.statSync(maybePath).isDirectory()
             ? maybePath : path_1.dirname(maybePath);
-        return this._transformSchematicDescription(name, collection, Object.assign({}, partialDesc, { schema,
+        return this._transformSchematicDescription(name, collection, {
+            ...partialDesc,
+            schema,
             schemaJson,
             name,
-            path, factoryFn: resolvedRef.ref, collection }));
+            path,
+            factoryFn: resolvedRef.ref,
+            collection,
+        });
     }
     createSourceFromUrl(url) {
         switch (url.protocol) {

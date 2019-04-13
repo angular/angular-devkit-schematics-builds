@@ -105,7 +105,12 @@ class BaseWorkflow {
         const schematic = collection.createSchematic(options.schematic, allowPrivate);
         const sinks = this._createSinks();
         this._lifeCycle.next({ kind: 'workflow-start' });
-        const context = Object.assign({}, options, { debug: options.debug || false, logger: options.logger || (parentContext && parentContext.logger) || new core_1.logging.NullLogger(), parentContext });
+        const context = {
+            ...options,
+            debug: options.debug || false,
+            logger: options.logger || (parentContext && parentContext.logger) || new core_1.logging.NullLogger(),
+            parentContext,
+        };
         this._context.push(context);
         return schematic.call(options.options, rxjs_1.of(new host_tree_1.HostTree(this._host)), { logger: context.logger }).pipe(operators_1.map(tree => static_1.optimize(tree)), operators_1.concatMap((tree) => {
             // Process all sinks.

@@ -101,7 +101,10 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
         if (!desc.schematics || typeof desc.schematics != 'object') {
             throw new file_system_engine_host_base_1.CollectionMissingSchematicsMapException(name);
         }
-        return Object.assign({}, desc, { name });
+        return {
+            ...desc,
+            name,
+        };
     }
     _transformSchematicDescription(name, _collection, desc) {
         if (!desc.factoryFn || !desc.path || !desc.description) {

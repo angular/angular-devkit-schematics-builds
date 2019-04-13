@@ -109,10 +109,17 @@ class ScopedTree {
                 continue;
             }
             if (action.kind !== 'r') {
-                scopedActions.push(Object.assign({}, action, { path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)) }));
+                scopedActions.push({
+                    ...action,
+                    path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)),
+                });
             }
             else if (action.to.startsWith(this._root.scope + '/')) {
-                scopedActions.push(Object.assign({}, action, { path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)), to: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.to)) }));
+                scopedActions.push({
+                    ...action,
+                    path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)),
+                    to: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.to)),
+                });
             }
         }
         return scopedActions;
@@ -126,10 +133,17 @@ class ScopedTree {
     _fullPathAction(action) {
         let fullPathAction;
         if (action.kind === 'r') {
-            fullPathAction = Object.assign({}, action, { path: this._fullPath(action.path), to: this._fullPath(action.to) });
+            fullPathAction = {
+                ...action,
+                path: this._fullPath(action.path),
+                to: this._fullPath(action.to),
+            };
         }
         else {
-            fullPathAction = Object.assign({}, action, { path: this._fullPath(action.path) });
+            fullPathAction = {
+                ...action,
+                path: this._fullPath(action.path),
+            };
         }
         return fullPathAction;
     }

@@ -22,11 +22,15 @@ function default_1(factoryOptions = {}) {
                 stdio: [process.stdin, outputStream, errorStream],
                 shell: true,
                 cwd: path.join(rootDirectory, options.workingDirectory || ''),
-                env: Object.assign({}, process.env, (authorName
-                    ? { GIT_AUTHOR_NAME: authorName, GIT_COMMITTER_NAME: authorName }
-                    : {}), (authorEmail
-                    ? { GIT_AUTHOR_EMAIL: authorEmail, GIT_COMMITTER_EMAIL: authorEmail }
-                    : {})),
+                env: {
+                    ...process.env,
+                    ...(authorName
+                        ? { GIT_AUTHOR_NAME: authorName, GIT_COMMITTER_NAME: authorName }
+                        : {}),
+                    ...(authorEmail
+                        ? { GIT_AUTHOR_EMAIL: authorEmail, GIT_COMMITTER_EMAIL: authorEmail }
+                        : {}),
+                },
             };
             return new Promise((resolve, reject) => {
                 child_process_1.spawn('git', args, spawnOptions)
