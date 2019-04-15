@@ -88,7 +88,15 @@ function callRule(rule, input, context) {
             }));
         }
         else if (core_1.isPromise(result)) {
-            return rxjs_1.from(result).pipe(operators_1.map(() => inputTree));
+            return rxjs_1.from(result).pipe(operators_1.mergeMap(inner => {
+                if (typeof inner === 'function') {
+                    // This is considered a Rule, chain the rule and return its output.
+                    return callRule(inner, rxjs_1.of(inputTree), context);
+                }
+                else {
+                    return rxjs_1.of(inputTree);
+                }
+            }));
         }
         else if (interface_1.TreeSymbol in result) {
             return rxjs_1.of(result);
