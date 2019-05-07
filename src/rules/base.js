@@ -58,7 +58,7 @@ function mergeWith(source, strategy = interface_1.MergeStrategy.Default) {
 }
 exports.mergeWith = mergeWith;
 function noop() {
-    return () => { };
+    return (tree, _context) => tree;
 }
 exports.noop = noop;
 function filter(predicate) {
@@ -132,6 +132,7 @@ function forEach(operator) {
                 tree.overwrite(newEntry.path, newEntry.content);
             }
         });
+        return tree;
     };
 }
 exports.forEach = forEach;
