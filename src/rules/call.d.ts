@@ -19,4 +19,4 @@ export declare class InvalidSourceResultException extends BaseException {
     constructor(value?: {});
 }
 export declare function callSource(source: Source, context: SchematicContext): Observable<Tree>;
-export declare function callRule(rule: Rule, input: Observable<Tree>, context: SchematicContext): Observable<Tree>;
+export declare function callRule(rule: Rule, input: Tree | Observable<Tree>, context: SchematicContext): Observable<Tree>;
