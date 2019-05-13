@@ -224,7 +224,7 @@ class FileSystemEngineHostBase {
         return (rxjs_1.of(options)
             .pipe(...this._transforms.map(tFn => operators_1.mergeMap(opt => {
             const newOptions = tFn(schematic, opt, context);
-            if (core_1.isObservable(newOptions)) {
+            if (rxjs_1.isObservable(newOptions)) {
                 return newOptions;
             }
             else if (core_1.isPromise(newOptions)) {
