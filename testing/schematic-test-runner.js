@@ -55,6 +55,12 @@ class SchematicTestRunner {
         return schematic.call(opts || {}, host, { logger: this._logger })
             .pipe(operators_1.map(tree => new UnitTestTree(tree)));
     }
+    /**
+     * @deprecated Since v8.0.0 - Use {@link SchematicTestRunner.runSchematicAsync} instead.
+     * All schematics can potentially be async.
+     * This synchronous variant will fail if the schematic, any of its rules, or any schematics
+     * it calls are async.
+     */
     runSchematic(schematicName, opts, tree) {
         const schematic = this._collection.createSchematic(schematicName, true);
         let result = null;
@@ -79,6 +85,12 @@ class SchematicTestRunner {
         return schematic.call(opts || {}, host, { logger: this._logger })
             .pipe(operators_1.map(tree => new UnitTestTree(tree)));
     }
+    /**
+     * @deprecated Since v8.0.0 - Use {@link SchematicTestRunner.runExternalSchematicAsync} instead.
+     * All schematics can potentially be async.
+     * This synchronous variant will fail if the schematic, any of its rules, or any schematics
+     * it calls are async.
+     */
     runExternalSchematic(collectionName, schematicName, opts, tree) {
         const externalCollection = this._engine.createCollection(collectionName);
         const schematic = externalCollection.createSchematic(schematicName, true);
