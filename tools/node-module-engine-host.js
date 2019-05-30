@@ -58,7 +58,7 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
     }
     _resolveCollectionPath(name) {
         let collectionPath = undefined;
-        if (name.replace(/\\/, '/').split('/').length > (name[0] == '@' ? 2 : 1)) {
+        if (name.replace(/\\/g, '/').split('/').length > (name[0] == '@' ? 2 : 1)) {
             try {
                 collectionPath = this._resolvePath(name, process.cwd());
             }
