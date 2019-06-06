@@ -7,10 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const node_1 = require("@angular-devkit/core/node");
 const fs = require("fs");
 const path = require("path");
-const rxjs_1 = require("rxjs");
 function _loadConfiguration(Configuration, options, root, file) {
     if (options.tslintConfig) {
         return Configuration.parseConfigFile(options.tslintConfig, root);
@@ -63,95 +61,84 @@ function _listAllFiles(root) {
     return result;
 }
 function default_1() {
-    return (options, context) => {
-        return new rxjs_1.Observable(obs => {
-            const root = process.cwd();
-            const tslint = require(node_1.resolve('tslint', {
-                basedir: root,
-                checkGlobal: true,
-                checkLocal: true,
-            }));
-            const includes = (Array.isArray(options.includes)
-                ? options.includes
-                : (options.includes ? [options.includes] : []));
-            const files = (Array.isArray(options.files)
-                ? options.files
-                : (options.files ? [options.files] : []));
-            const Linter = tslint.Linter;
-            const Configuration = tslint.Configuration;
-            let program = undefined;
-            let filesToLint = files;
-            if (options.tsConfigPath && files.length == 0) {
-                const tsConfigPath = path.join(process.cwd(), options.tsConfigPath);
-                if (!fs.existsSync(tsConfigPath)) {
-                    obs.error(new Error('Could not find tsconfig.'));
-                    return;
-                }
-                program = Linter.createProgram(tsConfigPath);
-                filesToLint = Linter.getFileNames(program);
+    return async (options, context) => {
+        const root = process.cwd();
+        const tslint = await Promise.resolve().then(() => require('tslint')); // tslint:disable-line:no-implicit-dependencies
+        const includes = (Array.isArray(options.includes)
+            ? options.includes
+            : (options.includes ? [options.includes] : []));
+        const files = (Array.isArray(options.files)
+            ? options.files
+            : (options.files ? [options.files] : []));
+        const Linter = tslint.Linter;
+        const Configuration = tslint.Configuration;
+        let program = undefined;
+        let filesToLint = files;
+        if (options.tsConfigPath && files.length == 0) {
+            const tsConfigPath = path.join(process.cwd(), options.tsConfigPath);
+            if (!fs.existsSync(tsConfigPath)) {
+                throw new Error('Could not find tsconfig.');
             }
-            if (includes.length > 0) {
-                const allFilesRel = _listAllFiles(root);
-                const pattern = '^('
-                    + includes
-                        .map(ex => '('
-                        + ex.split(/[\/\\]/g).map(f => f
-                            .replace(/[\-\[\]{}()+?.^$|]/g, '\\$&')
-                            .replace(/^\*\*/g, '(.+?)?')
-                            .replace(/\*/g, '[^/\\\\]*'))
-                            .join('[\/\\\\]')
-                        + ')')
-                        .join('|')
-                    + ')($|/|\\\\)';
-                const re = new RegExp(pattern);
-                filesToLint.push(...allFilesRel
-                    .filter(x => re.test(x))
-                    .map(x => path.join(root, x)));
+            program = Linter.createProgram(tsConfigPath);
+            filesToLint = Linter.getFileNames(program);
+        }
+        if (includes.length > 0) {
+            const allFilesRel = _listAllFiles(root);
+            const pattern = '^('
+                + includes
+                    .map(ex => '('
+                    + ex.split(/[\/\\]/g).map(f => f
+                        .replace(/[\-\[\]{}()+?.^$|]/g, '\\$&')
+                        .replace(/^\*\*/g, '(.+?)?')
+                        .replace(/\*/g, '[^/\\\\]*'))
+                        .join('[\/\\\\]')
+                    + ')')
+                    .join('|')
+                + ')($|/|\\\\)';
+            const re = new RegExp(pattern);
+            filesToLint.push(...allFilesRel
+                .filter(x => re.test(x))
+                .map(x => path.join(root, x)));
+        }
+        const lintOptions = {
+            fix: true,
+            formatter: options.format || 'prose',
+        };
+        const linter = new Linter(lintOptions, program);
+        // If directory doesn't change, we
+        let lastDirectory = null;
+        let config;
+        for (const file of filesToLint) {
+            const dir = path.dirname(file);
+            if (lastDirectory !== dir) {
+                lastDirectory = dir;
+                config = _loadConfiguration(Configuration, options, root, file);
             }
-            const lintOptions = {
-                fix: true,
-                formatter: options.format || 'prose',
-            };
-            const linter = new Linter(lintOptions, program);
-            // If directory doesn't change, we
-            let lastDirectory = null;
-            let config;
-            for (const file of filesToLint) {
-                const dir = path.dirname(file);
-                if (lastDirectory !== dir) {
-                    lastDirectory = dir;
-                    config = _loadConfiguration(Configuration, options, root, file);
-                }
-                const content = _getFileContent(file, options, program);
-                if (!content) {
-                    continue;
-                }
-                linter.lint(file, content, config);
+            const content = _getFileContent(file, options, program);
+            if (!content) {
+                continue;
             }
-            const result = linter.getResult();
-            // Format and show the results.
-            if (!options.silent) {
-                const Formatter = tslint.findFormatter(options.format || 'prose');
-                if (!Formatter) {
-                    throw new Error(`Invalid lint format "${options.format}".`);
-                }
-                const formatter = new Formatter();
-                // Certain tslint formatters outputs '\n' when there are no failures.
-                // This will bloat the console when having schematics running refactor tasks.
-                // see https://github.com/palantir/tslint/issues/4244
-                const output = (formatter.format(result.failures, result.fixes) || '').trim();
-                if (output) {
-                    context.logger.info(output);
-                }
+            linter.lint(file, content, config);
+        }
+        const result = linter.getResult();
+        // Format and show the results.
+        if (!options.silent) {
+            const Formatter = tslint.findFormatter(options.format || 'prose');
+            if (!Formatter) {
+                throw new Error(`Invalid lint format "${options.format}".`);
             }
-            if (!options.ignoreErrors && result.errorCount > 0) {
-                obs.error(new Error('Lint errors were found.'));
+            const formatter = new Formatter();
+            // Certain tslint formatters outputs '\n' when there are no failures.
+            // This will bloat the console when having schematics running refactor tasks.
+            // see https://github.com/palantir/tslint/issues/4244
+            const output = (formatter.format(result.failures, result.fixes) || '').trim();
+            if (output) {
+                context.logger.info(output);
             }
-            else {
-                obs.next();
-                obs.complete();
-            }
-        });
+        }
+        if (!options.ignoreErrors && result.errorCount > 0) {
+            throw new Error('Lint errors were found.');
+        }
     };
 }
 exports.default = default_1;
