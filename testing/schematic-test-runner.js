@@ -48,9 +48,6 @@ class SchematicTestRunner {
     get engine() { return this._engine; }
     get logger() { return this._logger; }
     get tasks() { return [...this._engineHost.tasks]; }
-    registerCollection(collectionName, collectionPath) {
-        this._engineHost.registerCollection(collectionName, collectionPath);
-    }
     runSchematicAsync(schematicName, opts, tree) {
         const schematic = this._collection.createSchematic(schematicName, true);
         const host = rxjs_1.of(tree || new src_1.HostTree);

@@ -22,7 +22,6 @@ export declare class SchematicTestRunner {
     readonly engine: SchematicEngine<{}, {}>;
     readonly logger: logging.Logger;
     readonly tasks: TaskConfiguration[];
-    registerCollection(collectionName: string, collectionPath: string): void;
     runSchematicAsync<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
     /**
      * @deprecated Since v8.0.0 - Use {@link SchematicTestRunner.runSchematicAsync} instead.
