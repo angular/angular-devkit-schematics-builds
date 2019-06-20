@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "8.1.0-beta.2+32.bf4d972",
+  "version": "8.1.0-beta.2+39.c0eadbe",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#bf4d97254",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#c0eadbe2a",
     "rxjs": "6.4.0"
   },
   "repository": {
@@ -37,6 +37,7 @@
   "homepage": "https://github.com/angular/angular-cli",
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "pre-push": "node ./bin/devkit-admin hooks/pre-push"
     }
   }
