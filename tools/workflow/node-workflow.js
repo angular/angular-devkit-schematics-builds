@@ -11,6 +11,7 @@ const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics"); // tslint:disable-line:no-implicit-dependencies
 const node_1 = require("../../tasks/node");
 const node_module_engine_host_1 = require("../node-module-engine-host");
+const schema_option_transform_1 = require("../schema-option-transform");
 /**
  * A workflow specifically for Node tools.
  */
@@ -22,8 +23,8 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             engineHost,
             force: options.force,
             dryRun: options.dryRun,
-            registry: options.registry
         });
+        engineHost.registerOptionsTransform(schema_option_transform_1.validateOptionsWithSchema(this._registry));
         engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.NodePackage, {
             allowPackageManagerOverride: true,
             packageManager: options.packageManager,

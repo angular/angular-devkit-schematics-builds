@@ -8,7 +8,6 @@
 import { JsonObject } from '@angular-devkit/core';
 import { Collection, CollectionDescription, Engine, EngineHost, RuleFactory, Schematic, SchematicDescription, TypedSchematicContext } from '../src';
 export interface FileSystemCollectionDescription {
-    readonly name: string;
     readonly path: string;
     readonly version?: string;
     readonly schematics: {
@@ -18,8 +17,6 @@ export interface FileSystemCollectionDescription {
 export interface FileSystemSchematicJsonDescription {
     readonly aliases?: string[];
     readonly factory: string;
-    readonly name: string;
-    readonly collection: FileSystemCollectionDescription;
     readonly description: string;
     readonly schema?: string;
     readonly extends?: string;
