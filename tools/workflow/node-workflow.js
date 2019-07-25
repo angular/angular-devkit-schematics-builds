@@ -22,7 +22,7 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             engineHost,
             force: options.force,
             dryRun: options.dryRun,
-            registry: options.registry,
+            registry: options.registry
         });
         engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.NodePackage, {
             allowPackageManagerOverride: true,
