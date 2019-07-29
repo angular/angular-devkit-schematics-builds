@@ -49,7 +49,7 @@ class FallbackEngineHost {
         // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
         return (rxjs_1.of(options)
             .pipe(...this._hosts
-            .map(host => operators_1.mergeMap(opt => host.transformOptions(schematic, opt, context)))));
+            .map(host => operators_1.mergeMap((opt) => host.transformOptions(schematic, opt, context)))));
     }
     transformContext(context) {
         let result = context;

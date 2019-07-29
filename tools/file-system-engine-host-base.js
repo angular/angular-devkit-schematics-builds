@@ -222,7 +222,7 @@ class FileSystemEngineHostBase {
     transformOptions(schematic, options, context) {
         // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
         return (rxjs_1.of(options)
-            .pipe(...this._transforms.map(tFn => operators_1.mergeMap(opt => {
+            .pipe(...this._transforms.map(tFn => operators_1.mergeMap((opt) => {
             const newOptions = tFn(schematic, opt, context);
             if (rxjs_1.isObservable(newOptions)) {
                 return newOptions;
