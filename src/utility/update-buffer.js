@@ -112,15 +112,11 @@ class Chunk {
         }
     }
     assert(left, _content, right) {
-        if (left) {
-            if (this._assertLeft) {
-                throw new ContentCannotBeRemovedException();
-            }
+        if (left && this._assertLeft) {
+            throw new ContentCannotBeRemovedException();
         }
-        if (right) {
-            if (this._assertRight) {
-                throw new ContentCannotBeRemovedException();
-            }
+        if (right && this._assertRight) {
+            throw new ContentCannotBeRemovedException();
         }
     }
     remove(left, content, right) {
