@@ -6,6 +6,7 @@ const options_3 = require("../run-schematic/options");
 const options_4 = require("../tslint-fix/options");
 class BuiltinTaskExecutor {
 }
+exports.BuiltinTaskExecutor = BuiltinTaskExecutor;
 BuiltinTaskExecutor.NodePackage = {
     name: options_1.NodePackageName,
     create: (options) => Promise.resolve().then(() => require('../node-package/executor')).then(mod => mod.default(options)),
@@ -22,4 +23,3 @@ BuiltinTaskExecutor.TslintFix = {
     name: options_4.TslintFixName,
     create: () => Promise.resolve().then(() => require('../tslint-fix/executor')).then(mod => mod.default()),
 };
-exports.BuiltinTaskExecutor = BuiltinTaskExecutor;
