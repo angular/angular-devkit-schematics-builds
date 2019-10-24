@@ -40,10 +40,6 @@ export declare class DryRunSink extends HostSink {
     protected _fileAlreadyExistExceptionSet: Set<string>;
     readonly reporter: Observable<DryRunEvent>;
     /**
-     * @deprecated Use the virtualFs.Host constructor instead.
-     */
-    constructor(dir: string, force?: boolean);
-    /**
      * @param {host} dir The host to use to output. This should be scoped.
      * @param {boolean} force Whether to force overwriting files that already exist.
      */

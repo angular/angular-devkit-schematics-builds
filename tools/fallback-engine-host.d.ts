@@ -8,7 +8,7 @@
  */
 import { Observable } from 'rxjs';
 import { Url } from 'url';
-import { Collection, CollectionDescription, EngineHost, RuleFactory, SchematicDescription, Source, TaskExecutor, TypedSchematicContext } from '../src';
+import { CollectionDescription, EngineHost, RuleFactory, SchematicDescription, Source, TaskExecutor, TypedSchematicContext } from '../src';
 export declare type FallbackCollectionDescription = {
     host: EngineHost<{}, {}>;
     description: CollectionDescription<{}>;
@@ -31,10 +31,6 @@ export declare class FallbackEngineHost implements EngineHost<{}, {}> {
     createSourceFromUrl(url: Url, context: FallbackContext): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: SchematicDescription<FallbackCollectionDescription, FallbackSchematicDescription>, options: OptionT, context?: FallbackContext): Observable<ResultT>;
     transformContext(context: FallbackContext): FallbackContext;
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection: Collection<FallbackCollectionDescription, FallbackSchematicDescription>): string[];
     listSchematicNames(collection: CollectionDescription<FallbackCollectionDescription>): string[];
     createTaskExecutor(name: string): Observable<TaskExecutor>;
     hasTaskExecutor(name: string): boolean;
