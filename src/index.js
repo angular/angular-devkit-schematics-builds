@@ -30,7 +30,6 @@ __export(require("./tree/empty"));
 __export(require("./tree/host-tree"));
 __export(require("./engine/schematic"));
 __export(require("./sink/dryrun"));
-__export(require("./sink/filesystem"));
 __export(require("./sink/host"));
 __export(require("./sink/sink"));
 const formats = require("./formats/index");
@@ -46,5 +45,5 @@ exports.Tree = {
     partition(tree, predicate) {
         return static_1.partition(tree, predicate);
     },
-    optimize(tree) { return static_1.optimize(tree); },
+    optimize(tree) { return tree; },
 };
