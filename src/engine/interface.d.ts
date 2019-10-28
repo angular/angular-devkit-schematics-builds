@@ -64,10 +64,6 @@ export declare type SchematicDescription<CollectionMetadataT extends object, Sch
  */
 export interface EngineHost<CollectionMetadataT extends object, SchematicMetadataT extends object> {
     createCollectionDescription(name: string): CollectionDescription<CollectionMetadataT>;
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection: Collection<CollectionMetadataT, SchematicMetadataT>): string[];
     listSchematicNames(collection: CollectionDescription<CollectionMetadataT>): string[];
     createSchematicDescription(name: string, collection: CollectionDescription<CollectionMetadataT>): SchematicDescription<CollectionMetadataT, SchematicMetadataT> | null;
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, collection: CollectionDescription<CollectionMetadataT>): RuleFactory<OptionT>;

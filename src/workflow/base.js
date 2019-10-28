@@ -16,7 +16,6 @@ const formats_1 = require("../formats");
 const dryrun_1 = require("../sink/dryrun");
 const host_1 = require("../sink/host");
 const host_tree_1 = require("../tree/host-tree");
-const static_1 = require("../tree/static");
 /**
  * Base class for workflows. Even without abstract methods, this class should not be used without
  * surrounding some initialization for the registry and host. This class only adds life cycle and
@@ -112,7 +111,7 @@ class BaseWorkflow {
             parentContext,
         };
         this._context.push(context);
-        return schematic.call(options.options, rxjs_1.of(new host_tree_1.HostTree(this._host)), { logger: context.logger }).pipe(operators_1.map(tree => static_1.optimize(tree)), operators_1.concatMap((tree) => {
+        return schematic.call(options.options, rxjs_1.of(new host_tree_1.HostTree(this._host)), { logger: context.logger }).pipe(operators_1.concatMap((tree) => {
             // Process all sinks.
             return rxjs_1.concat(rxjs_1.from(sinks).pipe(operators_1.concatMap(sink => sink.commit(tree)), operators_1.ignoreElements()), rxjs_1.of(tree));
         }), operators_1.concatMap(() => {
