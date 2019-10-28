@@ -24,7 +24,6 @@ export * from './tree/host-tree';
 export { UpdateRecorder } from './tree/interface';
 export * from './engine/schematic';
 export * from './sink/dryrun';
-export * from './sink/filesystem';
 export * from './sink/host';
 export * from './sink/sink';
 import * as formats from './formats/index';
