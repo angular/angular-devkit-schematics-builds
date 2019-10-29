@@ -7,12 +7,16 @@ exports.NodePackageInstallTaskOptions = NodePackageInstallTaskOptions;
 class NodePackageInstallTask {
     constructor(options) {
         this.quiet = true;
+        this.hideOutput = true;
         if (typeof options === 'string') {
             this.workingDirectory = options;
         }
         else if (typeof options === 'object') {
             if (options.quiet != undefined) {
                 this.quiet = options.quiet;
+            }
+            if (options.hideOutput != undefined) {
+                this.hideOutput = options.hideOutput;
             }
             if (options.workingDirectory != undefined) {
                 this.workingDirectory = options.workingDirectory;
@@ -31,6 +35,7 @@ class NodePackageInstallTask {
             options: {
                 command: 'install',
                 quiet: this.quiet,
+                hideOutput: this.hideOutput,
                 workingDirectory: this.workingDirectory,
                 packageManager: this.packageManager,
                 packageName: this.packageName,
