@@ -76,12 +76,6 @@ class FileSystemEngineHostBase {
         this._contextTransforms = [];
         this._taskFactories = new Map();
     }
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection) {
-        return this.listSchematicNames(collection.description);
-    }
     listSchematicNames(collection) {
         const schematics = [];
         for (const key of Object.keys(collection.schematics)) {
