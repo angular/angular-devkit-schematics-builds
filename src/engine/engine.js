@@ -120,8 +120,8 @@ class TaskScheduler {
         return tasks;
     }
 }
-TaskScheduler._taskIdCounter = 1;
 exports.TaskScheduler = TaskScheduler;
+TaskScheduler._taskIdCounter = 1;
 class SchematicEngine {
     constructor(_host, _workflow) {
         this._host = _host;

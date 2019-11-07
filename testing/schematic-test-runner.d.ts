@@ -22,9 +22,22 @@ export declare class SchematicTestRunner {
     readonly engine: SchematicEngine<{}, {}>;
     readonly logger: logging.Logger;
     readonly tasks: TaskConfiguration[];
+    registerCollection(collectionName: string, collectionPath: string): void;
     runSchematicAsync<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
+    /**
+     * @deprecated Since v8.0.0 - Use {@link SchematicTestRunner.runSchematicAsync} instead.
+     * All schematics can potentially be async.
+     * This synchronous variant will fail if the schematic, any of its rules, or any schematics
+     * it calls are async.
+     */
     runSchematic<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): UnitTestTree;
     runExternalSchematicAsync<SchematicSchemaT>(collectionName: string, schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
+    /**
+     * @deprecated Since v8.0.0 - Use {@link SchematicTestRunner.runExternalSchematicAsync} instead.
+     * All schematics can potentially be async.
+     * This synchronous variant will fail if the schematic, any of its rules, or any schematics
+     * it calls are async.
+     */
     runExternalSchematic<SchematicSchemaT>(collectionName: string, schematicName: string, opts?: SchematicSchemaT, tree?: Tree): UnitTestTree;
     callRule(rule: Rule, tree: Tree, parentContext?: Partial<SchematicContext>): Observable<Tree>;
 }

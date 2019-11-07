@@ -53,7 +53,7 @@ class InvalidSourceResultException extends core_1.BaseException {
 exports.InvalidSourceResultException = InvalidSourceResultException;
 function callSource(source, context) {
     const result = source(context);
-    if (core_1.isObservable(result)) {
+    if (rxjs_1.isObservable(result)) {
         // Only return the last Tree, and make sure it's a Tree.
         return result.pipe(operators_1.defaultIfEmpty(), operators_1.last(), operators_1.tap(inner => {
             if (!inner || !(interface_1.TreeSymbol in inner)) {
@@ -70,16 +70,16 @@ function callSource(source, context) {
 }
 exports.callSource = callSource;
 function callRule(rule, input, context) {
-    return input.pipe(operators_1.mergeMap(inputTree => {
+    return (rxjs_1.isObservable(input) ? input : rxjs_1.of(input)).pipe(operators_1.mergeMap(inputTree => {
         const result = rule(inputTree, context);
         if (!result) {
             return rxjs_1.of(inputTree);
         }
         else if (typeof result == 'function') {
             // This is considered a Rule, chain the rule and return its output.
-            return callRule(result, rxjs_1.of(inputTree), context);
+            return callRule(result, inputTree, context);
         }
-        else if (core_1.isObservable(result)) {
+        else if (rxjs_1.isObservable(result)) {
             // Only return the last Tree, and make sure it's a Tree.
             return result.pipe(operators_1.defaultIfEmpty(), operators_1.last(), operators_1.tap(inner => {
                 if (!inner || !(interface_1.TreeSymbol in inner)) {
@@ -91,7 +91,7 @@ function callRule(rule, input, context) {
             return rxjs_1.from(result).pipe(operators_1.mergeMap(inner => {
                 if (typeof inner === 'function') {
                     // This is considered a Rule, chain the rule and return its output.
-                    return callRule(inner, rxjs_1.of(inputTree), context);
+                    return callRule(inner, inputTree, context);
                 }
                 else {
                     return rxjs_1.of(inputTree);

@@ -34,9 +34,7 @@ exports.empty = empty;
  */
 function chain(rules) {
     return (tree, context) => {
-        return rules.reduce((acc, curr) => {
-            return call_1.callRule(curr, acc, context);
-        }, rxjs_1.of(tree));
+        return rules.reduce((acc, curr) => call_1.callRule(curr, acc, context), tree);
     };
 }
 exports.chain = chain;
@@ -52,13 +50,12 @@ exports.apply = apply;
  */
 function mergeWith(source, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        const result = call_1.callSource(source, context);
-        return result.pipe(operators_1.map(other => static_1.merge(tree, other, strategy || context.strategy)));
+        return call_1.callSource(source, context).pipe(operators_1.map(sourceTree => tree.merge(sourceTree, strategy || context.strategy)), operators_1.mapTo(tree));
     };
 }
 exports.mergeWith = mergeWith;
 function noop() {
-    return (tree, _context) => tree;
+    return () => { };
 }
 exports.noop = noop;
 function filter(predicate) {
@@ -73,14 +70,12 @@ function filter(predicate) {
 }
 exports.filter = filter;
 function asSource(rule) {
-    return apply(empty(), [rule]);
+    return context => call_1.callRule(rule, static_1.empty(), context);
 }
 exports.asSource = asSource;
 function branchAndMerge(rule, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        const branchedTree = static_1.branch(tree);
-        return call_1.callRule(rule, rxjs_1.of(branchedTree), context)
-            .pipe(operators_1.last(), operators_1.map(t => static_1.merge(tree, t, strategy)));
+        return call_1.callRule(rule, tree.branch(), context).pipe(operators_1.map(branch => tree.merge(branch, strategy || context.strategy)), operators_1.mapTo(tree));
     };
 }
 exports.branchAndMerge = branchAndMerge;
@@ -98,15 +93,9 @@ exports.when = when;
 function partitionApplyMerge(predicate, ruleYes, ruleNo) {
     return (tree, context) => {
         const [yes, no] = static_1.partition(tree, predicate);
-        if (!ruleNo) {
-            // Shortcut.
-            return call_1.callRule(ruleYes, rxjs_1.of(static_1.partition(tree, predicate)[0]), context)
-                .pipe(operators_1.map(yesTree => static_1.merge(yesTree, no, context.strategy)));
-        }
-        return call_1.callRule(ruleYes, rxjs_1.of(yes), context)
-            .pipe(operators_1.concatMap(yesTree => {
-            return call_1.callRule(ruleNo, rxjs_1.of(no), context)
-                .pipe(operators_1.map(noTree => static_1.merge(yesTree, noTree, context.strategy)));
+        return rxjs_1.concat(call_1.callRule(ruleYes, yes, context), call_1.callRule(ruleNo || noop(), no, context)).pipe(operators_1.toArray(), operators_1.map(([yesTree, noTree]) => {
+            yesTree.merge(noTree, context.strategy);
+            return yesTree;
         }));
     };
 }
@@ -132,7 +121,6 @@ function forEach(operator) {
                 tree.overwrite(newEntry.path, newEntry.content);
             }
         });
-        return tree;
     };
 }
 exports.forEach = forEach;
@@ -153,7 +141,7 @@ exports.composeFileOperators = composeFileOperators;
 function applyToSubtree(path, rules) {
     return (tree, context) => {
         const scoped = new scoped_1.ScopedTree(tree, path);
-        return call_1.callRule(chain(rules), rxjs_1.of(scoped), context).pipe(operators_1.map(result => {
+        return call_1.callRule(chain(rules), scoped, context).pipe(operators_1.map(result => {
             if (result === scoped) {
                 return tree;
             }

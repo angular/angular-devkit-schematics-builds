@@ -76,12 +76,6 @@ class FileSystemEngineHostBase {
         this._contextTransforms = [];
         this._taskFactories = new Map();
     }
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection) {
-        return this.listSchematicNames(collection.description);
-    }
     listSchematicNames(collection) {
         const schematics = [];
         for (const key of Object.keys(collection.schematics)) {
@@ -222,9 +216,9 @@ class FileSystemEngineHostBase {
     transformOptions(schematic, options, context) {
         // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
         return (rxjs_1.of(options)
-            .pipe(...this._transforms.map(tFn => operators_1.mergeMap(opt => {
+            .pipe(...this._transforms.map(tFn => operators_1.mergeMap((opt) => {
             const newOptions = tFn(schematic, opt, context);
-            if (core_1.isObservable(newOptions)) {
+            if (rxjs_1.isObservable(newOptions)) {
                 return newOptions;
             }
             else if (core_1.isPromise(newOptions)) {
