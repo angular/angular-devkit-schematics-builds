@@ -35,8 +35,3 @@ function partition(tree, predicate) {
     }
 }
 exports.partition = partition;
-/** @deprecated Tree's are automically optimized */
-function optimize(tree) {
-    return tree;
-}
-exports.optimize = optimize;

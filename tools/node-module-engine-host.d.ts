@@ -16,9 +16,8 @@ export declare class NodePackageDoesNotSupportSchematics extends BaseException {
  * A simple EngineHost that uses NodeModules to resolve collections.
  */
 export declare class NodeModulesEngineHost extends FileSystemEngineHostBase {
-    constructor();
-    protected _resolvePackageJson(name: string, basedir?: string): string;
-    protected _resolvePath(name: string, basedir?: string): string;
+    private readonly paths?;
+    constructor(paths?: string[] | undefined);
     protected _resolveCollectionPath(name: string): string;
     protected _resolveReferenceString(refString: string, parentPath: string): {
         ref: RuleFactory<{}>;
