@@ -253,7 +253,9 @@ class HostTree {
             }
             else {
                 const newContent = record.apply(entry.content);
-                this.overwrite(path, newContent);
+                if (!newContent.equals(entry.content)) {
+                    this.overwrite(path, newContent);
+                }
             }
         }
         else {
