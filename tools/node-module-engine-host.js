@@ -22,7 +22,10 @@ exports.NodePackageDoesNotSupportSchematics = NodePackageDoesNotSupportSchematic
  * A simple EngineHost that uses NodeModules to resolve collections.
  */
 class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEngineHostBase {
-    constructor() { super(); }
+    constructor(paths) {
+        super();
+        this.paths = paths;
+    }
     _resolveCollectionPath(name) {
         let collectionPath = undefined;
         if (name.startsWith('.') || name.startsWith('/')) {
@@ -30,10 +33,10 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
         }
         if (path_1.extname(name)) {
             // When having an extension let's just resolve the provided path.
-            collectionPath = require.resolve(name);
+            collectionPath = require.resolve(name, { paths: this.paths });
         }
         else {
-            const packageJsonPath = require.resolve(path_1.join(name, 'package.json'));
+            const packageJsonPath = require.resolve(path_1.join(name, 'package.json'), { paths: this.paths });
             const { schematics } = require(packageJsonPath);
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
