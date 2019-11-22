@@ -12,9 +12,11 @@ export declare class NodePackageInstallTaskOptions {
     packageName: string;
     workingDirectory: string;
     quiet: boolean;
+    hideOutput: boolean;
 }
 export declare class NodePackageInstallTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
     quiet: boolean;
+    hideOutput: boolean;
     workingDirectory?: string;
     packageManager?: string;
     packageName?: string;
