@@ -10,7 +10,7 @@ import { BaseException, InvalidJsonCharacterException, UnexpectedEndOfInputExcep
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
-import { FileSystemCollection, FileSystemCollectionDesc, FileSystemEngineHost, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
+import { FileSystemCollectionDesc, FileSystemEngineHost, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
 export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R> | PromiseLike<R> | R;
 export declare type ContextTransform = (context: FileSystemSchematicContext) => FileSystemSchematicContext;
 export declare class CollectionCannotBeResolvedException extends BaseException {
@@ -55,10 +55,6 @@ export declare abstract class FileSystemEngineHostBase implements FileSystemEngi
     private _transforms;
     private _contextTransforms;
     private _taskFactories;
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection: FileSystemCollection): string[];
     listSchematicNames(collection: FileSystemCollectionDesc): string[];
     registerOptionsTransform<T extends object, R extends object>(t: OptionTransform<T, R>): void;
     registerContextTransform(t: ContextTransform): void;

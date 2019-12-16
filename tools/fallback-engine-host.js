@@ -58,12 +58,6 @@ class FallbackEngineHost {
         });
         return result;
     }
-    /**
-     * @deprecated Use `listSchematicNames`.
-     */
-    listSchematics(collection) {
-        return this.listSchematicNames(collection.description);
-    }
     listSchematicNames(collection) {
         const allNames = new Set();
         this._hosts.forEach(host => {
