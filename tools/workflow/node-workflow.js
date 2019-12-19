@@ -16,7 +16,7 @@ const node_module_engine_host_1 = require("../node-module-engine-host");
  */
 class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
     constructor(host, options) {
-        const engineHost = new node_module_engine_host_1.NodeModulesEngineHost();
+        const engineHost = new node_module_engine_host_1.NodeModulesEngineHost(options.resolvePaths);
         super({
             host,
             engineHost,
