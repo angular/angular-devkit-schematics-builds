@@ -12,14 +12,14 @@ export declare class SimpleFileEntry implements FileEntry {
     private _path;
     private _content;
     constructor(_path: Path, _content: Buffer);
-    readonly path: Path;
-    readonly content: Buffer;
+    get path(): Path;
+    get content(): Buffer;
 }
 export declare class LazyFileEntry implements FileEntry {
     private _path;
     private _load;
     private _content;
     constructor(_path: Path, _load: (path?: Path) => Buffer);
-    readonly path: Path;
-    readonly content: Buffer;
+    get path(): Path;
+    get content(): Buffer;
 }
