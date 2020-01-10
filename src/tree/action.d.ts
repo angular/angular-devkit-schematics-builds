@@ -29,7 +29,7 @@ export declare class ActionList implements Iterable<Action> {
     has(action: Action): boolean;
     find(predicate: (value: Action) => boolean): Action | null;
     forEach(fn: (value: Action, index: number, array: Action[]) => void, thisArg?: {}): void;
-    readonly length: number;
+    get length(): number;
     [Symbol.iterator](): IterableIterator<Action>;
 }
 export declare function isContentAction(action: Action): action is CreateFileAction | OverwriteFileAction;
