@@ -41,8 +41,8 @@ export declare class CollectionImpl<CollectionT extends object, SchematicT exten
     private _engine;
     readonly baseDescriptions?: CollectionDescription<CollectionT>[] | undefined;
     constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: CollectionDescription<CollectionT>[] | undefined);
-    get description(): CollectionDescription<CollectionT>;
-    get name(): string;
+    readonly description: CollectionDescription<CollectionT>;
+    readonly name: string;
     createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
     listSchematicNames(): string[];
 }
@@ -64,8 +64,8 @@ export declare class SchematicEngine<CollectionT extends object, SchematicT exte
     private _schematicCache;
     private _taskSchedulers;
     constructor(_host: EngineHost<CollectionT, SchematicT>, _workflow?: Workflow | undefined);
-    get workflow(): Workflow | null;
-    get defaultMergeStrategy(): MergeStrategy;
+    readonly workflow: Workflow | null;
+    readonly defaultMergeStrategy: MergeStrategy;
     createCollection(name: string): Collection<CollectionT, SchematicT>;
     private _createCollectionDescription;
     createContext(schematic: Schematic<CollectionT, SchematicT>, parent?: Partial<TypedSchematicContext<CollectionT, SchematicT>>, executionOptions?: Partial<ExecutionOptions>): TypedSchematicContext<CollectionT, SchematicT>;
