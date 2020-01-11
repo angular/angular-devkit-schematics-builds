@@ -11,8 +11,8 @@ export declare class LinkedList<T extends {
     private _head;
     constructor(_head: T);
     get(l: number): T | null;
-    readonly head: T;
-    readonly length: number;
+    get head(): T;
+    get length(): number;
     reduce<R>(accumulator: (acc: R, value: T, index?: number) => R, seed: R): R;
     find(predicate: (value: T, index?: number) => boolean): T | null;
     forEach(visitor: (value: T, index?: number) => void): void;
