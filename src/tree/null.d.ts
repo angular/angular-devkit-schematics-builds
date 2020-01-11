@@ -14,7 +14,7 @@ export declare class CannotCreateFileException extends BaseException {
 }
 export declare class NullTreeDirEntry implements DirEntry {
     readonly path: Path;
-    get parent(): DirEntry | null;
+    readonly parent: DirEntry | null;
     constructor(path: Path);
     readonly subdirs: PathFragment[];
     readonly subfiles: PathFragment[];
@@ -39,5 +39,5 @@ export declare class NullTree implements Tree {
     rename(path: string, _to: string): never;
     overwrite(path: string, _content: Buffer | string): never;
     apply(_action: Action, _strategy?: MergeStrategy): void;
-    get actions(): Action[];
+    readonly actions: Action[];
 }

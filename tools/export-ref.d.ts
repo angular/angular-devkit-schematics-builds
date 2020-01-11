@@ -3,7 +3,7 @@ export declare class ExportStringRef<T> {
     private _module;
     private _path;
     constructor(ref: string, parentPath?: string, inner?: boolean);
-    get ref(): T | undefined;
-    get module(): string;
-    get path(): string;
+    readonly ref: T | undefined;
+    readonly module: string;
+    readonly path: string;
 }

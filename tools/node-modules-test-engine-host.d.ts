@@ -15,7 +15,7 @@ import { NodeModulesEngineHost } from './node-module-engine-host';
 export declare class NodeModulesTestEngineHost extends NodeModulesEngineHost {
     private _collections;
     private _tasks;
-    get tasks(): TaskConfiguration<{}>[];
+    readonly tasks: TaskConfiguration<{}>[];
     clearTasks(): void;
     registerCollection(name: string, path: string): void;
     transformContext(context: FileSystemSchematicContext): FileSystemSchematicContext;

@@ -13,7 +13,7 @@ export declare class DelegateTree implements Tree {
     constructor(_other: Tree);
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
-    get root(): DirEntry;
+    readonly root: DirEntry;
     read(path: string): Buffer | null;
     exists(path: string): boolean;
     get(path: string): FileEntry | null;
@@ -26,5 +26,5 @@ export declare class DelegateTree implements Tree {
     delete(path: string): void;
     rename(from: string, to: string): void;
     apply(action: Action, strategy?: MergeStrategy): void;
-    get actions(): Action[];
+    readonly actions: Action[];
 }
