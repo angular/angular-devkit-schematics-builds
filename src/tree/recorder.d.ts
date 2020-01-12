@@ -7,7 +7,7 @@ export declare class UpdateRecorderBase implements UpdateRecorder {
     protected _content: UpdateBuffer;
     constructor(entry: FileEntry);
     static createFromFileEntry(entry: FileEntry): UpdateRecorderBase;
-    readonly path: string;
+    get path(): string;
     insertLeft(index: number, content: Buffer | string): UpdateRecorder;
     insertRight(index: number, content: Buffer | string): UpdateRecorder;
     remove(index: number, length: number): UpdateRecorder;

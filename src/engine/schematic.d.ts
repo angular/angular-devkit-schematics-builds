@@ -18,7 +18,7 @@ export declare class SchematicImpl<CollectionT extends object, SchematicT extend
     private _collection;
     private _engine;
     constructor(_description: SchematicDescription<CollectionT, SchematicT>, _factory: RuleFactory<{}>, _collection: Collection<CollectionT, SchematicT>, _engine: Engine<CollectionT, SchematicT>);
-    readonly description: SchematicDescription<CollectionT, SchematicT>;
-    readonly collection: Collection<CollectionT, SchematicT>;
+    get description(): SchematicDescription<CollectionT, SchematicT>;
+    get collection(): Collection<CollectionT, SchematicT>;
     call<OptionT extends object>(options: OptionT, host: Observable<Tree>, parentContext?: Partial<TypedSchematicContext<CollectionT, SchematicT>>, executionOptions?: Partial<ExecutionOptions>): Observable<Tree>;
 }

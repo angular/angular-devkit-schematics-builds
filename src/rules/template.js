@@ -8,9 +8,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * found in the LICENSE file at https://angular.io/license
  */
 const core_1 = require("@angular-devkit/core");
+const util_1 = require("util");
 const base_1 = require("./base");
 const rename_1 = require("./rename");
-const is_binary_1 = require("./utils/is-binary");
 exports.TEMPLATE_FILENAME_RE = /\.template$/;
 class OptionIsNotDefinedException extends core_1.BaseException {
     constructor(name) { super(`Option "${name}" is not defined.`); }
@@ -24,16 +24,23 @@ class InvalidPipeException extends core_1.BaseException {
     constructor(name) { super(`Pipe "${name}" is invalid.`); }
 }
 exports.InvalidPipeException = InvalidPipeException;
+const decoder = new util_1.TextDecoder('utf-8', { fatal: true });
 function applyContentTemplate(options) {
     return (entry) => {
         const { path, content } = entry;
-        if (is_binary_1.isBinary(content)) {
-            return entry;
+        try {
+            const decodedContent = decoder.decode(content);
+            return {
+                path,
+                content: Buffer.from(core_1.template(decodedContent, {})(options)),
+            };
         }
-        return {
-            path: path,
-            content: Buffer.from(core_1.template(content.toString('utf-8'), {})(options)),
-        };
+        catch (e) {
+            if (e.code === 'ERR_ENCODING_INVALID_ENCODED_DATA') {
+                return entry;
+            }
+            throw e;
+        }
     };
 }
 exports.applyContentTemplate = applyContentTemplate;
