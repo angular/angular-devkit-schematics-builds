@@ -15,8 +15,8 @@ export declare class HostDirEntry implements DirEntry {
     protected _host: virtualFs.SyncDelegateHost;
     protected _tree: Tree;
     constructor(parent: DirEntry | null, path: Path, _host: virtualFs.SyncDelegateHost, _tree: Tree);
-    get subdirs(): PathFragment[];
-    get subfiles(): PathFragment[];
+    readonly subdirs: PathFragment[];
+    readonly subfiles: PathFragment[];
     dir(name: PathFragment): DirEntry;
     file(name: PathFragment): FileEntry | null;
     visit(visitor: FileVisitor): void;
@@ -38,7 +38,7 @@ export declare class HostTree implements Tree {
     protected _willRename(path: Path): boolean;
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
-    get root(): DirEntry;
+    readonly root: DirEntry;
     read(path: string): Buffer | null;
     exists(path: string): boolean;
     get(path: string): FileEntry | null;
@@ -51,7 +51,7 @@ export declare class HostTree implements Tree {
     delete(path: string): void;
     rename(from: string, to: string): void;
     apply(action: Action, strategy?: MergeStrategy): void;
-    get actions(): Action[];
+    readonly actions: Action[];
 }
 export declare class HostCreateTree extends HostTree {
     constructor(host: virtualFs.ReadonlyHost);

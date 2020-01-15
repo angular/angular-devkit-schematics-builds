@@ -21,6 +21,6 @@ export declare class NodeWorkflow extends workflow.BaseWorkflow {
         registry?: schema.CoreSchemaRegistry;
         resolvePaths?: string[];
     });
-    get engine(): FileSystemEngine;
-    get engineHost(): NodeModulesEngineHost;
+    readonly engine: FileSystemEngine;
+    readonly engineHost: NodeModulesEngineHost;
 }
