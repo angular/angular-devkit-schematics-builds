@@ -40,12 +40,12 @@ export declare abstract class BaseWorkflow implements Workflow {
     protected _force: boolean;
     protected _dryRun: boolean;
     constructor(options: BaseWorkflowOptions);
-    readonly context: Readonly<WorkflowExecutionContext>;
-    readonly engine: Engine<{}, {}>;
-    readonly engineHost: EngineHost<{}, {}>;
-    readonly registry: schema.SchemaRegistry;
-    readonly reporter: Observable<DryRunEvent>;
-    readonly lifeCycle: Observable<LifeCycleEvent>;
+    get context(): Readonly<WorkflowExecutionContext>;
+    get engine(): Engine<{}, {}>;
+    get engineHost(): EngineHost<{}, {}>;
+    get registry(): schema.SchemaRegistry;
+    get reporter(): Observable<DryRunEvent>;
+    get lifeCycle(): Observable<LifeCycleEvent>;
     protected _createSinks(): Sink[];
     execute(options: Partial<WorkflowExecutionContext> & RequiredWorkflowExecutionContext): Observable<void>;
 }

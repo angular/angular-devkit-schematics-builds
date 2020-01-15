@@ -32,7 +32,7 @@ export declare class Chunk {
     private _assertRight;
     next: Chunk | null;
     constructor(start: number, end: number, originalContent: Buffer);
-    readonly length: number;
+    get length(): number;
     toString(encoding?: string): string;
     slice(start: number): Chunk;
     append(buffer: Buffer, essential: boolean): void;
@@ -63,8 +63,8 @@ export declare class UpdateBuffer {
      * string functions.
      */
     protected _getTextPosition(index: number): number;
-    readonly length: number;
-    readonly original: Buffer;
+    get length(): number;
+    get original(): Buffer;
     toString(encoding?: string): string;
     generate(): Buffer;
     insertLeft(index: number, content: Buffer, assert?: boolean): void;
