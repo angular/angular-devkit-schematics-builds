@@ -13,10 +13,10 @@ declare class ScopedDirEntry implements DirEntry {
     private _base;
     readonly scope: Path;
     constructor(_base: DirEntry, scope: Path);
-    readonly parent: DirEntry | null;
-    readonly path: Path;
-    readonly subdirs: PathFragment[];
-    readonly subfiles: PathFragment[];
+    get parent(): DirEntry | null;
+    get path(): Path;
+    get subdirs(): PathFragment[];
+    get subfiles(): PathFragment[];
     dir(name: PathFragment): DirEntry;
     file(name: PathFragment): FileEntry | null;
     visit(visitor: FileVisitor): void;
@@ -25,7 +25,7 @@ export declare class ScopedTree implements Tree {
     private _base;
     readonly _root: ScopedDirEntry;
     constructor(_base: Tree, scope: string);
-    readonly root: DirEntry;
+    get root(): DirEntry;
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
     read(path: string): Buffer | null;
@@ -40,7 +40,7 @@ export declare class ScopedTree implements Tree {
     delete(path: string): void;
     rename(from: string, to: string): void;
     apply(action: Action, strategy?: MergeStrategy): void;
-    readonly actions: Action[];
+    get actions(): Action[];
     private _fullPath;
     private _fullPathAction;
 }
