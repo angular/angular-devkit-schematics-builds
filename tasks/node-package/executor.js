@@ -83,6 +83,9 @@ function default_1(factoryOptions = {}) {
         if (options.quiet && taskPackageManagerProfile.quietArgument) {
             args.push(taskPackageManagerProfile.quietArgument);
         }
+        if (factoryOptions.registry) {
+            args.push(`--registry="${factoryOptions.registry}"`);
+        }
         return new rxjs_1.Observable(obs => {
             const spinner = ora({
                 text: 'Installing packages...',
