@@ -10,6 +10,7 @@ export interface NodePackageTaskFactoryOptions {
     rootDirectory?: string;
     packageManager?: string;
     allowPackageManagerOverride?: boolean;
+    registry?: string;
 }
 export interface NodePackageTaskOptions {
     command: string;

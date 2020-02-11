@@ -28,6 +28,7 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             allowPackageManagerOverride: true,
             packageManager: options.packageManager,
             rootDirectory: options.root && core_1.getSystemPath(options.root),
+            registry: options.packageRegistry,
         });
         engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RepositoryInitializer, {
             rootDirectory: options.root && core_1.getSystemPath(options.root),
