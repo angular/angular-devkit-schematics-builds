@@ -26,23 +26,57 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
         super();
         this.paths = paths;
     }
-    _resolveCollectionPath(name) {
+    resolve(name, requester, references = new Set()) {
+        if (requester) {
+            if (references.has(requester)) {
+                references.add(requester);
+                throw new Error('Circular schematic reference detected: ' + JSON.stringify(Array.from(references)));
+            }
+            else {
+                references.add(requester);
+            }
+        }
+        const relativeBase = requester ? path_1.dirname(requester) : process.cwd();
         let collectionPath = undefined;
-        if (name.startsWith('.') || name.startsWith('/')) {
-            name = path_1.resolve(name);
+        if (name.startsWith('.')) {
+            name = path_1.resolve(relativeBase, name);
         }
-        if (path_1.extname(name)) {
-            // When having an extension let's just resolve the provided path.
-            collectionPath = require.resolve(name, { paths: this.paths });
-        }
-        else {
-            const packageJsonPath = require.resolve(path_1.join(name, 'package.json'), { paths: this.paths });
+        const resolveOptions = {
+            paths: requester ? [path_1.dirname(requester), ...(this.paths || [])] : this.paths,
+        };
+        // Try to resolve as a package
+        try {
+            const packageJsonPath = require.resolve(path_1.join(name, 'package.json'), resolveOptions);
             const { schematics } = require(packageJsonPath);
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
             }
-            collectionPath = path_1.resolve(path_1.dirname(packageJsonPath), schematics);
+            collectionPath = this.resolve(schematics, packageJsonPath, references);
         }
+        catch (e) {
+            if (e.code !== 'MODULE_NOT_FOUND') {
+                throw e;
+            }
+        }
+        // If not a package, try to resolve as a file
+        if (!collectionPath) {
+            try {
+                collectionPath = require.resolve(name, resolveOptions);
+            }
+            catch (e) {
+                if (e.code !== 'MODULE_NOT_FOUND') {
+                    throw e;
+                }
+            }
+        }
+        // If not a package or a file, error
+        if (!collectionPath) {
+            throw new file_system_engine_host_base_1.CollectionCannotBeResolvedException(name);
+        }
+        return collectionPath;
+    }
+    _resolveCollectionPath(name) {
+        const collectionPath = this.resolve(name);
         try {
             file_system_utility_1.readJsonFile(collectionPath);
             return collectionPath;
@@ -51,8 +85,10 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
             if (e instanceof core_1.InvalidJsonCharacterException || e instanceof core_1.UnexpectedEndOfInputException) {
                 throw new file_system_engine_host_base_1.InvalidCollectionJsonException(name, collectionPath, e);
             }
+            else {
+                throw e;
+            }
         }
-        throw new file_system_engine_host_base_1.CollectionCannotBeResolvedException(name);
     }
     _resolveReferenceString(refString, parentPath) {
         const ref = new export_ref_1.ExportStringRef(refString, parentPath);
