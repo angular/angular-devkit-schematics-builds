@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const options_1 = require("../node-package/options");
+const options_1 = require("../package-manager/options");
 const options_2 = require("../repo-init/options");
 const options_3 = require("../run-schematic/options");
 const options_4 = require("../tslint-fix/options");
@@ -9,7 +9,7 @@ class BuiltinTaskExecutor {
 exports.BuiltinTaskExecutor = BuiltinTaskExecutor;
 BuiltinTaskExecutor.NodePackage = {
     name: options_1.NodePackageName,
-    create: (options) => Promise.resolve().then(() => require('../node-package/executor')).then(mod => mod.default(options)),
+    create: (options) => Promise.resolve().then(() => require('../package-manager/executor')).then(mod => mod.default(options)),
 };
 BuiltinTaskExecutor.RepositoryInitializer = {
     name: options_2.RepositoryInitializerName,

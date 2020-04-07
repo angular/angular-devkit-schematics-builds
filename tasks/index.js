@@ -7,9 +7,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var install_task_1 = require("./node-package/install-task");
+var install_task_1 = require("./package-manager/install-task");
 exports.NodePackageInstallTask = install_task_1.NodePackageInstallTask;
-var link_task_1 = require("./node-package/link-task");
+var link_task_1 = require("./package-manager/link-task");
 exports.NodePackageLinkTask = link_task_1.NodePackageLinkTask;
 var init_task_1 = require("./repo-init/init-task");
 exports.RepositoryInitializerTask = init_task_1.RepositoryInitializerTask;

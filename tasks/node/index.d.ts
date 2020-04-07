@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TaskExecutorFactory } from '../../src';
-import { NodePackageTaskFactoryOptions } from '../node-package/options';
+import { NodePackageTaskFactoryOptions } from '../package-manager/options';
 import { RepositoryInitializerTaskFactoryOptions } from '../repo-init/options';
 export declare class BuiltinTaskExecutor {
     static readonly NodePackage: TaskExecutorFactory<NodePackageTaskFactoryOptions>;
