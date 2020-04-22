@@ -8,6 +8,7 @@
 export * from './description';
 export * from './export-ref';
 export * from './file-system-engine-host-base';
+export * from './file-system-host';
 export * from './workflow/node-workflow';
 export { FileSystemEngineHost } from './file-system-engine-host';
 export { NodeModulesEngineHost, NodePackageDoesNotSupportSchematics, } from './node-module-engine-host';
