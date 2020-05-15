@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "9.1.6",
+  "version": "9.1.6+3.595d7c9",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#27907ddb4",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#595d7c934",
     "ora": "4.0.3",
     "rxjs": "6.5.4"
   },
