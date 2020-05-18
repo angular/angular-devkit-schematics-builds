@@ -7,6 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.pathFormat = void 0;
 const core_1 = require("@angular-devkit/core");
 exports.pathFormat = {
     name: 'path',

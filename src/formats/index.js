@@ -7,12 +7,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.standardFormats = void 0;
 const html_selector_1 = require("./html-selector");
 var html_selector_2 = require("./html-selector");
-exports.htmlSelectorFormat = html_selector_2.htmlSelectorFormat;
+Object.defineProperty(exports, "htmlSelectorFormat", { enumerable: true, get: function () { return html_selector_2.htmlSelectorFormat; } });
 const path_1 = require("./path");
 var path_2 = require("./path");
-exports.pathFormat = path_2.pathFormat;
+Object.defineProperty(exports, "pathFormat", { enumerable: true, get: function () { return path_2.pathFormat; } });
 exports.standardFormats = [
     html_selector_1.htmlSelectorFormat,
     path_1.pathFormat,

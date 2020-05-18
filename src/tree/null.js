@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NullTree = exports.NullTreeDirEntry = exports.CannotCreateFileException = void 0;
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

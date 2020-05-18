@@ -7,6 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LinkedList = void 0;
 class LinkedList {
     constructor(_head) {
         this._head = _head;

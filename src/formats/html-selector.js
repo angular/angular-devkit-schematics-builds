@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.htmlSelectorFormat = void 0;
 // As per https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 // * Without mandatory `-` as the application prefix will generally cover its inclusion
 // * And an allowance for upper alpha characters

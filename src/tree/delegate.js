@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DelegateTree = void 0;
 const interface_1 = require("./interface");
 class DelegateTree {
     constructor(_other) {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeSymbol = exports.FileVisitorCancelToken = exports.MergeStrategy = void 0;
 var MergeStrategy;
 (function (MergeStrategy) {
     MergeStrategy[MergeStrategy["AllowOverwriteConflict"] = 2] = "AllowOverwriteConflict";

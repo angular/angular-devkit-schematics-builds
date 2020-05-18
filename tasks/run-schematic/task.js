@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RunSchematicTask = void 0;
 const options_1 = require("./options");
 class RunSchematicTask {
     constructor(c, s, o) {

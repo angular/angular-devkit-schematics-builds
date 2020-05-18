@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeModulesTestEngineHost = void 0;
 const node_module_engine_host_1 = require("./node-module-engine-host");
 /**
  * An EngineHost that uses a registry to super seed locations of collection.json files, but
