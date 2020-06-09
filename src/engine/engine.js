@@ -74,58 +74,55 @@ class CollectionImpl {
     }
 }
 exports.CollectionImpl = CollectionImpl;
-let TaskScheduler = /** @class */ (() => {
-    class TaskScheduler {
-        constructor(_context) {
-            this._context = _context;
-            this._queue = new core_1.PriorityQueue((x, y) => x.priority - y.priority);
-            this._taskIds = new Map();
-        }
-        _calculatePriority(dependencies) {
-            if (dependencies.size === 0) {
-                return 0;
-            }
-            const prio = [...dependencies].reduce((prio, task) => prio + task.priority, 1);
-            return prio;
-        }
-        _mapDependencies(dependencies) {
-            if (!dependencies) {
-                return new Set();
-            }
-            const tasks = dependencies.map(dep => {
-                const task = this._taskIds.get(dep);
-                if (!task) {
-                    throw new UnknownTaskDependencyException(dep);
-                }
-                return task;
-            });
-            return new Set(tasks);
-        }
-        schedule(taskConfiguration) {
-            const dependencies = this._mapDependencies(taskConfiguration.dependencies);
-            const priority = this._calculatePriority(dependencies);
-            const task = {
-                id: TaskScheduler._taskIdCounter++,
-                priority,
-                configuration: taskConfiguration,
-                context: this._context,
-            };
-            this._queue.push(task);
-            const id = { id: task.id };
-            this._taskIds.set(id, task);
-            return id;
-        }
-        finalize() {
-            const tasks = this._queue.toArray();
-            this._queue.clear();
-            this._taskIds.clear();
-            return tasks;
-        }
+class TaskScheduler {
+    constructor(_context) {
+        this._context = _context;
+        this._queue = new core_1.PriorityQueue((x, y) => x.priority - y.priority);
+        this._taskIds = new Map();
     }
-    TaskScheduler._taskIdCounter = 1;
-    return TaskScheduler;
-})();
+    _calculatePriority(dependencies) {
+        if (dependencies.size === 0) {
+            return 0;
+        }
+        const prio = [...dependencies].reduce((prio, task) => prio + task.priority, 1);
+        return prio;
+    }
+    _mapDependencies(dependencies) {
+        if (!dependencies) {
+            return new Set();
+        }
+        const tasks = dependencies.map(dep => {
+            const task = this._taskIds.get(dep);
+            if (!task) {
+                throw new UnknownTaskDependencyException(dep);
+            }
+            return task;
+        });
+        return new Set(tasks);
+    }
+    schedule(taskConfiguration) {
+        const dependencies = this._mapDependencies(taskConfiguration.dependencies);
+        const priority = this._calculatePriority(dependencies);
+        const task = {
+            id: TaskScheduler._taskIdCounter++,
+            priority,
+            configuration: taskConfiguration,
+            context: this._context,
+        };
+        this._queue.push(task);
+        const id = { id: task.id };
+        this._taskIds.set(id, task);
+        return id;
+    }
+    finalize() {
+        const tasks = this._queue.toArray();
+        this._queue.clear();
+        this._taskIds.clear();
+        return tasks;
+    }
+}
 exports.TaskScheduler = TaskScheduler;
+TaskScheduler._taskIdCounter = 1;
 class SchematicEngine {
     constructor(_host, _workflow) {
         this._host = _host;
