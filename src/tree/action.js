@@ -19,10 +19,12 @@ class ActionList {
         this._actions = [];
     }
     _action(action) {
-        this._actions.push(Object.assign({
+        var _a, _b;
+        this._actions.push({
+            ...action,
             id: _id++,
-            parent: this._actions[this._actions.length - 1] || 0,
-        }, action));
+            parent: (_b = (_a = this._actions[this._actions.length - 1]) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : 0,
+        });
     }
     create(path, content) {
         this._action({ kind: 'c', path, content });
