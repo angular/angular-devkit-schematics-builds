@@ -73,6 +73,7 @@ exports.SchematicNameCollisionException = SchematicNameCollisionException;
  */
 class FileSystemEngineHostBase {
     constructor() {
+        // tslint:disable-next-line:no-any
         this._transforms = [];
         this._contextTransforms = [];
         this._taskFactories = new Map();
@@ -206,9 +207,14 @@ class FileSystemEngineHostBase {
             case null:
             case 'file:':
                 return (context) => {
+                    // Check if context has necessary FileSystemSchematicContext path property
+                    const fileDescription = context.schematic.description;
+                    if (fileDescription.path === undefined) {
+                        throw new Error('Unsupported schematic context. Expected a FileSystemSchematicContext.');
+                    }
                     // Resolve all file:///a/b/c/d from the schematic's own path, and not the current
                     // path.
-                    const root = core_1.normalize(path_1.resolve(context.schematic.description.path, url.path || ''));
+                    const root = core_1.normalize(path_1.resolve(fileDescription.path, url.path || ''));
                     return new src_1.HostCreateTree(new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), root));
                 };
         }

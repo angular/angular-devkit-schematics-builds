@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1() {
     return (options, context) => {
+        if (!(options === null || options === void 0 ? void 0 : options.name)) {
+            throw new Error('RunSchematicTask requires an options object with a non-empty name property.');
+        }
         const maybeWorkflow = context.engine.workflow;
         const collection = options.collection || context.schematic.collection.description.name;
         if (!maybeWorkflow) {

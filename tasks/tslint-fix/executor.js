@@ -61,7 +61,7 @@ function _listAllFiles(root) {
     return result;
 }
 function default_1() {
-    return async (options, context) => {
+    return async (options = {}, context) => {
         const root = process.cwd();
         const tslint = await Promise.resolve().then(() => require('tslint')); // tslint:disable-line:no-implicit-dependencies
         const includes = (Array.isArray(options.includes)

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NodePackageInstallTask = exports.NodePackageInstallTaskOptions = void 0;
 const options_1 = require("./options");
+// TODO: This should be an interface but that would change the public API
 class NodePackageInstallTaskOptions {
 }
 exports.NodePackageInstallTaskOptions = NodePackageInstallTaskOptions;

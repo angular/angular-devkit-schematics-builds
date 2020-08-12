@@ -55,7 +55,7 @@ function default_1(factoryOptions = {}) {
         throw new UnknownPackageManagerException(packageManagerName);
     }
     const rootDirectory = factoryOptions.rootDirectory || process.cwd();
-    return (options) => {
+    return (options = { command: 'install' }) => {
         let taskPackageManagerProfile = packageManagerProfile;
         let taskPackageManagerName = packageManagerName;
         if (factoryOptions.allowPackageManagerOverride && options.packageManager) {

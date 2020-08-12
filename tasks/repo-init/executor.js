@@ -12,7 +12,7 @@ const child_process_1 = require("child_process");
 const path = require("path");
 function default_1(factoryOptions = {}) {
     const rootDirectory = factoryOptions.rootDirectory || process.cwd();
-    return async (options, context) => {
+    return async (options = {}, context) => {
         const authorName = options.authorName;
         const authorEmail = options.authorEmail;
         const execute = (args, ignoreErrorStream) => {
