@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.standardFormats = void 0;
+exports.standardFormats = exports.pathFormat = exports.htmlSelectorFormat = void 0;
 const html_selector_1 = require("./html-selector");
 var html_selector_2 = require("./html-selector");
 Object.defineProperty(exports, "htmlSelectorFormat", { enumerable: true, get: function () { return html_selector_2.htmlSelectorFormat; } });
