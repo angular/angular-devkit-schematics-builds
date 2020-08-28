@@ -89,16 +89,18 @@ class SimpleSinkBase {
         const actions = rxjs_1.from(tree.actions);
         return rxjs_1.concat((this.preCommit() || rxjs_1.of(null)), rxjs_1.defer(() => actions).pipe(operators_1.concatMap(action => {
             const maybeAction = this.preCommitAction(action);
-            if (rxjs_1.isObservable(maybeAction) || isPromiseLike(maybeAction)) {
+            if (!maybeAction) {
+                return rxjs_1.of(action);
+            }
+            else if (action_1.isAction(maybeAction)) {
+                return rxjs_1.of(maybeAction);
+            }
+            else {
                 return maybeAction;
             }
-            return rxjs_1.of(maybeAction || action);
         }), operators_1.concatMap(action => {
             return rxjs_1.concat(this.commitSingleAction(action).pipe(operators_1.ignoreElements()), rxjs_1.of(action));
         }), operators_1.concatMap(action => this.postCommitAction(action) || rxjs_1.of(null))), rxjs_1.defer(() => this._done()), rxjs_1.defer(() => this.postCommit() || rxjs_1.of(null))).pipe(operators_1.ignoreElements());
     }
 }
 exports.SimpleSinkBase = SimpleSinkBase;
-function isPromiseLike(value) {
-    return !!value && typeof value.then === 'function';
-}
