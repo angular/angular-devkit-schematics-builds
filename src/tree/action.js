@@ -128,6 +128,9 @@ function isContentAction(action) {
     return action.kind == 'c' || action.kind == 'o';
 }
 exports.isContentAction = isContentAction;
+/**
+ * @deprecated since version 11.0. not used anymore can be removed in future version.
+ */
 function isAction(action) {
     const kind = action && action.kind;
     return action !== null
