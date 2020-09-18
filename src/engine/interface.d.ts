@@ -63,7 +63,7 @@ export declare type SchematicDescription<CollectionMetadataT extends object, Sch
  * parameters contain additional metadata that you want to store while remaining type-safe.
  */
 export interface EngineHost<CollectionMetadataT extends object, SchematicMetadataT extends object> {
-    createCollectionDescription(name: string, requester?: CollectionDescription<CollectionMetadataT>): CollectionDescription<CollectionMetadataT>;
+    createCollectionDescription(name: string): CollectionDescription<CollectionMetadataT>;
     listSchematicNames(collection: CollectionDescription<CollectionMetadataT>): string[];
     createSchematicDescription(name: string, collection: CollectionDescription<CollectionMetadataT>): SchematicDescription<CollectionMetadataT, SchematicMetadataT> | null;
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, collection: CollectionDescription<CollectionMetadataT>): RuleFactory<OptionT>;
@@ -85,7 +85,7 @@ export interface EngineHost<CollectionMetadataT extends object, SchematicMetadat
  * SchematicMetadataT is a type that contains additional typing for the Schematic Description.
  */
 export interface Engine<CollectionMetadataT extends object, SchematicMetadataT extends object> {
-    createCollection(name: string, requester?: Collection<CollectionMetadataT, SchematicMetadataT>): Collection<CollectionMetadataT, SchematicMetadataT>;
+    createCollection(name: string): Collection<CollectionMetadataT, SchematicMetadataT>;
     createContext(schematic: Schematic<CollectionMetadataT, SchematicMetadataT>, parent?: Partial<TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>>, executionOptions?: Partial<ExecutionOptions>): TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>;
     createSchematic(name: string, collection: Collection<CollectionMetadataT, SchematicMetadataT>): Schematic<CollectionMetadataT, SchematicMetadataT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>): Source;

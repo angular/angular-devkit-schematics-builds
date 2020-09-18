@@ -25,12 +25,12 @@ class NodeModulesTestEngineHost extends node_module_engine_host_1.NodeModulesEng
         };
         return context;
     }
-    _resolveCollectionPath(name, requester) {
+    _resolveCollectionPath(name) {
         const maybePath = this._collections.get(name);
         if (maybePath) {
             return maybePath;
         }
-        return super._resolveCollectionPath(name, requester);
+        return super._resolveCollectionPath(name);
     }
 }
 exports.NodeModulesTestEngineHost = NodeModulesTestEngineHost;

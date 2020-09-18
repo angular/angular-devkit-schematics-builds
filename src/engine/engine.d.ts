@@ -66,7 +66,7 @@ export declare class SchematicEngine<CollectionT extends object, SchematicT exte
     constructor(_host: EngineHost<CollectionT, SchematicT>, _workflow?: Workflow | undefined);
     get workflow(): Workflow | null;
     get defaultMergeStrategy(): MergeStrategy;
-    createCollection(name: string, requester?: Collection<CollectionT, SchematicT>): Collection<CollectionT, SchematicT>;
+    createCollection(name: string): Collection<CollectionT, SchematicT>;
     private _createCollectionDescription;
     createContext(schematic: Schematic<CollectionT, SchematicT>, parent?: Partial<TypedSchematicContext<CollectionT, SchematicT>>, executionOptions?: Partial<ExecutionOptions>): TypedSchematicContext<CollectionT, SchematicT>;
     createSchematic(name: string, collection: Collection<CollectionT, SchematicT>, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
