@@ -21,7 +21,7 @@ const static_1 = require("../tree/static");
  */
 function externalSchematic(collectionName, schematicName, options, executionOptions) {
     return (input, context) => {
-        const collection = context.engine.createCollection(collectionName);
+        const collection = context.engine.createCollection(collectionName, context.schematic.collection);
         const schematic = collection.createSchematic(schematicName);
         return schematic.call(options, rxjs_1.of(static_1.branch(input)), context, executionOptions);
     };
