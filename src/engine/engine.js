@@ -128,24 +128,24 @@ class SchematicEngine {
         this._host = _host;
         this._workflow = _workflow;
         this._collectionCache = new Map();
-        this._schematicCache = new Map();
+        this._schematicCache = new WeakMap();
         this._taskSchedulers = new Array();
     }
     get workflow() { return this._workflow || null; }
     get defaultMergeStrategy() { return this._host.defaultMergeStrategy || interface_1.MergeStrategy.Default; }
-    createCollection(name) {
+    createCollection(name, requester) {
         let collection = this._collectionCache.get(name);
         if (collection) {
             return collection;
         }
-        const [description, bases] = this._createCollectionDescription(name);
+        const [description, bases] = this._createCollectionDescription(name, requester === null || requester === void 0 ? void 0 : requester.description);
         collection = new CollectionImpl(description, this, bases);
         this._collectionCache.set(name, collection);
-        this._schematicCache.set(name, new Map());
+        this._schematicCache.set(collection, new Map());
         return collection;
     }
-    _createCollectionDescription(name, parentNames) {
-        const description = this._host.createCollectionDescription(name);
+    _createCollectionDescription(name, requester, parentNames) {
+        const description = this._host.createCollectionDescription(name, requester);
         if (!description) {
             throw new UnknownCollectionException(name);
         }
@@ -156,7 +156,7 @@ class SchematicEngine {
         if (description.extends) {
             parentNames = (parentNames || new Set()).add(description.name);
             for (const baseName of description.extends) {
-                const [base, baseBases] = this._createCollectionDescription(baseName, new Set(parentNames));
+                const [base, baseBases] = this._createCollectionDescription(baseName, description, new Set(parentNames));
                 bases.unshift(base, ...baseBases);
             }
         }
@@ -206,13 +206,8 @@ class SchematicEngine {
         return context;
     }
     createSchematic(name, collection, allowPrivate = false) {
-        const collectionImpl = this._collectionCache.get(collection.description.name);
-        const schematicMap = this._schematicCache.get(collection.description.name);
-        if (!collectionImpl || !schematicMap || collectionImpl !== collection) {
-            // This is weird, maybe the collection was created by another engine?
-            throw new UnknownCollectionException(collection.description.name);
-        }
-        let schematic = schematicMap.get(name);
+        const schematicMap = this._schematicCache.get(collection);
+        let schematic = schematicMap === null || schematicMap === void 0 ? void 0 : schematicMap.get(name);
         if (schematic) {
             return schematic;
         }
@@ -238,7 +233,7 @@ class SchematicEngine {
         }
         const factory = this._host.getSchematicRuleFactory(description, collectionDescription);
         schematic = new schematic_1.SchematicImpl(description, factory, collection, this);
-        schematicMap.set(name, schematic);
+        schematicMap === null || schematicMap === void 0 ? void 0 : schematicMap.set(name, schematic);
         return schematic;
     }
     listSchematicNames(collection) {

@@ -25,7 +25,7 @@ export declare class FallbackEngineHost implements EngineHost<{}, {}> {
     private _hosts;
     constructor();
     addHost<CollectionT extends object, SchematicT extends object>(host: EngineHost<CollectionT, SchematicT>): void;
-    createCollectionDescription(name: string): CollectionDescription<FallbackCollectionDescription>;
+    createCollectionDescription(name: string, requester?: CollectionDescription<{}>): CollectionDescription<FallbackCollectionDescription>;
     createSchematicDescription(name: string, collection: CollectionDescription<FallbackCollectionDescription>): SchematicDescription<FallbackCollectionDescription, FallbackSchematicDescription> | null;
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<FallbackCollectionDescription, FallbackSchematicDescription>, collection: CollectionDescription<FallbackCollectionDescription>): RuleFactory<OptionT>;
     createSourceFromUrl(url: Url, context: FallbackContext): Source | null;

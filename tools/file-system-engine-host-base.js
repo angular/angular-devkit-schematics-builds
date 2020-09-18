@@ -107,8 +107,8 @@ class FileSystemEngineHostBase {
      * @param name
      * @return {{path: string}}
      */
-    createCollectionDescription(name) {
-        const path = this._resolveCollectionPath(name);
+    createCollectionDescription(name, requester) {
+        const path = this._resolveCollectionPath(name, requester === null || requester === void 0 ? void 0 : requester.path);
         const jsonValue = file_system_utility_1.readJsonFile(path);
         if (!jsonValue || typeof jsonValue != 'object' || Array.isArray(jsonValue)) {
             throw new InvalidCollectionJsonException(name, path);

@@ -19,5 +19,5 @@ export declare class NodeModulesTestEngineHost extends NodeModulesEngineHost {
     clearTasks(): void;
     registerCollection(name: string, path: string): void;
     transformContext(context: FileSystemSchematicContext): FileSystemSchematicContext;
-    protected _resolveCollectionPath(name: string): string;
+    protected _resolveCollectionPath(name: string, requester?: string): string;
 }

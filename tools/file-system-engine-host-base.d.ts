@@ -45,7 +45,7 @@ export declare class SchematicNameCollisionException extends BaseException {
  * all other EngineHost provided by the tooling part of the Schematics library.
  */
 export declare abstract class FileSystemEngineHostBase implements FileSystemEngineHost {
-    protected abstract _resolveCollectionPath(name: string): string;
+    protected abstract _resolveCollectionPath(name: string, requester?: string): string;
     protected abstract _resolveReferenceString(name: string, parentPath: string): {
         ref: RuleFactory<{}>;
         path: string;
@@ -63,7 +63,7 @@ export declare abstract class FileSystemEngineHostBase implements FileSystemEngi
      * @param name
      * @return {{path: string}}
      */
-    createCollectionDescription(name: string): FileSystemCollectionDesc;
+    createCollectionDescription(name: string, requester?: FileSystemCollectionDesc): FileSystemCollectionDesc;
     createSchematicDescription(name: string, collection: FileSystemCollectionDesc): FileSystemSchematicDesc | null;
     createSourceFromUrl(url: Url): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: FileSystemSchematicDesc, options: OptionT, context?: FileSystemSchematicContext): Observable<ResultT>;
