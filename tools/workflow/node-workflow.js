@@ -9,14 +9,26 @@ exports.NodeWorkflow = void 0;
  * found in the LICENSE file at https://angular.io/license
  */
 const core_1 = require("@angular-devkit/core");
+const node_1 = require("@angular-devkit/core/node");
 const schematics_1 = require("@angular-devkit/schematics"); // tslint:disable-line:no-implicit-dependencies
-const node_1 = require("../../tasks/node");
+const node_2 = require("../../tasks/node");
 const node_module_engine_host_1 = require("../node-module-engine-host");
+const schema_option_transform_1 = require("../schema-option-transform");
 /**
  * A workflow specifically for Node tools.
  */
 class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
-    constructor(host, options) {
+    constructor(hostOrRoot, options) {
+        let host;
+        let root;
+        if (typeof hostOrRoot === 'string') {
+            root = core_1.normalize(hostOrRoot);
+            host = new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), root);
+        }
+        else {
+            host = hostOrRoot;
+            root = options.root;
+        }
         const engineHost = new node_module_engine_host_1.NodeModulesEngineHost(options.resolvePaths);
         super({
             host,
@@ -25,17 +37,20 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             dryRun: options.dryRun,
             registry: options.registry,
         });
-        engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.NodePackage, {
+        engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.NodePackage, {
             allowPackageManagerOverride: true,
             packageManager: options.packageManager,
-            rootDirectory: options.root && core_1.getSystemPath(options.root),
+            rootDirectory: root && core_1.getSystemPath(root),
             registry: options.packageRegistry,
         });
-        engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RepositoryInitializer, {
-            rootDirectory: options.root && core_1.getSystemPath(options.root),
+        engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.RepositoryInitializer, {
+            rootDirectory: root && core_1.getSystemPath(root),
         });
-        engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RunSchematic);
-        engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.TslintFix);
+        engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.RunSchematic);
+        engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.TslintFix);
+        if (options.schemaValidation) {
+            engineHost.registerOptionsTransform(schema_option_transform_1.validateOptionsWithSchema(this.registry));
+        }
         this._context = [];
     }
     get engine() {
