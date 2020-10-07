@@ -8,6 +8,7 @@
 import { JsonObject } from '@angular-devkit/core';
 import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { TslintFixTaskOptions, TslintFixTaskOptionsBase } from './options';
+/** @deprecated since version 11. Use `ng lint --fix` directly instead. */
 export declare class TslintFixTask implements TaskConfigurationGenerator<TslintFixTaskOptions> {
     protected _configOrPath: null | string | JsonObject;
     protected _options: TslintFixTaskOptionsBase;

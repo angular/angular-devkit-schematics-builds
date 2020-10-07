@@ -60,6 +60,7 @@ function _listAllFiles(root) {
     _recurse('');
     return result;
 }
+/** @deprecated since version 11. Use `ng lint --fix` directly instead. */
 function default_1() {
     return async (options = {}, context) => {
         const root = process.cwd();

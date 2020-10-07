@@ -20,6 +20,7 @@ BuiltinTaskExecutor.RunSchematic = {
     name: options_3.RunSchematicName,
     create: () => Promise.resolve().then(() => require('../run-schematic/executor')).then(mod => mod.default()),
 };
+/** @deprecated since version 11. Use `ng lint --fix` directly instead. */
 BuiltinTaskExecutor.TslintFix = {
     name: options_4.TslintFixName,
     create: () => Promise.resolve().then(() => require('../tslint-fix/executor')).then(mod => mod.default()),
