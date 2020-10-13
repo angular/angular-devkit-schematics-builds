@@ -125,7 +125,6 @@ export interface TypedSchematicContext<CollectionMetadataT extends object, Schem
     readonly strategy: MergeStrategy;
     readonly interactive: boolean;
     addTask<T>(task: TaskConfigurationGenerator<T>, dependencies?: Array<TaskId>): TaskId;
-    /** @deprecated since version 11 - as it's unused. */
     readonly analytics?: analytics.Analytics;
 }
 /**
