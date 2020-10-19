@@ -89,7 +89,7 @@ function default_1(factoryOptions = {}) {
         }
         return new rxjs_1.Observable(obs => {
             const spinner = ora({
-                text: 'Installing packages...',
+                text: `Installing packages (${taskPackageManagerName})...`,
                 // Workaround for https://github.com/sindresorhus/ora/issues/136.
                 discardStdin: process.platform != 'win32',
             }).start();
