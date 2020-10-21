@@ -281,48 +281,51 @@ class HostTree {
     apply(action, strategy) {
         throw new exception_1.SchematicsException('Apply not implemented on host trees.');
     }
-    get actions() {
-        // Create a list of all records until we hit our original backend. This is to support branches
-        // that diverge from each others.
-        const allRecords = [...this._record.records()];
-        return core_1.clean(allRecords
-            .map(record => {
+    *generateActions() {
+        for (const record of this._record.records()) {
             switch (record.kind) {
                 case 'create':
-                    return {
+                    yield {
                         id: this._id,
                         parent: 0,
                         kind: 'c',
                         path: record.path,
                         content: Buffer.from(record.content),
                     };
+                    break;
                 case 'overwrite':
-                    return {
+                    yield {
                         id: this._id,
                         parent: 0,
                         kind: 'o',
                         path: record.path,
                         content: Buffer.from(record.content),
                     };
+                    break;
                 case 'rename':
-                    return {
+                    yield {
                         id: this._id,
                         parent: 0,
                         kind: 'r',
                         path: record.from,
                         to: record.to,
                     };
+                    break;
                 case 'delete':
-                    return {
+                    yield {
                         id: this._id,
                         parent: 0,
                         kind: 'd',
                         path: record.path,
                     };
-                default:
-                    return;
+                    break;
             }
-        }));
+        }
+    }
+    get actions() {
+        // Create a list of all records until we hit our original backend. This is to support branches
+        // that diverge from each others.
+        return Array.from(this.generateActions());
     }
 }
 exports.HostTree = HostTree;
