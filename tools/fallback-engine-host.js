@@ -22,10 +22,10 @@ class FallbackEngineHost {
     addHost(host) {
         this._hosts.push(host);
     }
-    createCollectionDescription(name, requester) {
+    createCollectionDescription(name) {
         for (const host of this._hosts) {
             try {
-                const description = host.createCollectionDescription(name, requester);
+                const description = host.createCollectionDescription(name);
                 return { name, host, description };
             }
             catch (_) {

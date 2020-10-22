@@ -51,7 +51,6 @@ export declare class HostTree implements Tree {
     delete(path: string): void;
     rename(from: string, to: string): void;
     apply(action: Action, strategy?: MergeStrategy): void;
-    private generateActions;
     get actions(): Action[];
 }
 export declare class HostCreateTree extends HostTree {

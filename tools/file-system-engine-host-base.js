@@ -13,6 +13,7 @@ const node_1 = require("@angular-devkit/core/node");
 const fs_1 = require("fs");
 const path_1 = require("path");
 const rxjs_1 = require("rxjs");
+const operators_1 = require("rxjs/operators");
 const src_1 = require("../src");
 const file_system_utility_1 = require("./file-system-utility");
 class CollectionCannotBeResolvedException extends core_1.BaseException {
@@ -106,8 +107,8 @@ class FileSystemEngineHostBase {
      * @param name
      * @return {{path: string}}
      */
-    createCollectionDescription(name, requester) {
-        const path = this._resolveCollectionPath(name, requester === null || requester === void 0 ? void 0 : requester.path);
+    createCollectionDescription(name) {
+        const path = this._resolveCollectionPath(name);
         const jsonValue = file_system_utility_1.readJsonFile(path);
         if (!jsonValue || typeof jsonValue != 'object' || Array.isArray(jsonValue)) {
             throw new InvalidCollectionJsonException(name, path);
@@ -220,15 +221,20 @@ class FileSystemEngineHostBase {
         return null;
     }
     transformOptions(schematic, options, context) {
-        const transform = async () => {
-            let transformedOptions = options;
-            for (const transformer of this._transforms) {
-                const transformerResult = transformer(schematic, transformedOptions, context);
-                transformedOptions = await (rxjs_1.isObservable(transformerResult) ? transformerResult.toPromise() : transformerResult);
+        // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
+        return (rxjs_1.of(options)
+            .pipe(...this._transforms.map(tFn => operators_1.mergeMap((opt) => {
+            const newOptions = tFn(schematic, opt, context);
+            if (rxjs_1.isObservable(newOptions)) {
+                return newOptions;
             }
-            return transformedOptions;
-        };
-        return rxjs_1.from(transform());
+            else if (core_1.isPromise(newOptions)) {
+                return rxjs_1.from(newOptions);
+            }
+            else {
+                return rxjs_1.of(newOptions);
+            }
+        }))));
     }
     transformContext(context) {
         // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989

@@ -76,8 +76,8 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
         }
         return collectionPath;
     }
-    _resolveCollectionPath(name, requester) {
-        const collectionPath = this.resolve(name, requester);
+    _resolveCollectionPath(name) {
+        const collectionPath = this.resolve(name);
         try {
             file_system_utility_1.readJsonFile(collectionPath);
             return collectionPath;

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TslintFixTask = void 0;
 const options_1 = require("./options");
-/** @deprecated since version 11. Use `ng lint --fix` directly instead. */
 class TslintFixTask {
     constructor(configOrPath, options) {
         if (options) {
