@@ -8,6 +8,7 @@
 import { Path, schema, virtualFs } from '@angular-devkit/core';
 import { workflow } from '@angular-devkit/schematics';
 import { FileSystemEngine } from '../description';
+import { OptionTransform } from '../file-system-engine-host-base';
 import { NodeModulesEngineHost } from '../node-module-engine-host';
 export interface NodeWorkflowOptions {
     force?: boolean;
@@ -17,6 +18,7 @@ export interface NodeWorkflowOptions {
     registry?: schema.CoreSchemaRegistry;
     resolvePaths?: string[];
     schemaValidation?: boolean;
+    optionTransforms?: OptionTransform<object, object>[];
 }
 /**
  * A workflow specifically for Node tools.
