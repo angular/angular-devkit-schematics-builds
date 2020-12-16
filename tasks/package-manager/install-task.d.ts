@@ -7,12 +7,12 @@
  */
 import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { NodePackageTaskOptions } from './options';
-export declare class NodePackageInstallTaskOptions {
-    packageManager: string;
-    packageName: string;
-    workingDirectory: string;
-    quiet: boolean;
-    hideOutput: boolean;
+interface NodePackageInstallTaskOptions {
+    packageManager?: string;
+    packageName?: string;
+    workingDirectory?: string;
+    quiet?: boolean;
+    hideOutput?: boolean;
 }
 export declare class NodePackageInstallTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
     quiet: boolean;
@@ -21,6 +21,7 @@ export declare class NodePackageInstallTask implements TaskConfigurationGenerato
     packageManager?: string;
     packageName?: string;
     constructor(workingDirectory?: string);
-    constructor(options: Partial<NodePackageInstallTaskOptions>);
+    constructor(options: NodePackageInstallTaskOptions);
     toConfiguration(): TaskConfiguration<NodePackageTaskOptions>;
 }
+export {};
