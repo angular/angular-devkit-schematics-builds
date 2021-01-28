@@ -19,6 +19,7 @@ const schema_option_transform_1 = require("../schema-option-transform");
  */
 class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
     constructor(hostOrRoot, options) {
+        var _a;
         let host;
         let root;
         if (typeof hostOrRoot === 'string') {
@@ -29,7 +30,7 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             host = hostOrRoot;
             root = options.root;
         }
-        const engineHost = new node_module_engine_host_1.NodeModulesEngineHost(options.resolvePaths);
+        const engineHost = ((_a = options.engineHostCreator) === null || _a === void 0 ? void 0 : _a.call(options, options)) || new node_module_engine_host_1.NodeModulesEngineHost(options.resolvePaths);
         super({
             host,
             engineHost,

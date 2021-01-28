@@ -19,6 +19,7 @@ export interface NodeWorkflowOptions {
     resolvePaths?: string[];
     schemaValidation?: boolean;
     optionTransforms?: OptionTransform<object, object>[];
+    engineHostCreator?: (options: NodeWorkflowOptions) => NodeModulesEngineHost;
 }
 /**
  * A workflow specifically for Node tools.
