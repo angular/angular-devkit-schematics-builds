@@ -118,7 +118,7 @@ class HostTree {
             switch (action.kind) {
                 case 'c': {
                     const { path, content } = action;
-                    if ((this._willCreate(path) || this._willOverwrite(path))) {
+                    if (this._willCreate(path) || this._willOverwrite(path) || this.exists(path)) {
                         const existingContent = this.read(path);
                         if (existingContent && content.equals(existingContent)) {
                             // Identical outcome; no action required
