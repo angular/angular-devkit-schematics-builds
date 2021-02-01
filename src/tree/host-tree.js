@@ -12,11 +12,9 @@ const core_1 = require("@angular-devkit/core");
 const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
 const exception_1 = require("../exception/exception");
-const delegate_1 = require("./delegate");
 const entry_1 = require("./entry");
 const interface_1 = require("./interface");
 const recorder_1 = require("./recorder");
-const scoped_1 = require("./scoped");
 let _uniqueId = 0;
 class HostDirEntry {
     constructor(parent, path, _host, _tree) {
@@ -103,31 +101,19 @@ class HostTree {
         branchedTree._ancestry = new Set(this._ancestry).add(this._id);
         return branchedTree;
     }
-    isAncestorOf(tree) {
-        if (tree instanceof HostTree) {
-            return tree._ancestry.has(this._id);
-        }
-        if (tree instanceof delegate_1.DelegateTree) {
-            return this.isAncestorOf(tree._other);
-        }
-        if (tree instanceof scoped_1.ScopedTree) {
-            return this.isAncestorOf(tree._base);
-        }
-        return false;
-    }
     merge(other, strategy = interface_1.MergeStrategy.Default) {
         if (other === this) {
             // Merging with yourself? Tsk tsk. Nothing to do at least.
             return;
         }
-        if (this.isAncestorOf(other)) {
+        if (other instanceof HostTree && other._ancestry.has(this._id)) {
             // Workaround for merging a branch back into one of its ancestors
             // More complete branch point tracking is required to avoid
             strategy |= interface_1.MergeStrategy.Overwrite;
         }
         const creationConflictAllowed = (strategy & interface_1.MergeStrategy.AllowCreationConflict) == interface_1.MergeStrategy.AllowCreationConflict;
         const overwriteConflictAllowed = (strategy & interface_1.MergeStrategy.AllowOverwriteConflict) == interface_1.MergeStrategy.AllowOverwriteConflict;
-        const deleteConflictAllowed = (strategy & interface_1.MergeStrategy.AllowDeleteConflict) == interface_1.MergeStrategy.AllowDeleteConflict;
+        const deleteConflictAllowed = (strategy & interface_1.MergeStrategy.AllowOverwriteConflict) == interface_1.MergeStrategy.AllowDeleteConflict;
         other.actions.forEach(action => {
             switch (action.kind) {
                 case 'c': {
