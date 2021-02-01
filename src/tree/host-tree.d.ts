@@ -37,6 +37,7 @@ export declare class HostTree implements Tree {
     protected _willDelete(path: Path): boolean;
     protected _willRename(path: Path): boolean;
     branch(): Tree;
+    private isAncestorOf;
     merge(other: Tree, strategy?: MergeStrategy): void;
     get root(): DirEntry;
     read(path: string): Buffer | null;

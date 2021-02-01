@@ -23,7 +23,10 @@ function externalSchematic(collectionName, schematicName, options, executionOpti
     return (input, context) => {
         const collection = context.engine.createCollection(collectionName, context.schematic.collection);
         const schematic = collection.createSchematic(schematicName);
-        return schematic.call(options, rxjs_1.of(static_1.branch(input)), context, executionOptions);
+        return schematic.call(options, rxjs_1.of(static_1.branch(input)), context, executionOptions).pipe(operators_1.last(), operators_1.map(x => {
+            input.merge(x, interface_1.MergeStrategy.AllowOverwriteConflict);
+            return input;
+        }));
     };
 }
 exports.externalSchematic = externalSchematic;
