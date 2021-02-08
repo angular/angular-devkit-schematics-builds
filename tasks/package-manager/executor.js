@@ -88,6 +88,7 @@ function default_1(factoryOptions = {}) {
             args.push(`--registry="${factoryOptions.registry}"`);
         }
         return new rxjs_1.Observable(obs => {
+            var _a, _b;
             const spinner = ora({
                 text: `Installing packages (${taskPackageManagerName})...`,
                 // Workaround for https://github.com/sindresorhus/ora/issues/136.
@@ -110,8 +111,8 @@ function default_1(factoryOptions = {}) {
                 }
             });
             if (options.hideOutput) {
-                childProcess.stdout.on('data', (data) => bufferedOutput.push({ stream: process.stdout, data: data }));
-                childProcess.stderr.on('data', (data) => bufferedOutput.push({ stream: process.stderr, data: data }));
+                (_a = childProcess.stdout) === null || _a === void 0 ? void 0 : _a.on('data', (data) => bufferedOutput.push({ stream: process.stdout, data: data }));
+                (_b = childProcess.stderr) === null || _b === void 0 ? void 0 : _b.on('data', (data) => bufferedOutput.push({ stream: process.stderr, data: data }));
             }
         });
     };
