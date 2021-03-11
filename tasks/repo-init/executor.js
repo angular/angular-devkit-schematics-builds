@@ -70,7 +70,7 @@ function default_1(factoryOptions = {}) {
             }
             context.logger.info('Successfully initialized git.');
         }
-        catch (_a) { }
+        catch { }
     };
 }
 exports.default = default_1;

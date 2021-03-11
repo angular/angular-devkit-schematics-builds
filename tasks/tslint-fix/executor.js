@@ -39,7 +39,7 @@ function _getFileContent(file, options, program) {
         // https://stackoverflow.com/questions/24356713
         return fs.readFileSync(file, 'utf-8').replace(/^\uFEFF/, '');
     }
-    catch (_a) {
+    catch {
         throw new Error(`Could not read file '${file}'.`);
     }
 }
