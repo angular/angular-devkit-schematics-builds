@@ -32,6 +32,6 @@ exports.htmlSelectorFormat = {
     name: 'html-selector',
     formatter: {
         async: false,
-        validate: (name) => typeof name === 'string' && isValidElementName(name),
+        validate: name => typeof name === 'string' && isValidElementName(name),
     },
 };
