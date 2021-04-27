@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#86333765d",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#871fa5034",
     "ora": "5.4.0",
     "rxjs": "6.6.7"
   },
@@ -27,7 +27,7 @@
     "url": "https://github.com/angular/angular-cli.git"
   },
   "engines": {
-    "node": ">= 12.13.0",
+    "node": "^12.14.1 || ^14.0.0",
     "npm": "^6.11.0 || ^7.5.6",
     "yarn": ">= 1.13.0"
   },
