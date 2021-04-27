@@ -1,13 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateBuffer = exports.Chunk = exports.ContentCannotBeRemovedException = exports.IndexOutOfBoundException = void 0;
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateBuffer = exports.Chunk = exports.ContentCannotBeRemovedException = exports.IndexOutOfBoundException = void 0;
 const core_1 = require("@angular-devkit/core");
 const linked_list_1 = require("./linked-list");
 class IndexOutOfBoundException extends core_1.BaseException {

@@ -1,13 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.applyToSubtree = exports.composeFileOperators = exports.forEach = exports.partitionApplyMerge = exports.when = exports.branchAndMerge = exports.asSource = exports.filter = exports.noop = exports.mergeWith = exports.apply = exports.chain = exports.empty = exports.source = void 0;
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.applyToSubtree = exports.composeFileOperators = exports.forEach = exports.partitionApplyMerge = exports.when = exports.branchAndMerge = exports.asSource = exports.filter = exports.noop = exports.mergeWith = exports.apply = exports.chain = exports.empty = exports.source = void 0;
 const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
 const exception_1 = require("../exception/exception");
