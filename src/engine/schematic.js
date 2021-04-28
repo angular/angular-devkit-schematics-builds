@@ -29,12 +29,17 @@ class SchematicImpl {
             throw new InvalidSchematicsNameException(_description.name);
         }
     }
-    get description() { return this._description; }
-    get collection() { return this._collection; }
+    get description() {
+        return this._description;
+    }
+    get collection() {
+        return this._collection;
+    }
     call(options, host, parentContext, executionOptions) {
         const context = this._engine.createContext(this, parentContext, executionOptions);
-        return host
-            .pipe(operators_1.first(), operators_1.concatMap(tree => this._engine.transformOptions(this, options, context).pipe(operators_1.map(o => [tree, o]))), operators_1.concatMap(([tree, transformedOptions]) => {
+        return host.pipe(operators_1.first(), operators_1.concatMap((tree) => this._engine
+            .transformOptions(this, options, context)
+            .pipe(operators_1.map((o) => [tree, o]))), operators_1.concatMap(([tree, transformedOptions]) => {
             let input;
             let scoped = false;
             if (executionOptions && executionOptions.scope) {
@@ -44,7 +49,7 @@ class SchematicImpl {
             else {
                 input = tree;
             }
-            return call_1.callRule(this._factory(transformedOptions), rxjs_1.of(input), context).pipe(operators_1.map(output => {
+            return call_1.callRule(this._factory(transformedOptions), rxjs_1.of(input), context).pipe(operators_1.map((output) => {
                 if (output === input) {
                     return tree;
                 }

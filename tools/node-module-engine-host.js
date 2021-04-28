@@ -83,7 +83,8 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
             return collectionPath;
         }
         catch (e) {
-            if (e instanceof core_1.InvalidJsonCharacterException || e instanceof core_1.UnexpectedEndOfInputException) {
+            if (e instanceof core_1.InvalidJsonCharacterException ||
+                e instanceof core_1.UnexpectedEndOfInputException) {
                 throw new file_system_engine_host_base_1.InvalidCollectionJsonException(name, collectionPath, e);
             }
             else {

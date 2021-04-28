@@ -13,8 +13,12 @@ class SimpleFileEntry {
         this._path = _path;
         this._content = _content;
     }
-    get path() { return this._path; }
-    get content() { return this._content; }
+    get path() {
+        return this._path;
+    }
+    get content() {
+        return this._content;
+    }
 }
 exports.SimpleFileEntry = SimpleFileEntry;
 class LazyFileEntry {
@@ -23,7 +27,11 @@ class LazyFileEntry {
         this._load = _load;
         this._content = null;
     }
-    get path() { return this._path; }
-    get content() { return this._content || (this._content = this._load(this._path)); }
+    get path() {
+        return this._path;
+    }
+    get content() {
+        return this._content || (this._content = this._load(this._path));
+    }
 }
 exports.LazyFileEntry = LazyFileEntry;

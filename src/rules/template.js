@@ -14,15 +14,21 @@ const base_1 = require("./base");
 const rename_1 = require("./rename");
 exports.TEMPLATE_FILENAME_RE = /\.template$/;
 class OptionIsNotDefinedException extends core_1.BaseException {
-    constructor(name) { super(`Option "${name}" is not defined.`); }
+    constructor(name) {
+        super(`Option "${name}" is not defined.`);
+    }
 }
 exports.OptionIsNotDefinedException = OptionIsNotDefinedException;
 class UnknownPipeException extends core_1.BaseException {
-    constructor(name) { super(`Pipe "${name}" is not defined.`); }
+    constructor(name) {
+        super(`Pipe "${name}" is not defined.`);
+    }
 }
 exports.UnknownPipeException = UnknownPipeException;
 class InvalidPipeException extends core_1.BaseException {
-    constructor(name) { super(`Pipe "${name}" is invalid.`); }
+    constructor(name) {
+        super(`Pipe "${name}" is invalid.`);
+    }
 }
 exports.InvalidPipeException = InvalidPipeException;
 const decoder = new util_1.TextDecoder('utf-8', { fatal: true });
@@ -116,7 +122,7 @@ exports.pathTemplate = pathTemplate;
  * Remove every `.template` suffix from file names.
  */
 function renameTemplateFiles() {
-    return rename_1.rename(path => !!path.match(exports.TEMPLATE_FILENAME_RE), path => path.replace(exports.TEMPLATE_FILENAME_RE, ''));
+    return rename_1.rename((path) => !!path.match(exports.TEMPLATE_FILENAME_RE), (path) => path.replace(exports.TEMPLATE_FILENAME_RE, ''));
 }
 exports.renameTemplateFiles = renameTemplateFiles;
 function template(options) {
@@ -130,11 +136,11 @@ function template(options) {
 }
 exports.template = template;
 function applyTemplates(options) {
-    return base_1.forEach(base_1.when(path => path.endsWith('.template'), base_1.composeFileOperators([
+    return base_1.forEach(base_1.when((path) => path.endsWith('.template'), base_1.composeFileOperators([
         applyContentTemplate(options),
         // See above for this weird cast.
         applyPathTemplate(options),
-        entry => {
+        (entry) => {
             return {
                 content: entry.content,
                 path: entry.path.replace(exports.TEMPLATE_FILENAME_RE, ''),

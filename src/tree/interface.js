@@ -25,9 +25,9 @@ var MergeStrategy;
 })(MergeStrategy = exports.MergeStrategy || (exports.MergeStrategy = {}));
 exports.FileVisitorCancelToken = Symbol();
 exports.TreeSymbol = (function () {
-    const globalSymbol = (typeof window == 'object' && window.window === window && window.Symbol)
-        || (typeof self == 'object' && self.self === self && self.Symbol)
-        || (typeof global == 'object' && global.global === global && global.Symbol);
+    const globalSymbol = (typeof window == 'object' && window.window === window && window.Symbol) ||
+        (typeof self == 'object' && self.self === self && self.Symbol) ||
+        (typeof global == 'object' && global.global === global && global.Symbol);
     if (!globalSymbol) {
         return Symbol('schematic-tree');
     }

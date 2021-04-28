@@ -24,17 +24,14 @@ function default_1(factoryOptions = {}) {
                 cwd: path.join(rootDirectory, options.workingDirectory || ''),
                 env: {
                     ...process.env,
-                    ...(authorName
-                        ? { GIT_AUTHOR_NAME: authorName, GIT_COMMITTER_NAME: authorName }
-                        : {}),
+                    ...(authorName ? { GIT_AUTHOR_NAME: authorName, GIT_COMMITTER_NAME: authorName } : {}),
                     ...(authorEmail
                         ? { GIT_AUTHOR_EMAIL: authorEmail, GIT_COMMITTER_EMAIL: authorEmail }
                         : {}),
                 },
             };
             return new Promise((resolve, reject) => {
-                child_process_1.spawn('git', args, spawnOptions)
-                    .on('close', (code) => {
+                child_process_1.spawn('git', args, spawnOptions).on('close', (code) => {
                     if (code === 0) {
                         resolve();
                     }
@@ -44,13 +41,11 @@ function default_1(factoryOptions = {}) {
                 });
             });
         };
-        const hasCommand = await execute(['--version'])
-            .then(() => true, () => false);
+        const hasCommand = await execute(['--version']).then(() => true, () => false);
         if (!hasCommand) {
             return;
         }
-        const insideRepo = await execute(['rev-parse', '--is-inside-work-tree'], true)
-            .then(() => true, () => false);
+        const insideRepo = await execute(['rev-parse', '--is-inside-work-tree'], true).then(() => true, () => false);
         if (insideRepo) {
             context.logger.info(core_1.tags.oneLine `
         Directory is already under version control.

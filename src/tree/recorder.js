@@ -21,18 +21,20 @@ class UpdateRecorderBase {
         const c1 = entry.content.byteLength > 1 && entry.content.readUInt8(1);
         const c2 = entry.content.byteLength > 2 && entry.content.readUInt8(2);
         // Check if we're BOM.
-        if (c0 == 0xEF && c1 == 0xBB && c2 == 0xBF) {
+        if (c0 == 0xef && c1 == 0xbb && c2 == 0xbf) {
             return new UpdateRecorderBom(entry);
         }
-        else if (c0 === 0xFF && c1 == 0xFE) {
+        else if (c0 === 0xff && c1 == 0xfe) {
             return new UpdateRecorderBom(entry);
         }
-        else if (c0 === 0xFE && c1 == 0xFF) {
+        else if (c0 === 0xfe && c1 == 0xff) {
             return new UpdateRecorderBom(entry);
         }
         return new UpdateRecorderBase(entry);
     }
-    get path() { return this._path; }
+    get path() {
+        return this._path;
+    }
     // These just record changes.
     insertLeft(index, content) {
         this._content.insertLeft(index, typeof content == 'string' ? Buffer.from(content) : content);

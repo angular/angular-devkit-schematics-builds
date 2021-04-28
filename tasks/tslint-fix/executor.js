@@ -47,7 +47,7 @@ function _listAllFiles(root) {
     const result = [];
     function _recurse(location) {
         const dir = fs.readdirSync(path.join(root, location));
-        dir.forEach(name => {
+        dir.forEach((name) => {
             const loc = path.join(location, name);
             if (fs.statSync(path.join(root, loc)).isDirectory()) {
                 _recurse(loc);
@@ -65,12 +65,16 @@ function default_1() {
     return async (options = {}, context) => {
         const root = process.cwd();
         const tslint = await Promise.resolve().then(() => require('tslint')); // tslint:disable-line:no-implicit-dependencies
-        const includes = (Array.isArray(options.includes)
+        const includes = Array.isArray(options.includes)
             ? options.includes
-            : (options.includes ? [options.includes] : []));
-        const files = (Array.isArray(options.files)
+            : options.includes
+                ? [options.includes]
+                : [];
+        const files = Array.isArray(options.files)
             ? options.files
-            : (options.files ? [options.files] : []));
+            : options.files
+                ? [options.files]
+                : [];
         const Linter = tslint.Linter;
         const Configuration = tslint.Configuration;
         let program = undefined;
@@ -85,21 +89,21 @@ function default_1() {
         }
         if (includes.length > 0) {
             const allFilesRel = _listAllFiles(root);
-            const pattern = '^('
-                + includes
-                    .map(ex => '('
-                    + ex.split(/[\/\\]/g).map(f => f
+            const pattern = '^(' +
+                includes
+                    .map((ex) => '(' +
+                    ex
+                        .split(/[\/\\]/g)
+                        .map((f) => f
                         .replace(/[\-\[\]{}()+?.^$|]/g, '\\$&')
                         .replace(/^\*\*/g, '(.+?)?')
                         .replace(/\*/g, '[^/\\\\]*'))
-                        .join('[\/\\\\]')
-                    + ')')
-                    .join('|')
-                + ')($|/|\\\\)';
+                        .join('[/\\\\]') +
+                    ')')
+                    .join('|') +
+                ')($|/|\\\\)';
             const re = new RegExp(pattern);
-            filesToLint.push(...allFilesRel
-                .filter(x => re.test(x))
-                .map(x => path.join(root, x)));
+            filesToLint.push(...allFilesRel.filter((x) => re.test(x)).map((x) => path.join(root, x)));
         }
         const lintOptions = {
             fix: true,

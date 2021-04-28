@@ -22,8 +22,14 @@ class ExportStringRef {
             this._ref = require(this._module);
         }
     }
-    get ref() { return this._ref; }
-    get module() { return this._module; }
-    get path() { return this._path; }
+    get ref() {
+        return this._ref;
+    }
+    get module() {
+        return this._module;
+    }
+    get path() {
+        return this._path;
+    }
 }
 exports.ExportStringRef = ExportStringRef;

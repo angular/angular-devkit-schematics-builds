@@ -18,7 +18,7 @@ const tools_1 = require("../tools");
 class UnitTestTree extends src_1.DelegateTree {
     get files() {
         const result = [];
-        this.visit(path => result.push(path));
+        this.visit((path) => result.push(path));
         return result;
     }
     readContent(path) {
@@ -46,26 +46,34 @@ class SchematicTestRunner {
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.TslintFix);
         this._collection = this._engine.createCollection(this._collectionName);
     }
-    get engine() { return this._engine; }
-    get logger() { return this._logger; }
-    get tasks() { return [...this._engineHost.tasks]; }
+    get engine() {
+        return this._engine;
+    }
+    get logger() {
+        return this._logger;
+    }
+    get tasks() {
+        return [...this._engineHost.tasks];
+    }
     registerCollection(collectionName, collectionPath) {
         this._engineHost.registerCollection(collectionName, collectionPath);
     }
     runSchematicAsync(schematicName, opts, tree) {
         const schematic = this._collection.createSchematic(schematicName, true);
-        const host = rxjs_1.of(tree || new src_1.HostTree);
+        const host = rxjs_1.of(tree || new src_1.HostTree());
         this._engineHost.clearTasks();
-        return schematic.call(opts || {}, host, { logger: this._logger })
-            .pipe(operators_1.map(tree => new UnitTestTree(tree)));
+        return schematic
+            .call(opts || {}, host, { logger: this._logger })
+            .pipe(operators_1.map((tree) => new UnitTestTree(tree)));
     }
     runExternalSchematicAsync(collectionName, schematicName, opts, tree) {
         const externalCollection = this._engine.createCollection(collectionName);
         const schematic = externalCollection.createSchematic(schematicName, true);
-        const host = rxjs_1.of(tree || new src_1.HostTree);
+        const host = rxjs_1.of(tree || new src_1.HostTree());
         this._engineHost.clearTasks();
-        return schematic.call(opts || {}, host, { logger: this._logger })
-            .pipe(operators_1.map(tree => new UnitTestTree(tree)));
+        return schematic
+            .call(opts || {}, host, { logger: this._logger })
+            .pipe(operators_1.map((tree) => new UnitTestTree(tree)));
     }
     callRule(rule, tree, parentContext) {
         const context = this._engine.createContext({}, parentContext);

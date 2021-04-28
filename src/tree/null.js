@@ -13,7 +13,9 @@ const exception_1 = require("../exception/exception");
 const interface_1 = require("./interface");
 const recorder_1 = require("./recorder");
 class CannotCreateFileException extends core_1.BaseException {
-    constructor(path) { super(`Cannot create file "${path}".`); }
+    constructor(path) {
+        super(`Cannot create file "${path}".`);
+    }
 }
 exports.CannotCreateFileException = CannotCreateFileException;
 class NullTreeDirEntry {
@@ -28,7 +30,9 @@ class NullTreeDirEntry {
     dir(name) {
         return new NullTreeDirEntry(core_1.join(this.path, name));
     }
-    file(_name) { return null; }
+    file(_name) {
+        return null;
+    }
     visit() { }
 }
 exports.NullTreeDirEntry = NullTreeDirEntry;
@@ -44,19 +48,25 @@ class NullTree {
     }
     merge(_other, _strategy) { }
     // Simple readonly file system operations.
-    exists(_path) { return false; }
-    read(_path) { return null; }
-    get(_path) { return null; }
-    getDir(path) { return new NullTreeDirEntry(core_1.normalize('/' + path)); }
+    exists(_path) {
+        return false;
+    }
+    read(_path) {
+        return null;
+    }
+    get(_path) {
+        return null;
+    }
+    getDir(path) {
+        return new NullTreeDirEntry(core_1.normalize('/' + path));
+    }
     visit() { }
     // Change content of host files.
     beginUpdate(path) {
         throw new exception_1.FileDoesNotExistException(path);
     }
     commitUpdate(record) {
-        throw new exception_1.FileDoesNotExistException(record instanceof recorder_1.UpdateRecorderBase
-            ? record.path
-            : '<unknown>');
+        throw new exception_1.FileDoesNotExistException(record instanceof recorder_1.UpdateRecorderBase ? record.path : '<unknown>');
     }
     // Change structure of the host.
     copy(path, _to) {

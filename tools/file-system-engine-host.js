@@ -83,7 +83,7 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
         if (!super.hasTaskExecutor(name)) {
             try {
                 const path = require.resolve(path_1.join(this._root, name));
-                return rxjs_1.from(Promise.resolve().then(() => require(path)).then(mod => mod.default())).pipe(operators_1.catchError(() => rxjs_1.throwError(new src_1.UnregisteredTaskException(name))));
+                return rxjs_1.from(Promise.resolve().then(() => require(path)).then((mod) => mod.default())).pipe(operators_1.catchError(() => rxjs_1.throwError(new src_1.UnregisteredTaskException(name))));
             }
             catch { }
         }

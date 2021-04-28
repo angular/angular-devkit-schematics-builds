@@ -42,14 +42,14 @@ class Chunk {
         this._content = originalContent.slice(start, end);
     }
     get length() {
-        return (this._left ? this._left.length : 0)
-            + (this._content ? this._content.length : 0)
-            + (this._right ? this._right.length : 0);
+        return ((this._left ? this._left.length : 0) +
+            (this._content ? this._content.length : 0) +
+            (this._right ? this._right.length : 0));
     }
     toString(encoding = 'utf-8') {
-        return (this._left ? this._left.toString(encoding) : '')
-            + (this._content ? this._content.toString(encoding) : '')
-            + (this._right ? this._right.toString(encoding) : '');
+        return ((this._left ? this._left.toString(encoding) : '') +
+            (this._content ? this._content.toString(encoding) : '') +
+            (this._right ? this._right.toString(encoding) : ''));
     }
     slice(start) {
         if (start < this.start || start > this.end) {
@@ -179,7 +179,7 @@ class UpdateBuffer {
         const index = start >= this._originalContent.length ? start : this._getTextPosition(start);
         this._assertIndex(index);
         // Find the chunk by going through the list.
-        const h = this._linkedList.find(chunk => index <= chunk.end);
+        const h = this._linkedList.find((chunk) => index <= chunk.end);
         if (!h) {
             throw Error('Chunk cannot be found.');
         }
@@ -208,7 +208,7 @@ class UpdateBuffer {
     generate() {
         const result = Buffer.allocUnsafe(this.length);
         let i = 0;
-        this._linkedList.forEach(chunk => {
+        this._linkedList.forEach((chunk) => {
             chunk.copy(result, i);
             i += chunk.length;
         });

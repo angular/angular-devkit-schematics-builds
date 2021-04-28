@@ -19,8 +19,12 @@ class NodeModulesTestEngineHost extends node_module_engine_host_1.NodeModulesEng
         this._collections = new Map();
         this._tasks = [];
     }
-    get tasks() { return this._tasks; }
-    clearTasks() { this._tasks = []; }
+    get tasks() {
+        return this._tasks;
+    }
+    clearTasks() {
+        this._tasks = [];
+    }
     registerCollection(name, path) {
         this._collections.set(name, path);
     }

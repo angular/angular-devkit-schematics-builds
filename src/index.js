@@ -45,13 +45,19 @@ exports.formats = formats;
 const workflow = require("./workflow/index");
 exports.workflow = workflow;
 exports.Tree = {
-    empty() { return static_1.empty(); },
-    branch(tree) { return static_1.branch(tree); },
+    empty() {
+        return static_1.empty();
+    },
+    branch(tree) {
+        return static_1.branch(tree);
+    },
     merge(tree, other, strategy = interface_1.MergeStrategy.Default) {
         return static_1.merge(tree, other, strategy);
     },
     partition(tree, predicate) {
         return static_1.partition(tree, predicate);
     },
-    optimize(tree) { return tree; },
+    optimize(tree) {
+        return tree;
+    },
 };

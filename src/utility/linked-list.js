@@ -20,7 +20,9 @@ class LinkedList {
         }
         return c;
     }
-    get head() { return this._head; }
+    get head() {
+        return this._head;
+    }
     get length() {
         let c = this._head;
         let i = 0;

@@ -28,8 +28,7 @@ class FallbackEngineHost {
                 const description = host.createCollectionDescription(name, requester);
                 return { name, host, description };
             }
-            catch (_) {
-            }
+            catch (_) { }
         }
         throw new src_1.UnknownCollectionException(name);
     }
@@ -48,22 +47,20 @@ class FallbackEngineHost {
     }
     transformOptions(schematic, options, context) {
         // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
-        return (rxjs_1.of(options)
-            .pipe(...this._hosts
-            .map(host => operators_1.mergeMap((opt) => host.transformOptions(schematic, opt, context)))));
+        return rxjs_1.of(options).pipe(...this._hosts.map((host) => operators_1.mergeMap((opt) => host.transformOptions(schematic, opt, context))));
     }
     transformContext(context) {
         let result = context;
-        this._hosts.forEach(host => {
+        this._hosts.forEach((host) => {
             result = (host.transformContext(result) || result);
         });
         return result;
     }
     listSchematicNames(collection) {
         const allNames = new Set();
-        this._hosts.forEach(host => {
+        this._hosts.forEach((host) => {
             try {
-                host.listSchematicNames(collection.description).forEach(name => allNames.add(name));
+                host.listSchematicNames(collection.description).forEach((name) => allNames.add(name));
             }
             catch (_) { }
         });

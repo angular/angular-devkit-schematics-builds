@@ -25,9 +25,7 @@ function validateOptionsWithSchema(registry) {
         const withPrompts = context ? context.interactive : true;
         if (schematic.schema && schematic.schemaJson) {
             // Make a deep copy of options.
-            return registry
-                .compile(schematic.schemaJson)
-                .pipe(operators_1.mergeMap(validator => validator(options, { withPrompts })), operators_1.first(), operators_1.map(result => {
+            return registry.compile(schematic.schemaJson).pipe(operators_1.mergeMap((validator) => validator(options, { withPrompts })), operators_1.first(), operators_1.map((result) => {
                 if (!result.success) {
                     throw new InvalidInputOptions(options, result.errors || []);
                 }

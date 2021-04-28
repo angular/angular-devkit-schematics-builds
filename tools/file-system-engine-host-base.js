@@ -44,25 +44,33 @@ class FactoryCannotBeResolvedException extends core_1.BaseException {
 }
 exports.FactoryCannotBeResolvedException = FactoryCannotBeResolvedException;
 class CollectionMissingSchematicsMapException extends core_1.BaseException {
-    constructor(name) { super(`Collection "${name}" does not have a schematics map.`); }
+    constructor(name) {
+        super(`Collection "${name}" does not have a schematics map.`);
+    }
 }
 exports.CollectionMissingSchematicsMapException = CollectionMissingSchematicsMapException;
 class CollectionMissingFieldsException extends core_1.BaseException {
-    constructor(name) { super(`Collection "${name}" is missing fields.`); }
+    constructor(name) {
+        super(`Collection "${name}" is missing fields.`);
+    }
 }
 exports.CollectionMissingFieldsException = CollectionMissingFieldsException;
 class SchematicMissingFieldsException extends core_1.BaseException {
-    constructor(name) { super(`Schematic "${name}" is missing fields.`); }
+    constructor(name) {
+        super(`Schematic "${name}" is missing fields.`);
+    }
 }
 exports.SchematicMissingFieldsException = SchematicMissingFieldsException;
 class SchematicMissingDescriptionException extends core_1.BaseException {
-    constructor(name) { super(`Schematics "${name}" does not have a description.`); }
+    constructor(name) {
+        super(`Schematics "${name}" does not have a description.`);
+    }
 }
 exports.SchematicMissingDescriptionException = SchematicMissingDescriptionException;
 class SchematicNameCollisionException extends core_1.BaseException {
     constructor(name) {
-        super(`Schematics/alias ${JSON.stringify(name)} collides with another alias or schematic`
-            + ' name.');
+        super(`Schematics/alias ${JSON.stringify(name)} collides with another alias or schematic` +
+            ' name.');
     }
 }
 exports.SchematicNameCollisionException = SchematicNameCollisionException;
@@ -156,8 +164,7 @@ class FileSystemEngineHostBase {
         if (partialDesc.extends) {
             const index = partialDesc.extends.indexOf(':');
             const collectionName = index !== -1 ? partialDesc.extends.substr(0, index) : null;
-            const schematicName = index === -1 ?
-                partialDesc.extends : partialDesc.extends.substr(index + 1);
+            const schematicName = index === -1 ? partialDesc.extends : partialDesc.extends.substr(index + 1);
             if (collectionName !== null) {
                 const extendCollection = this.createCollectionDescription(collectionName);
                 return this.createSchematicDescription(schematicName, extendCollection);
@@ -189,8 +196,7 @@ class FileSystemEngineHostBase {
         // This is needed because on Bazel under Windows the data files (such as the collection or
         // url files) are not in the same place as the compiled JS.
         const maybePath = path_1.join(collectionPath, partialDesc.factory);
-        const path = fs_1.existsSync(maybePath) && fs_1.statSync(maybePath).isDirectory()
-            ? maybePath : path_1.dirname(maybePath);
+        const path = fs_1.existsSync(maybePath) && fs_1.statSync(maybePath).isDirectory() ? maybePath : path_1.dirname(maybePath);
         return this._transformSchematicDescription(name, collection, {
             ...partialDesc,
             schema,
@@ -224,7 +230,9 @@ class FileSystemEngineHostBase {
             let transformedOptions = options;
             for (const transformer of this._transforms) {
                 const transformerResult = transformer(schematic, transformedOptions, context);
-                transformedOptions = await (rxjs_1.isObservable(transformerResult) ? transformerResult.toPromise() : transformerResult);
+                transformedOptions = await (rxjs_1.isObservable(transformerResult)
+                    ? transformerResult.toPromise()
+                    : transformerResult);
             }
             return transformedOptions;
         };
