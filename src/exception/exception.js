@@ -15,11 +15,15 @@ class SchematicsException extends core_1.BaseException {
 exports.SchematicsException = SchematicsException;
 // Exceptions
 class FileDoesNotExistException extends core_1.BaseException {
-    constructor(path) { super(`Path "${path}" does not exist.`); }
+    constructor(path) {
+        super(`Path "${path}" does not exist.`);
+    }
 }
 exports.FileDoesNotExistException = FileDoesNotExistException;
 class FileAlreadyExistException extends core_1.BaseException {
-    constructor(path) { super(`Path "${path}" already exist.`); }
+    constructor(path) {
+        super(`Path "${path}" already exist.`);
+    }
 }
 exports.FileAlreadyExistException = FileAlreadyExistException;
 class ContentHasMutatedException extends core_1.BaseException {
@@ -29,7 +33,9 @@ class ContentHasMutatedException extends core_1.BaseException {
 }
 exports.ContentHasMutatedException = ContentHasMutatedException;
 class InvalidUpdateRecordException extends core_1.BaseException {
-    constructor() { super(`Invalid record instance.`); }
+    constructor() {
+        super(`Invalid record instance.`);
+    }
 }
 exports.InvalidUpdateRecordException = InvalidUpdateRecordException;
 class MergeConflictException extends core_1.BaseException {
@@ -45,6 +51,8 @@ class UnsuccessfulWorkflowExecution extends core_1.BaseException {
 }
 exports.UnsuccessfulWorkflowExecution = UnsuccessfulWorkflowExecution;
 class UnimplementedException extends core_1.BaseException {
-    constructor() { super('This function is unimplemented.'); }
+    constructor() {
+        super('This function is unimplemented.');
+    }
 }
 exports.UnimplementedException = UnimplementedException;

@@ -29,21 +29,21 @@ class DryRunSink extends host_1.HostSink {
         this._fileDoesNotExistExceptionSet.add(path);
     }
     _done() {
-        this._fileAlreadyExistExceptionSet.forEach(path => {
+        this._fileAlreadyExistExceptionSet.forEach((path) => {
             this._subject.next({
                 kind: 'error',
                 description: 'alreadyExist',
                 path,
             });
         });
-        this._fileDoesNotExistExceptionSet.forEach(path => {
+        this._fileDoesNotExistExceptionSet.forEach((path) => {
             this._subject.next({
                 kind: 'error',
                 description: 'doesNotExist',
                 path,
             });
         });
-        this._filesToDelete.forEach(path => {
+        this._filesToDelete.forEach((path) => {
             // Check if this is a renaming.
             for (const [from] of this._filesToRename) {
                 if (from == path) {
@@ -64,8 +64,8 @@ class DryRunSink extends host_1.HostSink {
                     return;
                 }
             }
-            if (this._fileAlreadyExistExceptionSet.has(path)
-                || this._fileDoesNotExistExceptionSet.has(path)) {
+            if (this._fileAlreadyExistExceptionSet.has(path) ||
+                this._fileDoesNotExistExceptionSet.has(path)) {
                 return;
             }
             this._subject.next({ kind: 'create', path, content: content.generate() });

@@ -43,7 +43,7 @@ exports.chain = chain;
  * Apply multiple rules to a source, and returns the source transformed.
  */
 function apply(source, rules) {
-    return context => call_1.callRule(chain(rules), call_1.callSource(source, context), context);
+    return (context) => call_1.callRule(chain(rules), call_1.callSource(source, context), context);
 }
 exports.apply = apply;
 /**
@@ -51,7 +51,7 @@ exports.apply = apply;
  */
 function mergeWith(source, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        return call_1.callSource(source, context).pipe(operators_1.map(sourceTree => tree.merge(sourceTree, strategy || context.strategy)), operators_1.mapTo(tree));
+        return call_1.callSource(source, context).pipe(operators_1.map((sourceTree) => tree.merge(sourceTree, strategy || context.strategy)), operators_1.mapTo(tree));
     };
 }
 exports.mergeWith = mergeWith;
@@ -60,23 +60,23 @@ function noop() {
 }
 exports.noop = noop;
 function filter(predicate) {
-    return ((tree) => {
+    return (tree) => {
         if (host_tree_1.HostTree.isHostTree(tree)) {
             return new host_tree_1.FilterHostTree(tree, predicate);
         }
         else {
             throw new exception_1.SchematicsException('Tree type is not supported.');
         }
-    });
+    };
 }
 exports.filter = filter;
 function asSource(rule) {
-    return context => call_1.callRule(rule, static_1.empty(), context);
+    return (context) => call_1.callRule(rule, static_1.empty(), context);
 }
 exports.asSource = asSource;
 function branchAndMerge(rule, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        return call_1.callRule(rule, tree.branch(), context).pipe(operators_1.map(branch => tree.merge(branch, strategy || context.strategy)), operators_1.mapTo(tree));
+        return call_1.callRule(rule, tree.branch(), context).pipe(operators_1.map((branch) => tree.merge(branch, strategy || context.strategy)), operators_1.mapTo(tree));
     };
 }
 exports.branchAndMerge = branchAndMerge;
@@ -142,7 +142,7 @@ exports.composeFileOperators = composeFileOperators;
 function applyToSubtree(path, rules) {
     return (tree, context) => {
         const scoped = new scoped_1.ScopedTree(tree, path);
-        return call_1.callRule(chain(rules), scoped, context).pipe(operators_1.map(result => {
+        return call_1.callRule(chain(rules), scoped, context).pipe(operators_1.map((result) => {
             if (result === scoped) {
                 return tree;
             }

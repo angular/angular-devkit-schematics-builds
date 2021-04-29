@@ -63,7 +63,7 @@ class HostSink extends sink_1.SimpleSinkBase {
     }
     _done() {
         // Really commit everything to the actual filesystem.
-        return rxjs_1.concat(rxjs_1.from([...this._filesToDelete.values()]).pipe(operators_1.concatMap(path => this._host.delete(path))), rxjs_1.from([...this._filesToRename.entries()]).pipe(operators_1.concatMap(([_, [path, to]]) => this._host.rename(path, to))), rxjs_1.from([...this._filesToCreate.entries()]).pipe(operators_1.concatMap(([path, buffer]) => {
+        return rxjs_1.concat(rxjs_1.from([...this._filesToDelete.values()]).pipe(operators_1.concatMap((path) => this._host.delete(path))), rxjs_1.from([...this._filesToRename.entries()]).pipe(operators_1.concatMap(([_, [path, to]]) => this._host.rename(path, to))), rxjs_1.from([...this._filesToCreate.entries()]).pipe(operators_1.concatMap(([path, buffer]) => {
             return this._host.write(path, buffer.generate());
         })), rxjs_1.from([...this._filesToUpdate.entries()]).pipe(operators_1.concatMap(([path, buffer]) => {
             return this._host.write(path, buffer.generate());

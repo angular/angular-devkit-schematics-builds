@@ -10,7 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAction = exports.isContentAction = exports.ActionList = exports.UnknownActionException = void 0;
 const core_1 = require("@angular-devkit/core");
 class UnknownActionException extends core_1.BaseException {
-    constructor(action) { super(`Unknown action: "${action.kind}".`); }
+    constructor(action) {
+        super(`Unknown action: "${action.kind}".`);
+    }
 }
 exports.UnknownActionException = UnknownActionException;
 let _id = 1;
@@ -87,7 +89,7 @@ class ActionList {
             }
         }
         this._actions = [];
-        toDelete.forEach(x => {
+        toDelete.forEach((x) => {
             this.delete(x);
         });
         toRename.forEach((to, from) => {
@@ -100,8 +102,12 @@ class ActionList {
             this.overwrite(path, content);
         });
     }
-    push(action) { this._actions.push(action); }
-    get(i) { return this._actions[i]; }
+    push(action) {
+        this._actions.push(action);
+    }
+    get(i) {
+        return this._actions[i];
+    }
     has(action) {
         for (let i = 0; i < this._actions.length; i++) {
             const a = this._actions[i];
@@ -120,8 +126,12 @@ class ActionList {
     forEach(fn, thisArg) {
         this._actions.forEach(fn, thisArg);
     }
-    get length() { return this._actions.length; }
-    [Symbol.iterator]() { return this._actions[Symbol.iterator](); }
+    get length() {
+        return this._actions.length;
+    }
+    [Symbol.iterator]() {
+        return this._actions[Symbol.iterator]();
+    }
 }
 exports.ActionList = ActionList;
 function isContentAction(action) {
@@ -131,11 +141,12 @@ exports.isContentAction = isContentAction;
 /**
  * @deprecated since version 11.0. not used anymore can be removed in future version.
  */
+// tslint:disable-next-line:no-any
 function isAction(action) {
     const kind = action && action.kind;
-    return action !== null
-        && typeof action.id == 'number'
-        && typeof action.path == 'string'
-        && (kind == 'c' || kind == 'o' || kind == 'r' || kind == 'd');
+    return (action !== null &&
+        typeof action.id == 'number' &&
+        typeof action.path == 'string' &&
+        (kind == 'c' || kind == 'o' || kind == 'r' || kind == 'd'));
 }
 exports.isAction = isAction;

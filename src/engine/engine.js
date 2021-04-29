@@ -16,11 +16,15 @@ const null_1 = require("../tree/null");
 const static_1 = require("../tree/static");
 const schematic_1 = require("./schematic");
 class UnknownUrlSourceProtocol extends core_1.BaseException {
-    constructor(url) { super(`Unknown Protocol on url "${url}".`); }
+    constructor(url) {
+        super(`Unknown Protocol on url "${url}".`);
+    }
 }
 exports.UnknownUrlSourceProtocol = UnknownUrlSourceProtocol;
 class UnknownCollectionException extends core_1.BaseException {
-    constructor(name) { super(`Unknown collection "${name}".`); }
+    constructor(name) {
+        super(`Unknown collection "${name}".`);
+    }
 }
 exports.UnknownCollectionException = UnknownCollectionException;
 class CircularCollectionException extends core_1.BaseException {
@@ -42,7 +46,9 @@ class PrivateSchematicException extends core_1.BaseException {
 }
 exports.PrivateSchematicException = PrivateSchematicException;
 class SchematicEngineConflictingException extends core_1.BaseException {
-    constructor() { super(`A schematic was called from a different engine as its parent.`); }
+    constructor() {
+        super(`A schematic was called from a different engine as its parent.`);
+    }
 }
 exports.SchematicEngineConflictingException = SchematicEngineConflictingException;
 class UnregisteredTaskException extends core_1.BaseException {
@@ -64,8 +70,12 @@ class CollectionImpl {
         this._engine = _engine;
         this.baseDescriptions = baseDescriptions;
     }
-    get description() { return this._description; }
-    get name() { return this.description.name || '<unknown>'; }
+    get description() {
+        return this._description;
+    }
+    get name() {
+        return this.description.name || '<unknown>';
+    }
     createSchematic(name, allowPrivate = false) {
         return this._engine.createSchematic(name, this, allowPrivate);
     }
@@ -91,7 +101,7 @@ class TaskScheduler {
         if (!dependencies) {
             return new Set();
         }
-        const tasks = dependencies.map(dep => {
+        const tasks = dependencies.map((dep) => {
             const task = this._taskIds.get(dep);
             if (!task) {
                 throw new UnknownTaskDependencyException(dep);
@@ -131,8 +141,12 @@ class SchematicEngine {
         this._schematicCache = new WeakMap();
         this._taskSchedulers = new Array();
     }
-    get workflow() { return this._workflow || null; }
-    get defaultMergeStrategy() { return this._host.defaultMergeStrategy || interface_1.MergeStrategy.Default; }
+    get workflow() {
+        return this._workflow || null;
+    }
+    get defaultMergeStrategy() {
+        return this._host.defaultMergeStrategy || interface_1.MergeStrategy.Default;
+    }
     createCollection(name, requester) {
         let collection = this._collectionCache.get(name);
         if (collection) {
@@ -175,13 +189,12 @@ class SchematicEngine {
             interactive = parent.interactive;
         }
         let context = {
-            debug: parent && parent.debug || false,
+            debug: (parent && parent.debug) || false,
             engine: this,
-            logger: (parent && parent.logger && parent.logger.createChild(schematic.description.name))
-                || new core_1.logging.NullLogger(),
+            logger: (parent && parent.logger && parent.logger.createChild(schematic.description.name)) ||
+                new core_1.logging.NullLogger(),
             schematic,
-            strategy: (parent && parent.strategy !== undefined)
-                ? parent.strategy : this.defaultMergeStrategy,
+            strategy: parent && parent.strategy !== undefined ? parent.strategy : this.defaultMergeStrategy,
             interactive,
             addTask,
         };
@@ -251,8 +264,10 @@ class SchematicEngine {
     }
     createSourceFromUrl(url, context) {
         switch (url.protocol) {
-            case 'null:': return () => new null_1.NullTree();
-            case 'empty:': return () => static_1.empty();
+            case 'null:':
+                return () => new null_1.NullTree();
+            case 'empty:':
+                return () => static_1.empty();
             default:
                 const hostSource = this._host.createSourceFromUrl(url, context);
                 if (!hostSource) {
@@ -263,15 +278,13 @@ class SchematicEngine {
     }
     executePostTasks() {
         const executors = new Map();
-        const taskObservable = rxjs_1.from(this._taskSchedulers)
-            .pipe(operators_1.concatMap(scheduler => scheduler.finalize()), operators_1.concatMap(task => {
+        const taskObservable = rxjs_1.from(this._taskSchedulers).pipe(operators_1.concatMap((scheduler) => scheduler.finalize()), operators_1.concatMap((task) => {
             const { name, options } = task.configuration;
             const executor = executors.get(name);
             if (executor) {
                 return executor(options, task.context);
             }
-            return this._host.createTaskExecutor(name)
-                .pipe(operators_1.concatMap(executor => {
+            return this._host.createTaskExecutor(name).pipe(operators_1.concatMap((executor) => {
                 executors.set(name, executor);
                 return executor(options, task.context);
             }));

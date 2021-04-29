@@ -10,6 +10,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmptyTree = void 0;
 const host_tree_1 = require("./host-tree");
 class EmptyTree extends host_tree_1.HostTree {
-    constructor() { super(); }
+    constructor() {
+        super();
+    }
 }
 exports.EmptyTree = EmptyTree;

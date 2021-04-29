@@ -26,12 +26,14 @@ class HostDirEntry {
         this._tree = _tree;
     }
     get subdirs() {
-        return this._host.list(this.path)
-            .filter(fragment => this._host.isDirectory(core_1.join(this.path, fragment)));
+        return this._host
+            .list(this.path)
+            .filter((fragment) => this._host.isDirectory(core_1.join(this.path, fragment)));
     }
     get subfiles() {
-        return this._host.list(this.path)
-            .filter(fragment => this._host.isFile(core_1.join(this.path, fragment)));
+        return this._host
+            .list(this.path)
+            .filter((fragment) => this._host.isFile(core_1.join(this.path, fragment)));
     }
     dir(name) {
         return this._tree.getDir(core_1.join(this.path, name));
@@ -41,7 +43,7 @@ class HostDirEntry {
     }
     visit(visitor) {
         try {
-            this.getSubfilesRecursively().forEach(file => visitor(file.path, file));
+            this.getSubfilesRecursively().forEach((file) => visitor(file.path, file));
         }
         catch (e) {
             if (e !== interface_1.FileVisitorCancelToken) {
@@ -51,10 +53,7 @@ class HostDirEntry {
     }
     getSubfilesRecursively() {
         function _recurse(entry) {
-            return entry.subdirs.reduce((files, subdir) => [
-                ...files,
-                ..._recurse(entry.dir(subdir)),
-            ], entry.subfiles.map(subfile => entry.file(subfile)));
+            return entry.subdirs.reduce((files, subdir) => [...files, ..._recurse(entry.dir(subdir))], entry.subfiles.map((subfile) => entry.file(subfile)));
         }
         return _recurse(this);
     }
@@ -128,7 +127,7 @@ class HostTree {
         const creationConflictAllowed = (strategy & interface_1.MergeStrategy.AllowCreationConflict) == interface_1.MergeStrategy.AllowCreationConflict;
         const overwriteConflictAllowed = (strategy & interface_1.MergeStrategy.AllowOverwriteConflict) == interface_1.MergeStrategy.AllowOverwriteConflict;
         const deleteConflictAllowed = (strategy & interface_1.MergeStrategy.AllowDeleteConflict) == interface_1.MergeStrategy.AllowDeleteConflict;
-        other.actions.forEach(action => {
+        other.actions.forEach((action) => {
             switch (action.kind) {
                 case 'c': {
                     const { path, content } = action;
@@ -347,7 +346,7 @@ class HostCreateTree extends HostTree {
     constructor(host) {
         super();
         const tempHost = new HostTree(host);
-        tempHost.visit(path => {
+        tempHost.visit((path) => {
             const content = tempHost.read(path);
             if (content) {
                 this.create(path, content);
@@ -361,21 +360,20 @@ class FilterHostTree extends HostTree {
         const newBackend = new core_1.virtualFs.SimpleMemoryHost();
         // cast to allow access
         const originalBackend = tree._backend;
-        const recurse = base => {
-            return originalBackend.list(base)
-                .pipe(operators_1.mergeMap(x => x), operators_1.map(path => core_1.join(base, path)), operators_1.concatMap(path => {
+        const recurse = (base) => {
+            return originalBackend.list(base).pipe(operators_1.mergeMap((x) => x), operators_1.map((path) => core_1.join(base, path)), operators_1.concatMap((path) => {
                 let isDirectory = false;
-                originalBackend.isDirectory(path).subscribe(val => isDirectory = val);
+                originalBackend.isDirectory(path).subscribe((val) => (isDirectory = val));
                 if (isDirectory) {
                     return recurse(path);
                 }
                 let isFile = false;
-                originalBackend.isFile(path).subscribe(val => isFile = val);
+                originalBackend.isFile(path).subscribe((val) => (isFile = val));
                 if (!isFile || !filter(path)) {
                     return rxjs_1.EMPTY;
                 }
                 let content = null;
-                originalBackend.read(path).subscribe(val => content = val);
+                originalBackend.read(path).subscribe((val) => (content = val));
                 if (!content) {
                     return rxjs_1.EMPTY;
                 }

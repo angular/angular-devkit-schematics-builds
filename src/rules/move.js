@@ -20,14 +20,14 @@ function move(from, to) {
     if (fromPath === toPath) {
         return base_1.noop;
     }
-    return tree => {
+    return (tree) => {
         if (tree.exists(fromPath)) {
             // fromPath is a file
             tree.rename(fromPath, toPath);
         }
         else {
             // fromPath is a directory
-            tree.getDir(fromPath).visit(path => {
+            tree.getDir(fromPath).visit((path) => {
                 tree.rename(path, core_1.join(toPath, path.substr(fromPath.length)));
             });
         }

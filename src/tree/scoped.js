@@ -19,7 +19,9 @@ class ScopedFileEntry {
     get path() {
         return core_1.join(core_1.NormalizedRoot, core_1.relative(this.scope, this._base.path));
     }
-    get content() { return this._base.content; }
+    get content() {
+        return this._base.content;
+    }
 }
 class ScopedDirEntry {
     constructor(_base, scope) {
@@ -61,20 +63,28 @@ class ScopedTree {
         const normalizedScope = core_1.normalize('/' + scope);
         this._root = new ScopedDirEntry(this._base.getDir(normalizedScope), normalizedScope);
     }
-    get root() { return this._root; }
-    branch() { return new ScopedTree(this._base.branch(), this._root.scope); }
+    get root() {
+        return this._root;
+    }
+    branch() {
+        return new ScopedTree(this._base.branch(), this._root.scope);
+    }
     merge(other, strategy) {
         const self = this;
-        const delegate = new class extends delegate_1.DelegateTree {
+        const delegate = new (class extends delegate_1.DelegateTree {
             get actions() {
-                return other.actions.map(action => self._fullPathAction(action));
+                return other.actions.map((action) => self._fullPathAction(action));
             }
-        }(other);
+        })(other);
         this._base.merge(delegate, strategy);
     }
     // Readonly.
-    read(path) { return this._base.read(this._fullPath(path)); }
-    exists(path) { return this._base.exists(this._fullPath(path)); }
+    read(path) {
+        return this._base.read(this._fullPath(path));
+    }
+    exists(path) {
+        return this._base.exists(this._fullPath(path));
+    }
     get(path) {
         const entry = this._base.get(this._fullPath(path));
         return entry && new ScopedFileEntry(entry, this._root.scope);
@@ -83,7 +93,9 @@ class ScopedTree {
         const entry = this._base.getDir(this._fullPath(path));
         return entry && new ScopedDirEntry(entry, this._root.scope);
     }
-    visit(visitor) { return this._root.visit(visitor); }
+    visit(visitor) {
+        return this._root.visit(visitor);
+    }
     // Change content of host files.
     overwrite(path, content) {
         return this._base.overwrite(this._fullPath(path), content);
@@ -91,12 +103,16 @@ class ScopedTree {
     beginUpdate(path) {
         return this._base.beginUpdate(this._fullPath(path));
     }
-    commitUpdate(record) { return this._base.commitUpdate(record); }
+    commitUpdate(record) {
+        return this._base.commitUpdate(record);
+    }
     // Structural methods.
     create(path, content) {
         return this._base.create(this._fullPath(path), content);
     }
-    delete(path) { return this._base.delete(this._fullPath(path)); }
+    delete(path) {
+        return this._base.delete(this._fullPath(path));
+    }
     rename(from, to) {
         return this._base.rename(this._fullPath(from), this._fullPath(to));
     }
