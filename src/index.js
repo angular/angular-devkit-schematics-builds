@@ -18,8 +18,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tree = exports.workflow = exports.formats = exports.SchematicsException = void 0;
+const formats = require("./formats/index");
+exports.formats = formats;
 const interface_1 = require("./tree/interface");
 const static_1 = require("./tree/static");
+const workflow = require("./workflow/index");
+exports.workflow = workflow;
 var exception_1 = require("./exception/exception");
 Object.defineProperty(exports, "SchematicsException", { enumerable: true, get: function () { return exception_1.SchematicsException; } });
 __exportStar(require("./tree/action"), exports);
@@ -40,10 +44,6 @@ __exportStar(require("./engine/schematic"), exports);
 __exportStar(require("./sink/dryrun"), exports);
 __exportStar(require("./sink/host"), exports);
 __exportStar(require("./sink/sink"), exports);
-const formats = require("./formats/index");
-exports.formats = formats;
-const workflow = require("./workflow/index");
-exports.workflow = workflow;
 exports.Tree = {
     empty() {
         return static_1.empty();

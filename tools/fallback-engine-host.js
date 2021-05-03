@@ -46,7 +46,7 @@ class FallbackEngineHost {
         return context.schematic.collection.description.host.createSourceFromUrl(url, context);
     }
     transformOptions(schematic, options, context) {
-        // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return rxjs_1.of(options).pipe(...this._hosts.map((host) => operators_1.mergeMap((opt) => host.transformOptions(schematic, opt, context))));
     }
     transformContext(context) {

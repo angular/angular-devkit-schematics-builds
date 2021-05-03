@@ -23,6 +23,7 @@ var MergeStrategy;
     // Overwrite everything with the latest change.
     MergeStrategy[MergeStrategy["Overwrite"] = 14] = "Overwrite";
 })(MergeStrategy = exports.MergeStrategy || (exports.MergeStrategy = {}));
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
 exports.FileVisitorCancelToken = Symbol();
 exports.TreeSymbol = (function () {
     const globalSymbol = (typeof window == 'object' && window.window === window && window.Symbol) ||
@@ -36,6 +37,7 @@ exports.TreeSymbol = (function () {
     }
     return globalSymbol.schematicTree;
 })();
+// eslint-disable-next-line @typescript-eslint/no-namespace
 var Tree;
 (function (Tree) {
     function isTree(maybeTree) {
