@@ -141,7 +141,7 @@ exports.isContentAction = isContentAction;
 /**
  * @deprecated since version 11.0. not used anymore can be removed in future version.
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isAction(action) {
     const kind = action && action.kind;
     return (action !== null &&

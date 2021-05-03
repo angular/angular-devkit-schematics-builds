@@ -70,6 +70,7 @@ class ScopedTree {
         return new ScopedTree(this._base.branch(), this._root.scope);
     }
     merge(other, strategy) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
         const delegate = new (class extends delegate_1.DelegateTree {
             get actions() {

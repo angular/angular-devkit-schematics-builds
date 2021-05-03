@@ -23,7 +23,6 @@ export declare type FallbackContext = TypedSchematicContext<FallbackCollectionDe
  */
 export declare class FallbackEngineHost implements EngineHost<{}, {}> {
     private _hosts;
-    constructor();
     addHost<CollectionT extends object, SchematicT extends object>(host: EngineHost<CollectionT, SchematicT>): void;
     createCollectionDescription(name: string, requester?: CollectionDescription<{}>): CollectionDescription<FallbackCollectionDescription>;
     createSchematicDescription(name: string, collection: CollectionDescription<FallbackCollectionDescription>): SchematicDescription<FallbackCollectionDescription, FallbackSchematicDescription> | null;

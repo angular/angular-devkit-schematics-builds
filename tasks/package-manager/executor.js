@@ -67,7 +67,7 @@ function default_1(factoryOptions = {}) {
         }
         const bufferedOutput = [];
         const spawnOptions = {
-            stdio: !!options.hideOutput ? 'pipe' : 'inherit',
+            stdio: options.hideOutput ? 'pipe' : 'inherit',
             shell: true,
             cwd: path.join(rootDirectory, options.workingDirectory || ''),
         };

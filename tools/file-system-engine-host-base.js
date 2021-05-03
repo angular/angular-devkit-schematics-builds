@@ -80,7 +80,7 @@ exports.SchematicNameCollisionException = SchematicNameCollisionException;
  */
 class FileSystemEngineHostBase {
     constructor() {
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this._transforms = [];
         this._contextTransforms = [];
         this._taskFactories = new Map();
@@ -239,7 +239,6 @@ class FileSystemEngineHostBase {
         return rxjs_1.from(transform());
     }
     transformContext(context) {
-        // tslint:disable-next-line:no-any https://github.com/ReactiveX/rxjs/issues/3989
         return this._contextTransforms.reduce((acc, curr) => curr(acc), context);
     }
     getSchematicRuleFactory(schematic, _collection) {
