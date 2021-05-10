@@ -14,6 +14,7 @@ export interface NodeWorkflowOptions {
     force?: boolean;
     dryRun?: boolean;
     packageManager?: string;
+    packageManagerForce?: boolean;
     packageRegistry?: string;
     registry?: schema.CoreSchemaRegistry;
     resolvePaths?: string[];

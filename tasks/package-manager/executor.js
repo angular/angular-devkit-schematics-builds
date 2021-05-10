@@ -87,6 +87,9 @@ function default_1(factoryOptions = {}) {
         if (factoryOptions.registry) {
             args.push(`--registry="${factoryOptions.registry}"`);
         }
+        if (factoryOptions.force) {
+            args.push('--force');
+        }
         return new rxjs_1.Observable((obs) => {
             var _a, _b;
             const spinner = ora({
