@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#123735eeb",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#2608a0661",
     "ora": "5.4.0",
     "rxjs": "6.6.7"
   },
