@@ -6,6 +6,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystemEngineHost = void 0;
 const fs_1 = require("fs");
@@ -83,7 +102,8 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
         if (!super.hasTaskExecutor(name)) {
             try {
                 const path = require.resolve(path_1.join(this._root, name));
-                return rxjs_1.from(Promise.resolve().then(() => require(path)).then((mod) => mod.default())).pipe(operators_1.catchError(() => rxjs_1.throwError(new src_1.UnregisteredTaskException(name))));
+                // Default handling code is for old tasks that incorrectly export `default` with non-ESM module
+                return rxjs_1.from(Promise.resolve().then(() => __importStar(require(path))).then((mod) => { var _a; return (((_a = mod.default) === null || _a === void 0 ? void 0 : _a.default) || mod.default)(); })).pipe(operators_1.catchError(() => rxjs_1.throwError(new src_1.UnregisteredTaskException(name))));
             }
             catch { }
         }
