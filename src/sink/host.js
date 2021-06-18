@@ -29,15 +29,18 @@ class HostSink extends sink_1.SimpleSinkBase {
         if (this._filesToCreate.has(p) || this._filesToUpdate.has(p)) {
             return rxjs_1.of(true);
         }
-        else if (this._filesToDelete.has(p)) {
+        if (this._filesToDelete.has(p)) {
             return rxjs_1.of(false);
         }
-        else if ([...this._filesToRename.values()].some(([from]) => from == p)) {
-            return rxjs_1.of(false);
+        for (const [from, to] of this._filesToRename.values()) {
+            switch (p) {
+                case from:
+                    return rxjs_1.of(false);
+                case to:
+                    return rxjs_1.of(true);
+            }
         }
-        else {
-            return this._host.exists(p);
-        }
+        return this._host.exists(p);
     }
     _overwriteFile(path, content) {
         this._filesToUpdate.set(path, new update_buffer_1.UpdateBuffer(content));
