@@ -30,7 +30,6 @@ exports.BuiltinTaskExecutor = void 0;
 const options_1 = require("../package-manager/options");
 const options_2 = require("../repo-init/options");
 const options_3 = require("../run-schematic/options");
-const options_4 = require("../tslint-fix/options");
 class BuiltinTaskExecutor {
 }
 exports.BuiltinTaskExecutor = BuiltinTaskExecutor;
@@ -45,9 +44,4 @@ BuiltinTaskExecutor.RepositoryInitializer = {
 BuiltinTaskExecutor.RunSchematic = {
     name: options_3.RunSchematicName,
     create: () => Promise.resolve().then(() => __importStar(require('../run-schematic/executor'))).then((mod) => mod.default()),
-};
-/** @deprecated since version 11. Use `ng lint --fix` directly instead. */
-BuiltinTaskExecutor.TslintFix = {
-    name: options_4.TslintFixName,
-    create: () => Promise.resolve().then(() => __importStar(require('../tslint-fix/executor'))).then((mod) => mod.default()),
 };

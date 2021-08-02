@@ -49,7 +49,6 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             rootDirectory: root && core_1.getSystemPath(root),
         });
         engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.RunSchematic);
-        engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.TslintFix);
         if (options.optionTransforms) {
             for (const transform of options.optionTransforms) {
                 engineHost.registerOptionsTransform(transform);

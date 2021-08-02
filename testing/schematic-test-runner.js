@@ -43,7 +43,6 @@ class SchematicTestRunner {
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.NodePackage);
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RepositoryInitializer);
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RunSchematic);
-        this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.TslintFix);
         this._collection = this._engine.createCollection(this._collectionName);
     }
     get engine() {

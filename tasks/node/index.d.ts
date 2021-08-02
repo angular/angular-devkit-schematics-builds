@@ -12,6 +12,4 @@ export declare class BuiltinTaskExecutor {
     static readonly NodePackage: TaskExecutorFactory<NodePackageTaskFactoryOptions>;
     static readonly RepositoryInitializer: TaskExecutorFactory<RepositoryInitializerTaskFactoryOptions>;
     static readonly RunSchematic: TaskExecutorFactory<{}>;
-    /** @deprecated since version 11. Use `ng lint --fix` directly instead. */
-    static readonly TslintFix: TaskExecutorFactory<{}>;
 }
