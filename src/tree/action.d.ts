@@ -33,10 +33,6 @@ export declare class ActionList implements Iterable<Action> {
     [Symbol.iterator](): IterableIterator<Action>;
 }
 export declare function isContentAction(action: Action): action is CreateFileAction | OverwriteFileAction;
-/**
- * @deprecated since version 11.0. not used anymore can be removed in future version.
- */
-export declare function isAction(action: any): action is Action;
 export interface CreateFileAction extends ActionBase {
     readonly kind: 'c';
     readonly content: Buffer;
