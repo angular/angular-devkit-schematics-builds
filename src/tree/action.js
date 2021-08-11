@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isAction = exports.isContentAction = exports.ActionList = exports.UnknownActionException = void 0;
+exports.isContentAction = exports.ActionList = exports.UnknownActionException = void 0;
 const core_1 = require("@angular-devkit/core");
 class UnknownActionException extends core_1.BaseException {
     constructor(action) {
@@ -138,15 +138,3 @@ function isContentAction(action) {
     return action.kind == 'c' || action.kind == 'o';
 }
 exports.isContentAction = isContentAction;
-/**
- * @deprecated since version 11.0. not used anymore can be removed in future version.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isAction(action) {
-    const kind = action && action.kind;
-    return (action !== null &&
-        typeof action.id == 'number' &&
-        typeof action.path == 'string' &&
-        (kind == 'c' || kind == 'o' || kind == 'r' || kind == 'd'));
-}
-exports.isAction = isAction;
