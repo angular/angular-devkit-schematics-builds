@@ -78,8 +78,19 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
     }
     _resolveCollectionPath(name, requester) {
         const collectionPath = this.resolve(name, requester);
-        file_system_utility_1.readJsonFile(collectionPath);
-        return collectionPath;
+        try {
+            file_system_utility_1.readJsonFile(collectionPath);
+            return collectionPath;
+        }
+        catch (e) {
+            if (e instanceof core_1.InvalidJsonCharacterException ||
+                e instanceof core_1.UnexpectedEndOfInputException) {
+                throw new file_system_engine_host_base_1.InvalidCollectionJsonException(name, collectionPath, e);
+            }
+            else {
+                throw e;
+            }
+        }
     }
     _resolveReferenceString(refString, parentPath) {
         const ref = new export_ref_1.ExportStringRef(refString, parentPath);
