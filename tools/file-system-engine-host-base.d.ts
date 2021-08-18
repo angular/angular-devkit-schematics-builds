@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { BaseException, InvalidJsonCharacterException, UnexpectedEndOfInputException } from '@angular-devkit/core';
+import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
@@ -17,7 +17,7 @@ export declare class CollectionCannotBeResolvedException extends BaseException {
     constructor(name: string);
 }
 export declare class InvalidCollectionJsonException extends BaseException {
-    constructor(_name: string, path: string, jsonException?: UnexpectedEndOfInputException | InvalidJsonCharacterException);
+    constructor(_name: string, path: string, jsonException?: Error);
 }
 export declare class SchematicMissingFactoryException extends BaseException {
     constructor(name: string);
