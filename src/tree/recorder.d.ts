@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { UpdateBuffer } from '../utility/update-buffer';
+import { UpdateBufferBase } from '../utility/update-buffer';
 import { FileEntry, UpdateRecorder } from './interface';
 export declare class UpdateRecorderBase implements UpdateRecorder {
     protected _path: string;
     protected _original: Buffer;
-    protected _content: UpdateBuffer;
+    protected _content: UpdateBufferBase;
     constructor(entry: FileEntry);
     static createFromFileEntry(entry: FileEntry): UpdateRecorderBase;
     get path(): string;

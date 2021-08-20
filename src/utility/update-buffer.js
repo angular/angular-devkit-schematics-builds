@@ -6,9 +6,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateBuffer = exports.Chunk = exports.ContentCannotBeRemovedException = exports.IndexOutOfBoundException = void 0;
+exports.UpdateBuffer2 = exports.UpdateBuffer = exports.UpdateBufferBase = exports.Chunk = exports.ContentCannotBeRemovedException = exports.IndexOutOfBoundException = void 0;
 const core_1 = require("@angular-devkit/core");
+const magic_string_1 = __importDefault(require("magic-string"));
+const environment_options_1 = require("./environment-options");
 const linked_list_1 = require("./linked-list");
 class IndexOutOfBoundException extends core_1.BaseException {
     constructor(index, min, max = Infinity) {
@@ -16,6 +21,7 @@ class IndexOutOfBoundException extends core_1.BaseException {
     }
 }
 exports.IndexOutOfBoundException = IndexOutOfBoundException;
+/** @deprecated Since v13.0 */
 class ContentCannotBeRemovedException extends core_1.BaseException {
     constructor() {
         super(`User tried to remove content that was marked essential.`);
@@ -28,6 +34,7 @@ exports.ContentCannotBeRemovedException = ContentCannotBeRemovedException;
  * it means the content itself was deleted.
  *
  * @see UpdateBuffer
+ * @deprecated Since v13.0
  */
 class Chunk {
     constructor(start, end, originalContent) {
@@ -155,6 +162,31 @@ class Chunk {
 }
 exports.Chunk = Chunk;
 /**
+ * Base class for an update buffer implementation that allows buffers to be inserted to the _right
+ * or _left, or deleted, while keeping indices to the original buffer.
+ */
+class UpdateBufferBase {
+    constructor(_originalContent) {
+        this._originalContent = _originalContent;
+    }
+    /**
+     * Creates an UpdateBufferBase instance. Depending on the NG_UPDATE_BUFFER_V2
+     * environment variable, will either create an UpdateBuffer or an UpdateBuffer2
+     * instance.
+     *
+     * See: https://github.com/angular/angular-cli/issues/21110
+     *
+     * @param originalContent The original content of the update buffer instance.
+     * @returns An UpdateBufferBase instance.
+     */
+    static create(originalContent) {
+        return environment_options_1.updateBufferV2Enabled
+            ? new UpdateBuffer2(originalContent)
+            : new UpdateBuffer(originalContent);
+    }
+}
+exports.UpdateBufferBase = UpdateBufferBase;
+/**
  * An utility class that allows buffers to be inserted to the _right or _left, or deleted, while
  * keeping indices to the original buffer.
  *
@@ -163,11 +195,13 @@ exports.Chunk = Chunk;
  *
  * Since the Node Buffer structure is non-destructive when slicing, we try to use slicing to create
  * new chunks, and always keep chunks pointing to the original content.
+ *
+ * @deprecated Since v13.0
  */
-class UpdateBuffer {
-    constructor(_originalContent) {
-        this._originalContent = _originalContent;
-        this._linkedList = new linked_list_1.LinkedList(new Chunk(0, _originalContent.length, _originalContent));
+class UpdateBuffer extends UpdateBufferBase {
+    constructor(originalContent) {
+        super(originalContent);
+        this._linkedList = new linked_list_1.LinkedList(new Chunk(0, originalContent.length, originalContent));
     }
     _assertIndex(index) {
         if (index < 0 || index > this._originalContent.length) {
@@ -237,3 +271,43 @@ class UpdateBuffer {
     }
 }
 exports.UpdateBuffer = UpdateBuffer;
+/**
+ * An utility class that allows buffers to be inserted to the _right or _left, or deleted, while
+ * keeping indices to the original buffer.
+ */
+class UpdateBuffer2 extends UpdateBufferBase {
+    constructor() {
+        super(...arguments);
+        this._mutatableContent = new magic_string_1.default(this._originalContent.toString());
+    }
+    _assertIndex(index) {
+        if (index < 0 || index > this._originalContent.length) {
+            throw new IndexOutOfBoundException(index, 0, this._originalContent.length);
+        }
+    }
+    get length() {
+        return this._mutatableContent.length();
+    }
+    get original() {
+        return this._originalContent;
+    }
+    toString() {
+        return this._mutatableContent.toString();
+    }
+    generate() {
+        return Buffer.from(this.toString());
+    }
+    insertLeft(index, content) {
+        this._assertIndex(index);
+        this._mutatableContent.appendLeft(index, content.toString());
+    }
+    insertRight(index, content) {
+        this._assertIndex(index);
+        this._mutatableContent.appendRight(index, content.toString());
+    }
+    remove(index, length) {
+        this._assertIndex(index);
+        this._mutatableContent.remove(index, index + length);
+    }
+}
+exports.UpdateBuffer2 = UpdateBuffer2;

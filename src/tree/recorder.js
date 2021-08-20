@@ -13,7 +13,7 @@ const update_buffer_1 = require("../utility/update-buffer");
 class UpdateRecorderBase {
     constructor(entry) {
         this._original = Buffer.from(entry.content);
-        this._content = new update_buffer_1.UpdateBuffer(entry.content);
+        this._content = update_buffer_1.UpdateBufferBase.create(entry.content);
         this._path = entry.path;
     }
     static createFromFileEntry(entry) {

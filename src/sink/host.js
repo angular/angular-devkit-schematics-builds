@@ -43,11 +43,11 @@ class HostSink extends sink_1.SimpleSinkBase {
         return this._host.exists(p);
     }
     _overwriteFile(path, content) {
-        this._filesToUpdate.set(path, new update_buffer_1.UpdateBuffer(content));
+        this._filesToUpdate.set(path, update_buffer_1.UpdateBufferBase.create(content));
         return rxjs_1.EMPTY;
     }
     _createFile(path, content) {
-        this._filesToCreate.set(path, new update_buffer_1.UpdateBuffer(content));
+        this._filesToCreate.set(path, update_buffer_1.UpdateBufferBase.create(content));
         return rxjs_1.EMPTY;
     }
     _renameFile(from, to) {
