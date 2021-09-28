@@ -27,32 +27,32 @@ class SimpleSinkBase {
         throw new exception_1.FileDoesNotExistException(path);
     }
     _validateOverwriteAction(action) {
-        return this._validateFileExists(action.path).pipe(operators_1.map((b) => {
+        return this._validateFileExists(action.path).pipe((0, operators_1.map)((b) => {
             if (!b) {
                 this._fileDoesNotExistException(action.path);
             }
         }));
     }
     _validateCreateAction(action) {
-        return this._validateFileExists(action.path).pipe(operators_1.map((b) => {
+        return this._validateFileExists(action.path).pipe((0, operators_1.map)((b) => {
             if (b) {
                 this._fileAlreadyExistException(action.path);
             }
         }));
     }
     _validateRenameAction(action) {
-        return this._validateFileExists(action.path).pipe(operators_1.map((b) => {
+        return this._validateFileExists(action.path).pipe((0, operators_1.map)((b) => {
             if (!b) {
                 this._fileDoesNotExistException(action.path);
             }
-        }), operators_1.mergeMap(() => this._validateFileExists(action.to)), operators_1.map((b) => {
+        }), (0, operators_1.mergeMap)(() => this._validateFileExists(action.to)), (0, operators_1.map)((b) => {
             if (b) {
                 this._fileAlreadyExistException(action.to);
             }
         }));
     }
     _validateDeleteAction(action) {
-        return this._validateFileExists(action.path).pipe(operators_1.map((b) => {
+        return this._validateFileExists(action.path).pipe((0, operators_1.map)((b) => {
             if (!b) {
                 this._fileDoesNotExistException(action.path);
             }
@@ -73,7 +73,7 @@ class SimpleSinkBase {
         }
     }
     commitSingleAction(action) {
-        return rxjs_1.concat(this.validateSingleAction(action), new rxjs_1.Observable((observer) => {
+        return (0, rxjs_1.concat)(this.validateSingleAction(action), new rxjs_1.Observable((observer) => {
             let committed = null;
             switch (action.kind) {
                 case 'o':
@@ -95,19 +95,19 @@ class SimpleSinkBase {
             else {
                 observer.complete();
             }
-        })).pipe(operators_1.ignoreElements());
+        })).pipe((0, operators_1.ignoreElements)());
     }
     commit(tree) {
-        const actions = rxjs_1.from(tree.actions);
-        return rxjs_1.concat(this.preCommit() || rxjs_1.of(null), rxjs_1.defer(() => actions).pipe(operators_1.concatMap((action) => {
+        const actions = (0, rxjs_1.from)(tree.actions);
+        return (0, rxjs_1.concat)(this.preCommit() || (0, rxjs_1.of)(null), (0, rxjs_1.defer)(() => actions).pipe((0, operators_1.concatMap)((action) => {
             const maybeAction = this.preCommitAction(action);
-            if (rxjs_1.isObservable(maybeAction) || isPromiseLike(maybeAction)) {
+            if ((0, rxjs_1.isObservable)(maybeAction) || isPromiseLike(maybeAction)) {
                 return maybeAction;
             }
-            return rxjs_1.of(maybeAction || action);
-        }), operators_1.concatMap((action) => {
-            return rxjs_1.concat(this.commitSingleAction(action).pipe(operators_1.ignoreElements()), rxjs_1.of(action));
-        }), operators_1.concatMap((action) => this.postCommitAction(action) || rxjs_1.of(null))), rxjs_1.defer(() => this._done()), rxjs_1.defer(() => this.postCommit() || rxjs_1.of(null))).pipe(operators_1.ignoreElements());
+            return (0, rxjs_1.of)(maybeAction || action);
+        }), (0, operators_1.concatMap)((action) => {
+            return (0, rxjs_1.concat)(this.commitSingleAction(action).pipe((0, operators_1.ignoreElements)()), (0, rxjs_1.of)(action));
+        }), (0, operators_1.concatMap)((action) => this.postCommitAction(action) || (0, rxjs_1.of)(null))), (0, rxjs_1.defer)(() => this._done()), (0, rxjs_1.defer)(() => this.postCommit() || (0, rxjs_1.of)(null))).pipe((0, operators_1.ignoreElements)());
     }
 }
 exports.SimpleSinkBase = SimpleSinkBase;

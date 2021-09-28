@@ -116,7 +116,7 @@ class FileSystemEngineHostBase {
      */
     createCollectionDescription(name, requester) {
         const path = this._resolveCollectionPath(name, requester === null || requester === void 0 ? void 0 : requester.path);
-        const jsonValue = file_system_utility_1.readJsonFile(path);
+        const jsonValue = (0, file_system_utility_1.readJsonFile)(path);
         if (!jsonValue || typeof jsonValue != 'object' || Array.isArray(jsonValue)) {
             throw new InvalidCollectionJsonException(name, path);
         }
@@ -156,7 +156,7 @@ class FileSystemEngineHostBase {
         if (!(name in collection.schematics)) {
             return null;
         }
-        const collectionPath = path_1.dirname(collection.path);
+        const collectionPath = (0, path_1.dirname)(collection.path);
         const partialDesc = collection.schematics[name];
         if (!partialDesc) {
             return null;
@@ -185,18 +185,18 @@ class FileSystemEngineHostBase {
         let schema = partialDesc.schema;
         let schemaJson = undefined;
         if (schema) {
-            if (!path_1.isAbsolute(schema)) {
-                schema = path_1.join(collectionPath, schema);
+            if (!(0, path_1.isAbsolute)(schema)) {
+                schema = (0, path_1.join)(collectionPath, schema);
             }
-            schemaJson = file_system_utility_1.readJsonFile(schema);
+            schemaJson = (0, file_system_utility_1.readJsonFile)(schema);
         }
         // The schematic path is used to resolve URLs.
         // We should be able to just do `dirname(resolvedRef.path)` but for compatibility with
         // Bazel under Windows this directory needs to be resolved from the collection instead.
         // This is needed because on Bazel under Windows the data files (such as the collection or
         // url files) are not in the same place as the compiled JS.
-        const maybePath = path_1.join(collectionPath, partialDesc.factory);
-        const path = fs_1.existsSync(maybePath) && fs_1.statSync(maybePath).isDirectory() ? maybePath : path_1.dirname(maybePath);
+        const maybePath = (0, path_1.join)(collectionPath, partialDesc.factory);
+        const path = (0, fs_1.existsSync)(maybePath) && (0, fs_1.statSync)(maybePath).isDirectory() ? maybePath : (0, path_1.dirname)(maybePath);
         return this._transformSchematicDescription(name, collection, {
             ...partialDesc,
             schema,
@@ -219,7 +219,7 @@ class FileSystemEngineHostBase {
                     }
                     // Resolve all file:///a/b/c/d from the schematic's own path, and not the current
                     // path.
-                    const root = core_1.normalize(path_1.resolve(fileDescription.path, url.path || ''));
+                    const root = (0, core_1.normalize)((0, path_1.resolve)(fileDescription.path, url.path || ''));
                     return new src_1.HostCreateTree(new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), root));
                 };
         }
@@ -230,13 +230,13 @@ class FileSystemEngineHostBase {
             let transformedOptions = options;
             for (const transformer of this._transforms) {
                 const transformerResult = transformer(schematic, transformedOptions, context);
-                transformedOptions = await (rxjs_1.isObservable(transformerResult)
+                transformedOptions = await ((0, rxjs_1.isObservable)(transformerResult)
                     ? transformerResult.toPromise()
                     : transformerResult);
             }
             return transformedOptions;
         };
-        return rxjs_1.from(transform());
+        return (0, rxjs_1.from)(transform());
     }
     transformContext(context) {
         return this._contextTransforms.reduce((acc, curr) => curr(acc), context);
@@ -245,14 +245,14 @@ class FileSystemEngineHostBase {
         return schematic.factoryFn;
     }
     registerTaskExecutor(factory, options) {
-        this._taskFactories.set(factory.name, () => rxjs_1.from(factory.create(options)));
+        this._taskFactories.set(factory.name, () => (0, rxjs_1.from)(factory.create(options)));
     }
     createTaskExecutor(name) {
         const factory = this._taskFactories.get(name);
         if (factory) {
             return factory();
         }
-        return rxjs_1.throwError(new src_1.UnregisteredTaskException(name));
+        return (0, rxjs_1.throwError)(new src_1.UnregisteredTaskException(name));
     }
     hasTaskExecutor(name) {
         return this._taskFactories.has(name);

@@ -17,7 +17,7 @@ class ScopedFileEntry {
         this.scope = scope;
     }
     get path() {
-        return core_1.join(core_1.NormalizedRoot, core_1.relative(this.scope, this._base.path));
+        return (0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this.scope, this._base.path));
     }
     get content() {
         return this._base.content;
@@ -35,7 +35,7 @@ class ScopedDirEntry {
         return new ScopedDirEntry(this._base.parent, this.scope);
     }
     get path() {
-        return core_1.join(core_1.NormalizedRoot, core_1.relative(this.scope, this._base.path));
+        return (0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this.scope, this._base.path));
     }
     get subdirs() {
         return this._base.subdirs;
@@ -53,14 +53,14 @@ class ScopedDirEntry {
     }
     visit(visitor) {
         return this._base.visit((path, entry) => {
-            visitor(core_1.join(core_1.NormalizedRoot, core_1.relative(this.scope, path)), entry && new ScopedFileEntry(entry, this.scope));
+            visitor((0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this.scope, path)), entry && new ScopedFileEntry(entry, this.scope));
         });
     }
 }
 class ScopedTree {
     constructor(_base, scope) {
         this._base = _base;
-        const normalizedScope = core_1.normalize('/' + scope);
+        const normalizedScope = (0, core_1.normalize)('/' + scope);
         this._root = new ScopedDirEntry(this._base.getDir(normalizedScope), normalizedScope);
     }
     get root() {
@@ -129,14 +129,14 @@ class ScopedTree {
             if (action.kind !== 'r') {
                 scopedActions.push({
                     ...action,
-                    path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)),
+                    path: (0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this._root.scope, action.path)),
                 });
             }
             else if (action.to.startsWith(this._root.scope + '/')) {
                 scopedActions.push({
                     ...action,
-                    path: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.path)),
-                    to: core_1.join(core_1.NormalizedRoot, core_1.relative(this._root.scope, action.to)),
+                    path: (0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this._root.scope, action.path)),
+                    to: (0, core_1.join)(core_1.NormalizedRoot, (0, core_1.relative)(this._root.scope, action.to)),
                 });
             }
         }
@@ -146,7 +146,7 @@ class ScopedTree {
         return this;
     }
     _fullPath(path) {
-        return core_1.join(this._root.scope, core_1.normalize('/' + path));
+        return (0, core_1.join)(this._root.scope, (0, core_1.normalize)('/' + path));
     }
     _fullPathAction(action) {
         let fullPathAction;

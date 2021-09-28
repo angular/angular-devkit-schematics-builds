@@ -23,7 +23,7 @@ function externalSchematic(collectionName, schematicName, options, executionOpti
     return (input, context) => {
         const collection = context.engine.createCollection(collectionName, context.schematic.collection);
         const schematic = collection.createSchematic(schematicName);
-        return schematic.call(options, rxjs_1.of(static_1.branch(input)), context, executionOptions).pipe(operators_1.last(), operators_1.map((x) => {
+        return schematic.call(options, (0, rxjs_1.of)((0, static_1.branch)(input)), context, executionOptions).pipe((0, operators_1.last)(), (0, operators_1.map)((x) => {
             input.merge(x, interface_1.MergeStrategy.AllowOverwriteConflict);
             return input;
         }));
@@ -40,7 +40,7 @@ function schematic(schematicName, options, executionOptions) {
     return (input, context) => {
         const collection = context.schematic.collection;
         const schematic = collection.createSchematic(schematicName, true);
-        return schematic.call(options, rxjs_1.of(static_1.branch(input)), context, executionOptions).pipe(operators_1.last(), operators_1.map((x) => {
+        return schematic.call(options, (0, rxjs_1.of)((0, static_1.branch)(input)), context, executionOptions).pipe((0, operators_1.last)(), (0, operators_1.map)((x) => {
             // We allow overwrite conflict here because they're the only merge conflict we particularly
             // don't want to deal with; the input tree might have an OVERWRITE which the sub
             input.merge(x, interface_1.MergeStrategy.AllowOverwriteConflict);

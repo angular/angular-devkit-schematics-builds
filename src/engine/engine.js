@@ -267,7 +267,7 @@ class SchematicEngine {
             case 'null:':
                 return () => new null_1.NullTree();
             case 'empty:':
-                return () => static_1.empty();
+                return () => (0, static_1.empty)();
             default:
                 const hostSource = this._host.createSourceFromUrl(url, context);
                 if (!hostSource) {
@@ -278,13 +278,13 @@ class SchematicEngine {
     }
     executePostTasks() {
         const executors = new Map();
-        const taskObservable = rxjs_1.from(this._taskSchedulers).pipe(operators_1.concatMap((scheduler) => scheduler.finalize()), operators_1.concatMap((task) => {
+        const taskObservable = (0, rxjs_1.from)(this._taskSchedulers).pipe((0, operators_1.concatMap)((scheduler) => scheduler.finalize()), (0, operators_1.concatMap)((task) => {
             const { name, options } = task.configuration;
             const executor = executors.get(name);
             if (executor) {
                 return executor(options, task.context);
             }
-            return this._host.createTaskExecutor(name).pipe(operators_1.concatMap((executor) => {
+            return this._host.createTaskExecutor(name).pipe((0, operators_1.concatMap)((executor) => {
                 executors.set(name, executor);
                 return executor(options, task.context);
             }));

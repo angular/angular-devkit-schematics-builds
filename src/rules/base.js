@@ -27,7 +27,7 @@ exports.source = source;
  * A source that returns an empty tree.
  */
 function empty() {
-    return () => static_1.empty();
+    return () => (0, static_1.empty)();
 }
 exports.empty = empty;
 /**
@@ -35,7 +35,7 @@ exports.empty = empty;
  */
 function chain(rules) {
     return (tree, context) => {
-        return rules.reduce((acc, curr) => call_1.callRule(curr, acc, context), tree);
+        return rules.reduce((acc, curr) => (0, call_1.callRule)(curr, acc, context), tree);
     };
 }
 exports.chain = chain;
@@ -43,7 +43,7 @@ exports.chain = chain;
  * Apply multiple rules to a source, and returns the source transformed.
  */
 function apply(source, rules) {
-    return (context) => call_1.callRule(chain(rules), call_1.callSource(source, context), context);
+    return (context) => (0, call_1.callRule)(chain(rules), (0, call_1.callSource)(source, context), context);
 }
 exports.apply = apply;
 /**
@@ -51,7 +51,7 @@ exports.apply = apply;
  */
 function mergeWith(source, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        return call_1.callSource(source, context).pipe(operators_1.map((sourceTree) => tree.merge(sourceTree, strategy || context.strategy)), operators_1.mapTo(tree));
+        return (0, call_1.callSource)(source, context).pipe((0, operators_1.map)((sourceTree) => tree.merge(sourceTree, strategy || context.strategy)), (0, operators_1.mapTo)(tree));
     };
 }
 exports.mergeWith = mergeWith;
@@ -71,12 +71,12 @@ function filter(predicate) {
 }
 exports.filter = filter;
 function asSource(rule) {
-    return (context) => call_1.callRule(rule, static_1.empty(), context);
+    return (context) => (0, call_1.callRule)(rule, (0, static_1.empty)(), context);
 }
 exports.asSource = asSource;
 function branchAndMerge(rule, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
-        return call_1.callRule(rule, tree.branch(), context).pipe(operators_1.map((branch) => tree.merge(branch, strategy || context.strategy)), operators_1.mapTo(tree));
+        return (0, call_1.callRule)(rule, tree.branch(), context).pipe((0, operators_1.map)((branch) => tree.merge(branch, strategy || context.strategy)), (0, operators_1.mapTo)(tree));
     };
 }
 exports.branchAndMerge = branchAndMerge;
@@ -93,8 +93,8 @@ function when(predicate, operator) {
 exports.when = when;
 function partitionApplyMerge(predicate, ruleYes, ruleNo) {
     return (tree, context) => {
-        const [yes, no] = static_1.partition(tree, predicate);
-        return rxjs_1.concat(call_1.callRule(ruleYes, yes, context), call_1.callRule(ruleNo || noop(), no, context)).pipe(operators_1.toArray(), operators_1.map(([yesTree, noTree]) => {
+        const [yes, no] = (0, static_1.partition)(tree, predicate);
+        return (0, rxjs_1.concat)((0, call_1.callRule)(ruleYes, yes, context), (0, call_1.callRule)(ruleNo || noop(), no, context)).pipe((0, operators_1.toArray)(), (0, operators_1.map)(([yesTree, noTree]) => {
             yesTree.merge(noTree, context.strategy);
             return yesTree;
         }));
@@ -142,7 +142,7 @@ exports.composeFileOperators = composeFileOperators;
 function applyToSubtree(path, rules) {
     return (tree, context) => {
         const scoped = new scoped_1.ScopedTree(tree, path);
-        return call_1.callRule(chain(rules), scoped, context).pipe(operators_1.map((result) => {
+        return (0, call_1.callRule)(chain(rules), scoped, context).pipe((0, operators_1.map)((result) => {
             if (result === scoped) {
                 return tree;
             }

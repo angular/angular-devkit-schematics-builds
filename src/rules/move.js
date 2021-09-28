@@ -15,8 +15,8 @@ function move(from, to) {
         to = from;
         from = '/';
     }
-    const fromPath = core_1.normalize('/' + from);
-    const toPath = core_1.normalize('/' + to);
+    const fromPath = (0, core_1.normalize)('/' + from);
+    const toPath = (0, core_1.normalize)('/' + to);
     if (fromPath === toPath) {
         return base_1.noop;
     }
@@ -28,7 +28,7 @@ function move(from, to) {
         else {
             // fromPath is a directory
             tree.getDir(fromPath).visit((path) => {
-                tree.rename(path, core_1.join(toPath, path.substr(fromPath.length)));
+                tree.rename(path, (0, core_1.join)(toPath, path.substr(fromPath.length)));
             });
         }
         return tree;

@@ -15,7 +15,7 @@ const host_1 = require("./host");
 class DryRunSink extends host_1.HostSink {
     constructor(host, force = false) {
         super(typeof host == 'string'
-            ? new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), core_1.normalize(host))
+            ? new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), (0, core_1.normalize)(host))
             : host, force);
         this._subject = new rxjs_1.Subject();
         this._fileDoesNotExistExceptionSet = new Set();
@@ -74,7 +74,7 @@ class DryRunSink extends host_1.HostSink {
             this._subject.next({ kind: 'update', path, content: content.generate() });
         });
         this._subject.complete();
-        return rxjs_1.of(undefined);
+        return (0, rxjs_1.of)(undefined);
     }
 }
 exports.DryRunSink = DryRunSink;

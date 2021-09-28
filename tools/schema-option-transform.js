@@ -21,18 +21,18 @@ exports.InvalidInputOptions = InvalidInputOptions;
 function validateOptionsWithSchema(registry) {
     return (schematic, options, context) => {
         // Prevent a schematic from changing the options object by making a copy of it.
-        options = core_1.deepCopy(options);
+        options = (0, core_1.deepCopy)(options);
         const withPrompts = context ? context.interactive : true;
         if (schematic.schema && schematic.schemaJson) {
             // Make a deep copy of options.
-            return registry.compile(schematic.schemaJson).pipe(operators_1.mergeMap((validator) => validator(options, { withPrompts })), operators_1.first(), operators_1.map((result) => {
+            return registry.compile(schematic.schemaJson).pipe((0, operators_1.mergeMap)((validator) => validator(options, { withPrompts })), (0, operators_1.first)(), (0, operators_1.map)((result) => {
                 if (!result.success) {
                     throw new InvalidInputOptions(options, result.errors || []);
                 }
                 return options;
             }));
         }
-        return rxjs_1.of(options);
+        return (0, rxjs_1.of)(options);
     };
 }
 exports.validateOptionsWithSchema = validateOptionsWithSchema;

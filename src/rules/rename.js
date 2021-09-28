@@ -11,11 +11,11 @@ exports.rename = void 0;
 const core_1 = require("@angular-devkit/core");
 const base_1 = require("./base");
 function rename(match, to) {
-    return base_1.forEach((entry) => {
+    return (0, base_1.forEach)((entry) => {
         if (match(entry.path, entry)) {
             return {
                 content: entry.content,
-                path: core_1.normalize(to(entry.path, entry)),
+                path: (0, core_1.normalize)(to(entry.path, entry)),
             };
         }
         else {

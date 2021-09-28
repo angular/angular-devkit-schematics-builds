@@ -15,7 +15,7 @@ exports.pathFormat = {
         async: false,
         validate: (path) => {
             // Check path is normalized already.
-            return path === core_1.normalize(path);
+            return path === (0, core_1.normalize)(path);
             // TODO: check if path is valid (is that just checking if it's normalized?)
             // TODO: check path is from root of schematics even if passed absolute
             // TODO: error out if path is outside of host

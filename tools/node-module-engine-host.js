@@ -37,17 +37,17 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
                 references.add(requester);
             }
         }
-        const relativeBase = requester ? path_1.dirname(requester) : process.cwd();
+        const relativeBase = requester ? (0, path_1.dirname)(requester) : process.cwd();
         let collectionPath = undefined;
         if (name.startsWith('.')) {
-            name = path_1.resolve(relativeBase, name);
+            name = (0, path_1.resolve)(relativeBase, name);
         }
         const resolveOptions = {
-            paths: requester ? [path_1.dirname(requester), ...(this.paths || [])] : this.paths,
+            paths: requester ? [(0, path_1.dirname)(requester), ...(this.paths || [])] : this.paths,
         };
         // Try to resolve as a package
         try {
-            const packageJsonPath = require.resolve(path_1.join(name, 'package.json'), resolveOptions);
+            const packageJsonPath = require.resolve((0, path_1.join)(name, 'package.json'), resolveOptions);
             const { schematics } = require(packageJsonPath);
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
@@ -78,7 +78,7 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
     }
     _resolveCollectionPath(name, requester) {
         const collectionPath = this.resolve(name, requester);
-        file_system_utility_1.readJsonFile(collectionPath);
+        (0, file_system_utility_1.readJsonFile)(collectionPath);
         return collectionPath;
     }
     _resolveReferenceString(refString, parentPath) {

@@ -15,6 +15,6 @@ function formatValidator(data, dataSchema, formats) {
     for (const format of formats) {
         registry.addFormat(format);
     }
-    return registry.compile(dataSchema).pipe(operators_1.mergeMap((validator) => validator(data)));
+    return registry.compile(dataSchema).pipe((0, operators_1.mergeMap)((validator) => validator(data)));
 }
 exports.formatValidator = formatValidator;

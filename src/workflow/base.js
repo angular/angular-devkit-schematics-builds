@@ -83,9 +83,9 @@ class BaseWorkflow {
                 commit() {
                     dryRunSubscriber.unsubscribe();
                     if (error) {
-                        return rxjs_1.throwError(new exception_1.UnsuccessfulWorkflowExecution());
+                        return (0, rxjs_1.throwError)(new exception_1.UnsuccessfulWorkflowExecution());
                     }
-                    return rxjs_1.of();
+                    return (0, rxjs_1.of)();
                 },
             },
             // Only add a HostSink if this is not a dryRun.
@@ -112,19 +112,19 @@ class BaseWorkflow {
         };
         this._context.push(context);
         return schematic
-            .call(options.options, rxjs_1.of(new host_tree_1.HostTree(this._host)), { logger: context.logger })
-            .pipe(operators_1.concatMap((tree) => {
+            .call(options.options, (0, rxjs_1.of)(new host_tree_1.HostTree(this._host)), { logger: context.logger })
+            .pipe((0, operators_1.concatMap)((tree) => {
             // Process all sinks.
-            return rxjs_1.concat(rxjs_1.from(sinks).pipe(operators_1.concatMap((sink) => sink.commit(tree)), operators_1.ignoreElements()), rxjs_1.of(tree));
-        }), operators_1.concatMap(() => {
+            return (0, rxjs_1.concat)((0, rxjs_1.from)(sinks).pipe((0, operators_1.concatMap)((sink) => sink.commit(tree)), (0, operators_1.ignoreElements)()), (0, rxjs_1.of)(tree));
+        }), (0, operators_1.concatMap)(() => {
             if (this._dryRun) {
                 return rxjs_1.EMPTY;
             }
             this._lifeCycle.next({ kind: 'post-tasks-start' });
             return this._engine
                 .executePostTasks()
-                .pipe(operators_1.tap({ complete: () => this._lifeCycle.next({ kind: 'post-tasks-end' }) }), operators_1.defaultIfEmpty(), operators_1.last());
-        }), operators_1.tap({
+                .pipe((0, operators_1.tap)({ complete: () => this._lifeCycle.next({ kind: 'post-tasks-end' }) }), (0, operators_1.defaultIfEmpty)(), (0, operators_1.last)());
+        }), (0, operators_1.tap)({
             complete: () => {
                 this._lifeCycle.next({ kind: 'workflow-end' });
                 this._context.pop();

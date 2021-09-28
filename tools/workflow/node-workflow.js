@@ -23,7 +23,7 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
         let host;
         let root;
         if (typeof hostOrRoot === 'string') {
-            root = core_1.normalize(hostOrRoot);
+            root = (0, core_1.normalize)(hostOrRoot);
             host = new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), root);
         }
         else {
@@ -42,11 +42,11 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             allowPackageManagerOverride: true,
             packageManager: options.packageManager,
             force: options.packageManagerForce,
-            rootDirectory: root && core_1.getSystemPath(root),
+            rootDirectory: root && (0, core_1.getSystemPath)(root),
             registry: options.packageRegistry,
         });
         engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.RepositoryInitializer, {
-            rootDirectory: root && core_1.getSystemPath(root),
+            rootDirectory: root && (0, core_1.getSystemPath)(root),
         });
         engineHost.registerTaskExecutor(node_2.BuiltinTaskExecutor.RunSchematic);
         if (options.optionTransforms) {
@@ -55,7 +55,7 @@ class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
             }
         }
         if (options.schemaValidation) {
-            engineHost.registerOptionsTransform(schema_option_transform_1.validateOptionsWithSchema(this.registry));
+            engineHost.registerOptionsTransform((0, schema_option_transform_1.validateOptionsWithSchema)(this.registry));
         }
         this._context = [];
     }
