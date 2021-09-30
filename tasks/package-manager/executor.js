@@ -114,12 +114,12 @@ function default_1(factoryOptions = {}) {
         }
         return new rxjs_1.Observable((obs) => {
             var _a, _b;
-            const spinner = ora_1.default({
+            const spinner = (0, ora_1.default)({
                 text: `Installing packages (${taskPackageManagerName})...`,
                 // Workaround for https://github.com/sindresorhus/ora/issues/136.
                 discardStdin: process.platform != 'win32',
             }).start();
-            const childProcess = child_process_1.spawn(taskPackageManagerName, args, spawnOptions).on('close', (code) => {
+            const childProcess = (0, child_process_1.spawn)(taskPackageManagerName, args, spawnOptions).on('close', (code) => {
                 if (code === 0) {
                     spinner.succeed('Packages installed successfully.');
                     spinner.stop();

@@ -25,10 +25,10 @@ class NullTreeDirEntry {
         this.subfiles = [];
     }
     get parent() {
-        return this.path == '/' ? null : new NullTreeDirEntry(core_1.dirname(this.path));
+        return this.path == '/' ? null : new NullTreeDirEntry((0, core_1.dirname)(this.path));
     }
     dir(name) {
-        return new NullTreeDirEntry(core_1.join(this.path, name));
+        return new NullTreeDirEntry((0, core_1.join)(this.path, name));
     }
     file(_name) {
         return null;
@@ -38,7 +38,7 @@ class NullTreeDirEntry {
 exports.NullTreeDirEntry = NullTreeDirEntry;
 class NullTree {
     constructor() {
-        this.root = new NullTreeDirEntry(core_1.normalize('/'));
+        this.root = new NullTreeDirEntry((0, core_1.normalize)('/'));
     }
     [interface_1.TreeSymbol]() {
         return this;
@@ -58,7 +58,7 @@ class NullTree {
         return null;
     }
     getDir(path) {
-        return new NullTreeDirEntry(core_1.normalize('/' + path));
+        return new NullTreeDirEntry((0, core_1.normalize)('/' + path));
     }
     visit() { }
     // Change content of host files.

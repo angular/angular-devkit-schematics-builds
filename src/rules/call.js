@@ -54,56 +54,56 @@ class InvalidSourceResultException extends core_1.BaseException {
 exports.InvalidSourceResultException = InvalidSourceResultException;
 function callSource(source, context) {
     const result = source(context);
-    if (rxjs_1.isObservable(result)) {
+    if ((0, rxjs_1.isObservable)(result)) {
         // Only return the last Tree, and make sure it's a Tree.
-        return result.pipe(operators_1.defaultIfEmpty(), operators_1.last(), operators_1.tap((inner) => {
+        return result.pipe((0, operators_1.defaultIfEmpty)(), (0, operators_1.last)(), (0, operators_1.tap)((inner) => {
             if (!inner || !(interface_1.TreeSymbol in inner)) {
                 throw new InvalidSourceResultException(inner);
             }
         }));
     }
     else if (result && interface_1.TreeSymbol in result) {
-        return rxjs_1.of(result);
+        return (0, rxjs_1.of)(result);
     }
     else {
-        return rxjs_1.throwError(new InvalidSourceResultException(result));
+        return (0, rxjs_1.throwError)(new InvalidSourceResultException(result));
     }
 }
 exports.callSource = callSource;
 function callRule(rule, input, context) {
-    return (rxjs_1.isObservable(input) ? input : rxjs_1.of(input)).pipe(operators_1.mergeMap((inputTree) => {
+    return ((0, rxjs_1.isObservable)(input) ? input : (0, rxjs_1.of)(input)).pipe((0, operators_1.mergeMap)((inputTree) => {
         const result = rule(inputTree, context);
         if (!result) {
-            return rxjs_1.of(inputTree);
+            return (0, rxjs_1.of)(inputTree);
         }
         else if (typeof result == 'function') {
             // This is considered a Rule, chain the rule and return its output.
             return callRule(result, inputTree, context);
         }
-        else if (rxjs_1.isObservable(result)) {
+        else if ((0, rxjs_1.isObservable)(result)) {
             // Only return the last Tree, and make sure it's a Tree.
-            return result.pipe(operators_1.defaultIfEmpty(), operators_1.last(), operators_1.tap((inner) => {
+            return result.pipe((0, operators_1.defaultIfEmpty)(), (0, operators_1.last)(), (0, operators_1.tap)((inner) => {
                 if (!inner || !(interface_1.TreeSymbol in inner)) {
                     throw new InvalidRuleResultException(inner);
                 }
             }));
         }
-        else if (core_1.isPromise(result)) {
-            return rxjs_1.from(result).pipe(operators_1.mergeMap((inner) => {
+        else if ((0, core_1.isPromise)(result)) {
+            return (0, rxjs_1.from)(result).pipe((0, operators_1.mergeMap)((inner) => {
                 if (typeof inner === 'function') {
                     // This is considered a Rule, chain the rule and return its output.
                     return callRule(inner, inputTree, context);
                 }
                 else {
-                    return rxjs_1.of(inputTree);
+                    return (0, rxjs_1.of)(inputTree);
                 }
             }));
         }
         else if (interface_1.TreeSymbol in result) {
-            return rxjs_1.of(result);
+            return (0, rxjs_1.of)(result);
         }
         else {
-            return rxjs_1.throwError(new InvalidRuleResultException(result));
+            return (0, rxjs_1.throwError)(new InvalidRuleResultException(result));
         }
     }));
 }

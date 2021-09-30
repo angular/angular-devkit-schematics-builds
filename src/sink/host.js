@@ -27,17 +27,17 @@ class HostSink extends sink_1.SimpleSinkBase {
     }
     _validateFileExists(p) {
         if (this._filesToCreate.has(p) || this._filesToUpdate.has(p)) {
-            return rxjs_1.of(true);
+            return (0, rxjs_1.of)(true);
         }
         if (this._filesToDelete.has(p)) {
-            return rxjs_1.of(false);
+            return (0, rxjs_1.of)(false);
         }
         for (const [from, to] of this._filesToRename.values()) {
             switch (p) {
                 case from:
-                    return rxjs_1.of(false);
+                    return (0, rxjs_1.of)(false);
                 case to:
-                    return rxjs_1.of(true);
+                    return (0, rxjs_1.of)(true);
             }
         }
         return this._host.exists(p);
@@ -66,11 +66,11 @@ class HostSink extends sink_1.SimpleSinkBase {
     }
     _done() {
         // Really commit everything to the actual filesystem.
-        return rxjs_1.concat(rxjs_1.from([...this._filesToDelete.values()]).pipe(operators_1.concatMap((path) => this._host.delete(path))), rxjs_1.from([...this._filesToRename.entries()]).pipe(operators_1.concatMap(([_, [path, to]]) => this._host.rename(path, to))), rxjs_1.from([...this._filesToCreate.entries()]).pipe(operators_1.concatMap(([path, buffer]) => {
+        return (0, rxjs_1.concat)((0, rxjs_1.from)([...this._filesToDelete.values()]).pipe((0, operators_1.concatMap)((path) => this._host.delete(path))), (0, rxjs_1.from)([...this._filesToRename.entries()]).pipe((0, operators_1.concatMap)(([_, [path, to]]) => this._host.rename(path, to))), (0, rxjs_1.from)([...this._filesToCreate.entries()]).pipe((0, operators_1.concatMap)(([path, buffer]) => {
             return this._host.write(path, buffer.generate());
-        })), rxjs_1.from([...this._filesToUpdate.entries()]).pipe(operators_1.concatMap(([path, buffer]) => {
+        })), (0, rxjs_1.from)([...this._filesToUpdate.entries()]).pipe((0, operators_1.concatMap)(([path, buffer]) => {
             return this._host.write(path, buffer.generate());
-        }))).pipe(operators_1.reduce(() => { }));
+        }))).pipe((0, operators_1.reduce)(() => { }));
     }
 }
 exports.HostSink = HostSink;

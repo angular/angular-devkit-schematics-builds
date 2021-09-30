@@ -39,7 +39,7 @@ function applyContentTemplate(options) {
             const decodedContent = decoder.decode(content);
             return {
                 path,
-                content: Buffer.from(core_1.template(decodedContent, {})(options)),
+                content: Buffer.from((0, core_1.template)(decodedContent, {})(options)),
             };
         }
         catch (e) {
@@ -52,7 +52,7 @@ function applyContentTemplate(options) {
 }
 exports.applyContentTemplate = applyContentTemplate;
 function contentTemplate(options) {
-    return base_1.forEach(applyContentTemplate(options));
+    return (0, base_1.forEach)(applyContentTemplate(options));
 }
 exports.contentTemplate = contentTemplate;
 function applyPathTemplate(data, options = {
@@ -110,23 +110,23 @@ function applyPathTemplate(data, options = {
             // See above.
             end = path.indexOf(options.interpolationEnd, start + isL + 1);
         }
-        return { path: core_1.normalize(path), content };
+        return { path: (0, core_1.normalize)(path), content };
     };
 }
 exports.applyPathTemplate = applyPathTemplate;
 function pathTemplate(options) {
-    return base_1.forEach(applyPathTemplate(options));
+    return (0, base_1.forEach)(applyPathTemplate(options));
 }
 exports.pathTemplate = pathTemplate;
 /**
  * Remove every `.template` suffix from file names.
  */
 function renameTemplateFiles() {
-    return rename_1.rename((path) => !!path.match(exports.TEMPLATE_FILENAME_RE), (path) => path.replace(exports.TEMPLATE_FILENAME_RE, ''));
+    return (0, rename_1.rename)((path) => !!path.match(exports.TEMPLATE_FILENAME_RE), (path) => path.replace(exports.TEMPLATE_FILENAME_RE, ''));
 }
 exports.renameTemplateFiles = renameTemplateFiles;
 function template(options) {
-    return base_1.chain([
+    return (0, base_1.chain)([
         contentTemplate(options),
         // Force cast to PathTemplateData. We need the type for the actual pathTemplate() call,
         // but in this case we cannot do anything as contentTemplate are more permissive.
@@ -136,7 +136,7 @@ function template(options) {
 }
 exports.template = template;
 function applyTemplates(options) {
-    return base_1.forEach(base_1.when((path) => path.endsWith('.template'), base_1.composeFileOperators([
+    return (0, base_1.forEach)((0, base_1.when)((path) => path.endsWith('.template'), (0, base_1.composeFileOperators)([
         applyContentTemplate(options),
         // See above for this weird cast.
         applyPathTemplate(options),

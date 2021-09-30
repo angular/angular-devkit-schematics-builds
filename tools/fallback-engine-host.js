@@ -47,7 +47,7 @@ class FallbackEngineHost {
     }
     transformOptions(schematic, options, context) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return rxjs_1.of(options).pipe(...this._hosts.map((host) => operators_1.mergeMap((opt) => host.transformOptions(schematic, opt, context))));
+        return (0, rxjs_1.of)(options).pipe(...this._hosts.map((host) => (0, operators_1.mergeMap)((opt) => host.transformOptions(schematic, opt, context))));
     }
     transformContext(context) {
         let result = context;
@@ -72,7 +72,7 @@ class FallbackEngineHost {
                 return host.createTaskExecutor(name);
             }
         }
-        return rxjs_1.throwError(new src_1.UnregisteredTaskException(name));
+        return (0, rxjs_1.throwError)(new src_1.UnregisteredTaskException(name));
     }
     hasTaskExecutor(name) {
         for (const host of this._hosts) {

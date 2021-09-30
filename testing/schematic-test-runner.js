@@ -39,7 +39,7 @@ class SchematicTestRunner {
         this._logger = new core_1.logging.Logger('test');
         const registry = new core_1.schema.CoreSchemaRegistry(src_1.formats.standardFormats);
         registry.addPostTransform(core_1.schema.transforms.addUndefinedDefaults);
-        this._engineHost.registerOptionsTransform(tools_1.validateOptionsWithSchema(registry));
+        this._engineHost.registerOptionsTransform((0, tools_1.validateOptionsWithSchema)(registry));
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.NodePackage);
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RepositoryInitializer);
         this._engineHost.registerTaskExecutor(node_1.BuiltinTaskExecutor.RunSchematic);
@@ -59,24 +59,24 @@ class SchematicTestRunner {
     }
     runSchematicAsync(schematicName, opts, tree) {
         const schematic = this._collection.createSchematic(schematicName, true);
-        const host = rxjs_1.of(tree || new src_1.HostTree());
+        const host = (0, rxjs_1.of)(tree || new src_1.HostTree());
         this._engineHost.clearTasks();
         return schematic
             .call(opts || {}, host, { logger: this._logger })
-            .pipe(operators_1.map((tree) => new UnitTestTree(tree)));
+            .pipe((0, operators_1.map)((tree) => new UnitTestTree(tree)));
     }
     runExternalSchematicAsync(collectionName, schematicName, opts, tree) {
         const externalCollection = this._engine.createCollection(collectionName);
         const schematic = externalCollection.createSchematic(schematicName, true);
-        const host = rxjs_1.of(tree || new src_1.HostTree());
+        const host = (0, rxjs_1.of)(tree || new src_1.HostTree());
         this._engineHost.clearTasks();
         return schematic
             .call(opts || {}, host, { logger: this._logger })
-            .pipe(operators_1.map((tree) => new UnitTestTree(tree)));
+            .pipe((0, operators_1.map)((tree) => new UnitTestTree(tree)));
     }
     callRule(rule, tree, parentContext) {
         const context = this._engine.createContext({}, parentContext);
-        return call_1.callRule(rule, rxjs_1.of(tree), context);
+        return (0, call_1.callRule)(rule, (0, rxjs_1.of)(tree), context);
     }
 }
 exports.SchematicTestRunner = SchematicTestRunner;

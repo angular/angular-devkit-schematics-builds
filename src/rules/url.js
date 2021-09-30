@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.url = void 0;
 const url_1 = require("url");
 function url(urlString) {
-    const url = url_1.parse(urlString);
+    const url = (0, url_1.parse)(urlString);
     return (context) => context.engine.createSourceFromUrl(url, context)(context);
 }
 exports.url = url;

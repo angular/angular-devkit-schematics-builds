@@ -46,16 +46,16 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
     _resolveCollectionPath(name) {
         try {
             // Allow `${_root}/${name}.json` as a collection.
-            const maybePath = require.resolve(path_1.join(this._root, name + '.json'));
-            if (fs_1.existsSync(maybePath)) {
+            const maybePath = require.resolve((0, path_1.join)(this._root, name + '.json'));
+            if ((0, fs_1.existsSync)(maybePath)) {
                 return maybePath;
             }
         }
         catch (error) { }
         try {
             // Allow `${_root}/${name}/collection.json.
-            const maybePath = require.resolve(path_1.join(this._root, name, 'collection.json'));
-            if (fs_1.existsSync(maybePath)) {
+            const maybePath = require.resolve((0, path_1.join)(this._root, name, 'collection.json'));
+            if ((0, fs_1.existsSync)(maybePath)) {
                 return maybePath;
             }
         }
@@ -90,8 +90,8 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
             return true;
         }
         try {
-            const maybePath = require.resolve(path_1.join(this._root, name));
-            if (fs_1.existsSync(maybePath)) {
+            const maybePath = require.resolve((0, path_1.join)(this._root, name));
+            if ((0, fs_1.existsSync)(maybePath)) {
                 return true;
             }
         }
@@ -101,9 +101,9 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
     createTaskExecutor(name) {
         if (!super.hasTaskExecutor(name)) {
             try {
-                const path = require.resolve(path_1.join(this._root, name));
+                const path = require.resolve((0, path_1.join)(this._root, name));
                 // Default handling code is for old tasks that incorrectly export `default` with non-ESM module
-                return rxjs_1.from(Promise.resolve().then(() => __importStar(require(path))).then((mod) => { var _a; return (((_a = mod.default) === null || _a === void 0 ? void 0 : _a.default) || mod.default)(); })).pipe(operators_1.catchError(() => rxjs_1.throwError(new src_1.UnregisteredTaskException(name))));
+                return (0, rxjs_1.from)(Promise.resolve().then(() => __importStar(require(path))).then((mod) => { var _a; return (((_a = mod.default) === null || _a === void 0 ? void 0 : _a.default) || mod.default)(); })).pipe((0, operators_1.catchError)(() => (0, rxjs_1.throwError)(new src_1.UnregisteredTaskException(name))));
             }
             catch { }
         }

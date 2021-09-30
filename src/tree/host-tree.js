@@ -28,18 +28,18 @@ class HostDirEntry {
     get subdirs() {
         return this._host
             .list(this.path)
-            .filter((fragment) => this._host.isDirectory(core_1.join(this.path, fragment)));
+            .filter((fragment) => this._host.isDirectory((0, core_1.join)(this.path, fragment)));
     }
     get subfiles() {
         return this._host
             .list(this.path)
-            .filter((fragment) => this._host.isFile(core_1.join(this.path, fragment)));
+            .filter((fragment) => this._host.isFile((0, core_1.join)(this.path, fragment)));
     }
     dir(name) {
-        return this._tree.getDir(core_1.join(this.path, name));
+        return this._tree.getDir((0, core_1.join)(this.path, name));
     }
     file(name) {
-        return this._tree.get(core_1.join(this.path, name));
+        return this._tree.get((0, core_1.join)(this.path, name));
     }
     visit(visitor) {
         try {
@@ -81,7 +81,7 @@ class HostTree {
         return false;
     }
     _normalizePath(path) {
-        return core_1.normalize('/' + path);
+        return (0, core_1.normalize)('/' + path);
     }
     _willCreate(path) {
         return this._record.willCreate(path);
@@ -228,7 +228,7 @@ class HostTree {
         }
         let maybeCache = this._dirCache.get(p);
         if (!maybeCache) {
-            let parent = core_1.dirname(p);
+            let parent = (0, core_1.dirname)(p);
             if (p === parent) {
                 parent = null;
             }
@@ -361,7 +361,7 @@ class FilterHostTree extends HostTree {
         // cast to allow access
         const originalBackend = tree._backend;
         const recurse = (base) => {
-            return originalBackend.list(base).pipe(operators_1.mergeMap((x) => x), operators_1.map((path) => core_1.join(base, path)), operators_1.concatMap((path) => {
+            return originalBackend.list(base).pipe((0, operators_1.mergeMap)((x) => x), (0, operators_1.map)((path) => (0, core_1.join)(base, path)), (0, operators_1.concatMap)((path) => {
                 let isDirectory = false;
                 originalBackend.isDirectory(path).subscribe((val) => (isDirectory = val));
                 if (isDirectory) {
@@ -380,7 +380,7 @@ class FilterHostTree extends HostTree {
                 return newBackend.write(path, content);
             }));
         };
-        recurse(core_1.normalize('/')).subscribe();
+        recurse((0, core_1.normalize)('/')).subscribe();
         super(newBackend);
         for (const action of tree.actions) {
             if (!filter(action.path)) {

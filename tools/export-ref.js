@@ -12,9 +12,9 @@ const path_1 = require("path");
 class ExportStringRef {
     constructor(ref, parentPath = process.cwd(), inner = true) {
         const [path, name] = ref.split('#', 2);
-        this._module = path[0] == '.' ? path_1.resolve(parentPath, path) : path;
+        this._module = path[0] == '.' ? (0, path_1.resolve)(parentPath, path) : path;
         this._module = require.resolve(this._module);
-        this._path = path_1.dirname(this._module);
+        this._path = (0, path_1.dirname)(this._module);
         if (inner) {
             this._ref = require(this._module)[name || 'default'];
         }

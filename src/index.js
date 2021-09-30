@@ -58,16 +58,16 @@ __exportStar(require("./sink/host"), exports);
 __exportStar(require("./sink/sink"), exports);
 exports.Tree = {
     empty() {
-        return static_1.empty();
+        return (0, static_1.empty)();
     },
     branch(tree) {
-        return static_1.branch(tree);
+        return (0, static_1.branch)(tree);
     },
     merge(tree, other, strategy = interface_1.MergeStrategy.Default) {
-        return static_1.merge(tree, other, strategy);
+        return (0, static_1.merge)(tree, other, strategy);
     },
     partition(tree, predicate) {
-        return static_1.partition(tree, predicate);
+        return (0, static_1.partition)(tree, predicate);
     },
     optimize(tree) {
         return tree;
