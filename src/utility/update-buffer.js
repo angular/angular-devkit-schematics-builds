@@ -209,8 +209,16 @@ class UpdateBuffer extends UpdateBufferBase {
         }
     }
     _slice(start) {
-        // If start is longer than the content, use start, otherwise determine exact position in string.
-        const index = start >= this._originalContent.length ? start : this._getTextPosition(start);
+        let index;
+        if (start >= this._originalContent.length) {
+            index = start;
+        }
+        else if (start < 0) {
+            index = this._originalContent.length + start;
+        }
+        else {
+            index = this._getTextPosition(start);
+        }
         this._assertIndex(index);
         // Find the chunk by going through the list.
         const h = this._linkedList.find((chunk) => index <= chunk.end);
@@ -255,6 +263,9 @@ class UpdateBuffer extends UpdateBufferBase {
         this._slice(index)[1].prepend(content, assert);
     }
     remove(index, length) {
+        if (length === 0) {
+            return;
+        }
         const end = index + length;
         const first = this._slice(index)[1];
         const last = this._slice(end)[1];
