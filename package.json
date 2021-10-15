@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#e78fb3c1d",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#ef45c7543",
     "jsonc-parser": "3.0.0",
     "magic-string": "0.25.7",
     "ora": "5.4.1",
