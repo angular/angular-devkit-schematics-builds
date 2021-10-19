@@ -18,7 +18,7 @@
     "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#6173609c5",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#81033a468",
     "ora": "5.4.1",
     "rxjs": "6.6.7"
   },
@@ -28,7 +28,7 @@
   },
   "engines": {
     "node": "^12.14.1 || >=14.0.0",
-    "npm": "^6.11.0 || ^7.5.6",
+    "npm": "^6.11.0 || ^7.5.6 || >=8.0.0",
     "yarn": ">= 1.13.0"
   },
   "author": "Angular Authors",
