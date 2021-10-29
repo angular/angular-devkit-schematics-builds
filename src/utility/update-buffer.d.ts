@@ -33,7 +33,7 @@ export declare class Chunk {
     next: Chunk | null;
     constructor(start: number, end: number, originalContent: Buffer);
     get length(): number;
-    toString(encoding?: string): string;
+    toString(encoding?: BufferEncoding): string;
     slice(start: number): Chunk;
     append(buffer: Buffer, essential: boolean): void;
     prepend(buffer: Buffer, essential: boolean): void;
@@ -65,7 +65,7 @@ export declare class UpdateBuffer {
     protected _getTextPosition(index: number): number;
     get length(): number;
     get original(): Buffer;
-    toString(encoding?: string): string;
+    toString(encoding?: BufferEncoding): string;
     generate(): Buffer;
     insertLeft(index: number, content: Buffer, assert?: boolean): void;
     insertRight(index: number, content: Buffer, assert?: boolean): void;
