@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { analytics, logging } from '@angular-devkit/core';
+import { logging } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { FileEntry, MergeStrategy, Tree } from '../tree/interface';
@@ -125,8 +125,6 @@ export interface TypedSchematicContext<CollectionMetadataT extends object, Schem
     readonly strategy: MergeStrategy;
     readonly interactive: boolean;
     addTask<T>(task: TaskConfigurationGenerator<T>, dependencies?: Array<TaskId>): TaskId;
-    /** @deprecated since version 11 - as it's unused. */
-    readonly analytics?: analytics.Analytics;
 }
 /**
  * This is used by the Schematics implementations in order to avoid needing to have typing from
