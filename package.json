@@ -1,24 +1,24 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "13.2.1",
+  "version": "13.2.1+10.sha-491e210",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
   "keywords": [
-    "angular",
     "Angular CLI",
-    "devkit",
-    "sdk",
     "Angular DevKit",
+    "angular",
     "blueprints",
-    "scaffolding",
-    "template",
-    "tooling",
     "code generation",
-    "schematics"
+    "devkit",
+    "scaffolding",
+    "schematics",
+    "sdk",
+    "template",
+    "tooling"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#ff54b49e7",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#491e2103b",
     "jsonc-parser": "3.0.0",
     "magic-string": "0.25.7",
     "ora": "5.4.1",
