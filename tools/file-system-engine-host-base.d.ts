@@ -55,7 +55,7 @@ export declare abstract class FileSystemEngineHostBase implements FileSystemEngi
     private _transforms;
     private _contextTransforms;
     private _taskFactories;
-    listSchematicNames(collection: FileSystemCollectionDesc): string[];
+    listSchematicNames(collection: FileSystemCollectionDesc, includeHidden?: boolean): string[];
     registerOptionsTransform<T extends object, R extends object>(t: OptionTransform<T, R>): void;
     registerContextTransform(t: ContextTransform): void;
     /**

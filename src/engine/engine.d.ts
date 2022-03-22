@@ -44,7 +44,7 @@ export declare class CollectionImpl<CollectionT extends object, SchematicT exten
     get description(): CollectionDescription<CollectionT>;
     get name(): string;
     createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
-    listSchematicNames(): string[];
+    listSchematicNames(includeHidden?: boolean): string[];
 }
 export declare class TaskScheduler {
     private _context;
@@ -70,7 +70,7 @@ export declare class SchematicEngine<CollectionT extends object, SchematicT exte
     private _createCollectionDescription;
     createContext(schematic: Schematic<CollectionT, SchematicT>, parent?: Partial<TypedSchematicContext<CollectionT, SchematicT>>, executionOptions?: Partial<ExecutionOptions>): TypedSchematicContext<CollectionT, SchematicT>;
     createSchematic(name: string, collection: Collection<CollectionT, SchematicT>, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
-    listSchematicNames(collection: Collection<CollectionT, SchematicT>): string[];
+    listSchematicNames(collection: Collection<CollectionT, SchematicT>, includeHidden?: boolean): string[];
     transformOptions<OptionT extends object, ResultT extends object>(schematic: Schematic<CollectionT, SchematicT>, options: OptionT, context?: TypedSchematicContext<CollectionT, SchematicT>): Observable<ResultT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionT, SchematicT>): Source;
     executePostTasks(): Observable<void>;

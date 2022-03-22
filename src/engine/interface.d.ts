@@ -64,7 +64,7 @@ export declare type SchematicDescription<CollectionMetadataT extends object, Sch
  */
 export interface EngineHost<CollectionMetadataT extends object, SchematicMetadataT extends object> {
     createCollectionDescription(name: string, requester?: CollectionDescription<CollectionMetadataT>): CollectionDescription<CollectionMetadataT>;
-    listSchematicNames(collection: CollectionDescription<CollectionMetadataT>): string[];
+    listSchematicNames(collection: CollectionDescription<CollectionMetadataT>, includeHidden?: boolean): string[];
     createSchematicDescription(name: string, collection: CollectionDescription<CollectionMetadataT>): SchematicDescription<CollectionMetadataT, SchematicMetadataT> | null;
     getSchematicRuleFactory<OptionT extends object>(schematic: SchematicDescription<CollectionMetadataT, SchematicMetadataT>, collection: CollectionDescription<CollectionMetadataT>): RuleFactory<OptionT>;
     createSourceFromUrl(url: Url, context: TypedSchematicContext<CollectionMetadataT, SchematicMetadataT>): Source | null;
@@ -102,7 +102,7 @@ export interface Collection<CollectionMetadataT extends object, SchematicMetadat
     readonly description: CollectionDescription<CollectionMetadataT>;
     readonly baseDescriptions?: Array<CollectionDescription<CollectionMetadataT>>;
     createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionMetadataT, SchematicMetadataT>;
-    listSchematicNames(): string[];
+    listSchematicNames(includeHidden?: boolean): string[];
 }
 /**
  * A Schematic as created by the Engine. This should be used by the tool to execute the main

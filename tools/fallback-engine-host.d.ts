@@ -30,7 +30,7 @@ export declare class FallbackEngineHost implements EngineHost<{}, {}> {
     createSourceFromUrl(url: Url, context: FallbackContext): Source | null;
     transformOptions<OptionT extends object, ResultT extends object>(schematic: SchematicDescription<FallbackCollectionDescription, FallbackSchematicDescription>, options: OptionT, context?: FallbackContext): Observable<ResultT>;
     transformContext(context: FallbackContext): FallbackContext;
-    listSchematicNames(collection: CollectionDescription<FallbackCollectionDescription>): string[];
+    listSchematicNames(collection: CollectionDescription<FallbackCollectionDescription>, includeHidden?: boolean): string[];
     createTaskExecutor(name: string): Observable<TaskExecutor>;
     hasTaskExecutor(name: string): boolean;
 }
