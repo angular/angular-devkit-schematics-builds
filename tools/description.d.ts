@@ -14,6 +14,7 @@ export interface FileSystemCollectionDescription {
     readonly schematics: {
         [name: string]: FileSystemSchematicDesc;
     };
+    readonly encapsulation?: boolean;
 }
 export interface FileSystemSchematicJsonDescription {
     readonly aliases?: string[];

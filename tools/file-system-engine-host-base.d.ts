@@ -46,7 +46,7 @@ export declare class SchematicNameCollisionException extends BaseException {
  */
 export declare abstract class FileSystemEngineHostBase implements FileSystemEngineHost {
     protected abstract _resolveCollectionPath(name: string, requester?: string): string;
-    protected abstract _resolveReferenceString(name: string, parentPath: string): {
+    protected abstract _resolveReferenceString(name: string, parentPath: string, collectionDescription: FileSystemCollectionDesc): {
         ref: RuleFactory<{}>;
         path: string;
     } | null;

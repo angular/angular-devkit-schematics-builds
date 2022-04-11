@@ -20,7 +20,7 @@ export declare class NodeModulesEngineHost extends FileSystemEngineHostBase {
     constructor(paths?: string[] | undefined);
     private resolve;
     protected _resolveCollectionPath(name: string, requester?: string): string;
-    protected _resolveReferenceString(refString: string, parentPath: string): {
+    protected _resolveReferenceString(refString: string, parentPath: string, collectionDescription?: FileSystemCollectionDesc): {
         ref: RuleFactory<{}>;
         path: string;
     } | null;
