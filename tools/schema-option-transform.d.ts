@@ -11,4 +11,4 @@ import { FileSystemSchematicContext, FileSystemSchematicDescription } from './de
 export declare class InvalidInputOptions<T = {}> extends schema.SchemaValidationException {
     constructor(options: T, errors: schema.SchemaValidatorError[]);
 }
-export declare function validateOptionsWithSchema(registry: schema.SchemaRegistry): <T extends {}>(schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext | undefined) => Observable<T>;
+export declare function validateOptionsWithSchema(registry: schema.SchemaRegistry): <T extends {} | null>(schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext | undefined) => Observable<T>;

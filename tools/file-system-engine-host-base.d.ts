@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
 import { FileSystemCollectionDesc, FileSystemEngineHost, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
-export declare type OptionTransform<T extends object, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R> | PromiseLike<R> | R;
+export declare type OptionTransform<T extends object | null, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R> | PromiseLike<R> | R;
 export declare type ContextTransform = (context: FileSystemSchematicContext) => FileSystemSchematicContext;
 export declare class CollectionCannotBeResolvedException extends BaseException {
     constructor(name: string);
@@ -56,7 +56,7 @@ export declare abstract class FileSystemEngineHostBase implements FileSystemEngi
     private _contextTransforms;
     private _taskFactories;
     listSchematicNames(collection: FileSystemCollectionDesc, includeHidden?: boolean): string[];
-    registerOptionsTransform<T extends object, R extends object>(t: OptionTransform<T, R>): void;
+    registerOptionsTransform<T extends object | null, R extends object>(t: OptionTransform<T, R>): void;
     registerContextTransform(t: ContextTransform): void;
     /**
      *
