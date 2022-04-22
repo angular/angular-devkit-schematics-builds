@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { strings } from '@angular-devkit/core';
 import * as formats from './formats/index';
 import { FilePredicate, MergeStrategy, Tree as TreeInterface } from './tree/interface';
 import * as workflow from './workflow/index';
@@ -28,8 +29,7 @@ export * from './engine/schematic';
 export * from './sink/dryrun';
 export * from './sink/host';
 export * from './sink/sink';
-export { formats };
-export { workflow };
+export { formats, strings, workflow };
 export interface TreeConstructor {
     empty(): TreeInterface;
     branch(tree: TreeInterface): TreeInterface;
