@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { Path, PathFragment, virtualFs } from '@angular-devkit/core';
+import { JsonValue, Path, PathFragment, virtualFs } from '@angular-devkit/core';
 import { Action } from './action';
 import { DirEntry, FileEntry, FilePredicate, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
 export declare class HostDirEntry implements DirEntry {
@@ -41,6 +41,8 @@ export declare class HostTree implements Tree {
     merge(other: Tree, strategy?: MergeStrategy): void;
     get root(): DirEntry;
     read(path: string): Buffer | null;
+    readText(path: string): string;
+    readJson(path: string): JsonValue;
     exists(path: string): boolean;
     get(path: string): FileEntry | null;
     getDir(path: string): DirEntry;

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { BaseException, Path, PathFragment } from '@angular-devkit/core';
+import { BaseException, JsonValue, Path, PathFragment } from '@angular-devkit/core';
 import { Action } from './action';
 import { DirEntry, MergeStrategy, Tree, UpdateRecorder } from './interface';
 export declare class CannotCreateFileException extends BaseException {
@@ -28,6 +28,8 @@ export declare class NullTree implements Tree {
     readonly root: DirEntry;
     exists(_path: string): boolean;
     read(_path: string): null;
+    readText(path: string): string;
+    readJson(path: string): JsonValue;
     get(_path: string): null;
     getDir(path: string): NullTreeDirEntry;
     visit(): void;

@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
+import { JsonValue } from '@angular-devkit/core';
 import { Action } from './action';
 import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
 export declare class DelegateTree implements Tree {
@@ -15,6 +16,8 @@ export declare class DelegateTree implements Tree {
     merge(other: Tree, strategy?: MergeStrategy): void;
     get root(): DirEntry;
     read(path: string): Buffer | null;
+    readText(path: string): string;
+    readJson(path: string): JsonValue;
     exists(path: string): boolean;
     get(path: string): FileEntry | null;
     getDir(path: string): DirEntry;

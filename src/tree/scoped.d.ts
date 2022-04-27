@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 /// <reference types="node" />
-import { Path, PathFragment } from '@angular-devkit/core';
+import { JsonValue, Path, PathFragment } from '@angular-devkit/core';
 import { Action } from './action';
 import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
 declare class ScopedDirEntry implements DirEntry {
@@ -29,6 +29,8 @@ export declare class ScopedTree implements Tree {
     branch(): Tree;
     merge(other: Tree, strategy?: MergeStrategy): void;
     read(path: string): Buffer | null;
+    readText(path: string): string;
+    readJson(path: string): JsonValue;
     exists(path: string): boolean;
     get(path: string): FileEntry | null;
     getDir(path: string): DirEntry;
