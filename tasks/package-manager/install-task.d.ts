@@ -13,10 +13,12 @@ interface NodePackageInstallTaskOptions {
     workingDirectory?: string;
     quiet?: boolean;
     hideOutput?: boolean;
+    allowScripts?: boolean;
 }
 export declare class NodePackageInstallTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
     quiet: boolean;
     hideOutput: boolean;
+    allowScripts: boolean;
     workingDirectory?: string;
     packageManager?: string;
     packageName?: string;
