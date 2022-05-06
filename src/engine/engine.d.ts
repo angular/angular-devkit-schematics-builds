@@ -54,7 +54,7 @@ export declare class TaskScheduler {
     constructor(_context: SchematicContext);
     private _calculatePriority;
     private _mapDependencies;
-    schedule<T>(taskConfiguration: TaskConfiguration<T>): TaskId;
+    schedule<T extends object>(taskConfiguration: TaskConfiguration<T>): TaskId;
     finalize(): ReadonlyArray<TaskInfo>;
 }
 export declare class SchematicEngine<CollectionT extends object, SchematicT extends object> implements Engine<CollectionT, SchematicT> {

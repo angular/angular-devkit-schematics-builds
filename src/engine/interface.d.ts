@@ -124,7 +124,7 @@ export interface TypedSchematicContext<CollectionMetadataT extends object, Schem
     readonly schematic: Schematic<CollectionMetadataT, SchematicMetadataT>;
     readonly strategy: MergeStrategy;
     readonly interactive: boolean;
-    addTask<T>(task: TaskConfigurationGenerator<T>, dependencies?: Array<TaskId>): TaskId;
+    addTask<T extends object>(task: TaskConfigurationGenerator<T>, dependencies?: Array<TaskId>): TaskId;
 }
 /**
  * This is used by the Schematics implementations in order to avoid needing to have typing from
