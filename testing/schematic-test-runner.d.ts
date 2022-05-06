@@ -23,7 +23,7 @@ export declare class SchematicTestRunner {
     get logger(): logging.Logger;
     get tasks(): TaskConfiguration[];
     registerCollection(collectionName: string, collectionPath: string): void;
-    runSchematicAsync<SchematicSchemaT>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
-    runExternalSchematicAsync<SchematicSchemaT>(collectionName: string, schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
+    runSchematicAsync<SchematicSchemaT extends object>(schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
+    runExternalSchematicAsync<SchematicSchemaT extends object>(collectionName: string, schematicName: string, opts?: SchematicSchemaT, tree?: Tree): Observable<UnitTestTree>;
     callRule(rule: Rule, tree: Tree, parentContext?: Partial<SchematicContext>): Observable<Tree>;
 }

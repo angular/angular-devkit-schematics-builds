@@ -35,5 +35,5 @@ export declare function pathTemplate<T extends PathTemplateData>(options: T): Ru
  * Remove every `.template` suffix from file names.
  */
 export declare function renameTemplateFiles(): Rule;
-export declare function template<T>(options: T): Rule;
-export declare function applyTemplates<T>(options: T): Rule;
+export declare function template<T extends object>(options: T): Rule;
+export declare function applyTemplates<T extends object>(options: T): Rule;
