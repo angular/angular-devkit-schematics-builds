@@ -18,7 +18,7 @@ export declare function empty(): Source;
 /**
  * Chain multiple rules into a single rule.
  */
-export declare function chain(rules: Rule[]): Rule;
+export declare function chain(rules: Iterable<Rule> | AsyncIterable<Rule>): Rule;
 /**
  * Apply multiple rules to a source, and returns the source transformed.
  */
