@@ -1,42 +1,22 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "14.1.0-next.1+sha-0922cce",
+  "version": "14.1.0-next.2+sha-43f495d",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
   "keywords": [
-    "Angular CLI",
-    "Angular DevKit",
-    "angular",
     "blueprints",
-    "code generation",
-    "devkit",
     "scaffolding",
-    "schematics",
-    "sdk",
     "template",
-    "tooling"
+    "tooling",
+    "code generation",
+    "schematics"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#0922cce93",
+    "@angular-devkit/core": "14.1.0-next.2+sha-43f495d",
     "jsonc-parser": "3.0.0",
     "magic-string": "0.26.2",
     "ora": "5.4.1",
     "rxjs": "6.6.7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular-cli.git"
-  },
-  "engines": {
-    "node": "^14.15.0 || >=16.10.0",
-    "npm": "^6.11.0 || ^7.5.6 || >=8.0.0",
-    "yarn": ">= 1.13.0"
-  },
-  "author": "Angular Authors",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/angular/angular-cli/issues"
-  },
-  "homepage": "https://github.com/angular/angular-cli"
+  }
 }
