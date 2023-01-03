@@ -37,5 +37,5 @@ export interface TreeConstructor {
     partition(tree: TreeInterface, predicate: FilePredicate<boolean>): [TreeInterface, TreeInterface];
     optimize(tree: TreeInterface): TreeInterface;
 }
-export declare type Tree = TreeInterface;
+export type Tree = TreeInterface;
 export declare const Tree: TreeConstructor;

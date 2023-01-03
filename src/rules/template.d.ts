@@ -17,9 +17,9 @@ export declare class UnknownPipeException extends BaseException {
 export declare class InvalidPipeException extends BaseException {
     constructor(name: string);
 }
-export declare type PathTemplateValue = boolean | string | number | undefined;
-export declare type PathTemplatePipeFunction = (x: string) => PathTemplateValue;
-export declare type PathTemplateData = {
+export type PathTemplateValue = boolean | string | number | undefined;
+export type PathTemplatePipeFunction = (x: string) => PathTemplateValue;
+export type PathTemplateData = {
     [key: string]: PathTemplateValue | PathTemplateData | PathTemplatePipeFunction;
 };
 export interface PathTemplateOptions {

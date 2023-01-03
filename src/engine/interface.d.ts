@@ -18,7 +18,7 @@ export interface TaskConfiguration<T = {}> {
 export interface TaskConfigurationGenerator<T = {}> {
     toConfiguration(): TaskConfiguration<T>;
 }
-export declare type TaskExecutor<T = {}> = (options: T | undefined, context: SchematicContext) => Promise<void> | Observable<void>;
+export type TaskExecutor<T = {}> = (options: T | undefined, context: SchematicContext) => Promise<void> | Observable<void>;
 export interface TaskExecutorFactory<T> {
     readonly name: string;
     create(options?: T): Promise<TaskExecutor> | Observable<TaskExecutor>;
@@ -41,7 +41,7 @@ export interface ExecutionOptions {
  * needs to run. The CollectionMetadataT type parameter contains additional metadata that you
  * want to store while remaining type-safe.
  */
-export declare type CollectionDescription<CollectionMetadataT extends object> = CollectionMetadataT & {
+export type CollectionDescription<CollectionMetadataT extends object> = CollectionMetadataT & {
     readonly name: string;
     readonly extends?: string[];
 };
@@ -50,7 +50,7 @@ export declare type CollectionDescription<CollectionMetadataT extends object> = 
  * needs to run. The SchematicMetadataT and CollectionMetadataT type parameters contain additional
  * metadata that you want to store while remaining type-safe.
  */
-export declare type SchematicDescription<CollectionMetadataT extends object, SchematicMetadataT extends object> = SchematicMetadataT & {
+export type SchematicDescription<CollectionMetadataT extends object, SchematicMetadataT extends object> = SchematicMetadataT & {
     readonly collection: CollectionDescription<CollectionMetadataT>;
     readonly name: string;
     readonly private?: boolean;
@@ -129,18 +129,18 @@ export interface TypedSchematicContext<CollectionMetadataT extends object, Schem
  * This is used by the Schematics implementations in order to avoid needing to have typing from
  * the tooling. Schematics are not specific to a tool.
  */
-export declare type SchematicContext = TypedSchematicContext<{}, {}>;
+export type SchematicContext = TypedSchematicContext<{}, {}>;
 /**
  * A rule factory, which is normally the way schematics are implemented. Returned by the tooling
  * after loading a schematic description.
  */
-export declare type RuleFactory<T extends object> = (options: T) => Rule;
+export type RuleFactory<T extends object> = (options: T) => Rule;
 /**
  * A FileOperator applies changes synchronously to a FileEntry. An async operator returns
  * asynchronously. We separate them so that the type system can catch early errors.
  */
-export declare type FileOperator = (entry: FileEntry) => FileEntry | null;
-export declare type AsyncFileOperator = (tree: FileEntry) => Observable<FileEntry | null>;
+export type FileOperator = (entry: FileEntry) => FileEntry | null;
+export type AsyncFileOperator = (tree: FileEntry) => Observable<FileEntry | null>;
 /**
  * A source is a function that generates a Tree from a specific context. A rule transforms a tree
  * into another tree from a specific context. In both cases, an Observable can be returned if
@@ -150,5 +150,5 @@ export declare type AsyncFileOperator = (tree: FileEntry) => Observable<FileEntr
  * We obfuscate the context of Source and Rule because the schematic implementation should not
  * know which types is the schematic or collection metadata, as they are both tooling specific.
  */
-export declare type Source = (context: SchematicContext) => Tree | Observable<Tree>;
-export declare type Rule = (tree: Tree, context: SchematicContext) => Tree | Observable<Tree> | Rule | Promise<void | Rule> | void;
+export type Source = (context: SchematicContext) => Tree | Observable<Tree>;
+export type Rule = (tree: Tree, context: SchematicContext) => Tree | Observable<Tree> | Rule | Promise<void | Rule> | void;

@@ -18,7 +18,7 @@ export declare enum MergeStrategy {
     Overwrite = 14
 }
 export declare const FileVisitorCancelToken: symbol;
-export declare type FileVisitor = FilePredicate<void>;
+export type FileVisitor = FilePredicate<void>;
 export interface FileEntry {
     readonly path: Path;
     readonly content: Buffer;

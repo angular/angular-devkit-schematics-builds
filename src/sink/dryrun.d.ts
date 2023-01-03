@@ -33,7 +33,7 @@ export interface DryRunRenameEvent {
     path: string;
     to: string;
 }
-export declare type DryRunEvent = DryRunErrorEvent | DryRunDeleteEvent | DryRunCreateEvent | DryRunUpdateEvent | DryRunRenameEvent;
+export type DryRunEvent = DryRunErrorEvent | DryRunDeleteEvent | DryRunCreateEvent | DryRunUpdateEvent | DryRunRenameEvent;
 export declare class DryRunSink extends HostSink {
     protected _subject: Subject<DryRunEvent>;
     protected _fileDoesNotExistExceptionSet: Set<string>;
