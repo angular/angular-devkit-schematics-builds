@@ -10,7 +10,7 @@ import { BaseException, Path } from '@angular-devkit/core';
 export declare class UnknownActionException extends BaseException {
     constructor(action: Action);
 }
-export declare type Action = CreateFileAction | OverwriteFileAction | RenameFileAction | DeleteFileAction;
+export type Action = CreateFileAction | OverwriteFileAction | RenameFileAction | DeleteFileAction;
 export interface ActionBase {
     readonly id: number;
     readonly parent: number;

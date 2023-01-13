@@ -8,14 +8,14 @@
 import { Observable } from 'rxjs';
 import { Url } from 'url';
 import { CollectionDescription, EngineHost, RuleFactory, SchematicDescription, Source, TaskExecutor, TypedSchematicContext } from '../src';
-export declare type FallbackCollectionDescription = {
+export type FallbackCollectionDescription = {
     host: EngineHost<{}, {}>;
     description: CollectionDescription<{}>;
 };
-export declare type FallbackSchematicDescription = {
+export type FallbackSchematicDescription = {
     description: SchematicDescription<{}, {}>;
 };
-export declare type FallbackContext = TypedSchematicContext<FallbackCollectionDescription, FallbackSchematicDescription>;
+export type FallbackContext = TypedSchematicContext<FallbackCollectionDescription, FallbackSchematicDescription>;
 /**
  * An EngineHost that support multiple hosts in a fallback configuration. If a host does not
  * have a collection/schematics, use the following host before giving up.
