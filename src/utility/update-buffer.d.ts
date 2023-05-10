@@ -28,10 +28,11 @@ export declare abstract class UpdateBufferBase {
     /**
      * Creates an UpdateBufferBase instance.
      *
+     * @param contentPath The path of the update buffer instance.
      * @param originalContent The original content of the update buffer instance.
      * @returns An UpdateBufferBase instance.
      */
-    static create(originalContent: Buffer): UpdateBufferBase;
+    static create(contentPath: string, originalContent: Buffer): UpdateBufferBase;
 }
 /**
  * An utility class that allows buffers to be inserted to the _right or _left, or deleted, while
