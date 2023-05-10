@@ -9,15 +9,14 @@
 import { Path, virtualFs } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { CreateFileAction } from '../tree/action';
-import { UpdateBufferBase } from '../utility/update-buffer';
 import { SimpleSinkBase } from './sink';
 export declare class HostSink extends SimpleSinkBase {
     protected _host: virtualFs.Host;
     protected _force: boolean;
     protected _filesToDelete: Set<Path>;
     protected _filesToRename: Set<[Path, Path]>;
-    protected _filesToCreate: Map<Path, UpdateBufferBase>;
-    protected _filesToUpdate: Map<Path, UpdateBufferBase>;
+    protected _filesToCreate: Map<Path, Buffer>;
+    protected _filesToUpdate: Map<Path, Buffer>;
     constructor(_host: virtualFs.Host, _force?: boolean);
     protected _validateCreateAction(action: CreateFileAction): Observable<void>;
     protected _validateFileExists(p: Path): Observable<boolean>;
