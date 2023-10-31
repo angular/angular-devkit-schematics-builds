@@ -29,6 +29,7 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
         this.paths = paths;
     }
     resolve(name, requester, references = new Set()) {
+        // Keep track of the package requesting the schematic, in order to avoid infinite recursion
         if (requester) {
             if (references.has(requester)) {
                 references.add(requester);
@@ -53,7 +54,16 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
             }
-            collectionPath = this.resolve(schematics, packageJsonPath, references);
+            // If this is a relative path to the collection, then create the collection
+            // path in relation to the package path
+            if (schematics.startsWith('.')) {
+                const packageDirectory = (0, path_1.dirname)(packageJsonPath);
+                collectionPath = (0, path_1.resolve)(packageDirectory, schematics);
+            }
+            // Otherwise treat this as a package, and recurse to find the collection path
+            else {
+                collectionPath = this.resolve(schematics, packageJsonPath, references);
+            }
         }
         catch (e) {
             if (e.code !== 'MODULE_NOT_FOUND') {
