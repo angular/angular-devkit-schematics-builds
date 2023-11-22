@@ -5,6 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/// <reference types="@types/node/url" />
+/// <reference types="@types/node/ts4.8/url" />
 import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
