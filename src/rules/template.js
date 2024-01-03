@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyTemplates = exports.template = exports.renameTemplateFiles = exports.pathTemplate = exports.applyPathTemplate = exports.contentTemplate = exports.applyContentTemplate = exports.InvalidPipeException = exports.UnknownPipeException = exports.OptionIsNotDefinedException = exports.TEMPLATE_FILENAME_RE = void 0;
 const core_1 = require("@angular-devkit/core");
-const util_1 = require("util");
+const node_os_1 = require("node:os");
 const base_1 = require("./base");
 exports.TEMPLATE_FILENAME_RE = /\.template$/;
 class OptionIsNotDefinedException extends core_1.BaseException {
@@ -30,12 +30,12 @@ class InvalidPipeException extends core_1.BaseException {
     }
 }
 exports.InvalidPipeException = InvalidPipeException;
-const decoder = new util_1.TextDecoder('utf-8', { fatal: true });
+const decoder = new TextDecoder('utf-8', { fatal: true });
 function applyContentTemplate(options) {
     return (entry) => {
         const { path, content } = entry;
         try {
-            const decodedContent = decoder.decode(content);
+            const decodedContent = decoder.decode(content).replace(/\r?\n/g, node_os_1.EOL);
             return {
                 path,
                 content: Buffer.from((0, core_1.template)(decodedContent, {})(options)),
