@@ -75,6 +75,10 @@ export interface Tree {
     apply(action: Action, strategy?: MergeStrategy): void;
     readonly actions: Action[];
 }
+export interface TreeConstructor {
+    isTree(maybeTree: object): maybeTree is Tree;
+}
+export declare const Tree: TreeConstructor;
 export interface UpdateRecorder {
     insertLeft(index: number, content: Buffer | string): UpdateRecorder;
     insertRight(index: number, content: Buffer | string): UpdateRecorder;

@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeSymbol = exports.FileVisitorCancelToken = exports.MergeStrategy = void 0;
+exports.Tree = exports.TreeSymbol = exports.FileVisitorCancelToken = exports.MergeStrategy = void 0;
 var MergeStrategy;
 (function (MergeStrategy) {
     MergeStrategy[MergeStrategy["AllowOverwriteConflict"] = 2] = "AllowOverwriteConflict";
@@ -37,11 +37,8 @@ exports.TreeSymbol = (function () {
     }
     return globalSymbol.schematicTree;
 })();
-// eslint-disable-next-line @typescript-eslint/no-namespace
-var Tree;
-(function (Tree) {
-    function isTree(maybeTree) {
+exports.Tree = Object.freeze({
+    isTree(maybeTree) {
         return exports.TreeSymbol in maybeTree;
-    }
-    Tree.isTree = isTree;
-})(Tree || (Tree = {}));
+    },
+});
