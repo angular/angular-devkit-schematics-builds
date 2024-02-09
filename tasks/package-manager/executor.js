@@ -55,6 +55,13 @@ const packageManagers = {
     },
     'yarn': {
         commands: {
+            installAll: 'install',
+            installPackage: 'add',
+        },
+    },
+    'bun': {
+        commands: {
+            installAll: 'install',
             installPackage: 'add',
         },
     },
