@@ -7,6 +7,9 @@
  */
 import { TaskConfiguration, TaskConfigurationGenerator } from '../../src';
 import { NodePackageTaskOptions } from './options';
+/**
+ * @deprecated since version 18. Create a custom task if required.
+ */
 export declare class NodePackageLinkTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
     packageName?: string | undefined;
     workingDirectory?: string | undefined;

@@ -9,6 +9,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NodePackageLinkTask = void 0;
 const options_1 = require("./options");
+/**
+ * @deprecated since version 18. Create a custom task if required.
+ */
 class NodePackageLinkTask {
     packageName;
     workingDirectory;
