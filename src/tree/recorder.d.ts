@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/// <reference types="node" />
 import { BaseException } from '@angular-devkit/core';
 import MagicString from 'magic-string';
 import { FileEntry, UpdateRecorder } from './interface';
