@@ -42,7 +42,7 @@ function applyContentTemplate(options) {
             };
         }
         catch (e) {
-            if (e.code === 'ERR_ENCODING_INVALID_ENCODED_DATA') {
+            if (e instanceof TypeError) {
                 return entry;
             }
             throw e;
