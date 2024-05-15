@@ -10,8 +10,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilterHostTree = exports.HostCreateTree = exports.HostTree = exports.HostDirEntry = void 0;
 const core_1 = require("@angular-devkit/core");
 const jsonc_parser_1 = require("jsonc-parser");
-const rxjs_1 = require("rxjs");
-const util_1 = require("util");
 const exception_1 = require("../exception/exception");
 const delegate_1 = require("./delegate");
 const entry_1 = require("./entry");
@@ -221,7 +219,7 @@ class HostTree {
         if (data === null) {
             throw new exception_1.FileDoesNotExistException(path);
         }
-        const decoder = new util_1.TextDecoder('utf-8', { fatal: true });
+        const decoder = new TextDecoder('utf-8', { fatal: true });
         try {
             // With the `fatal` option enabled, invalid data will throw a TypeError
             return decoder.decode(data);
@@ -399,28 +397,34 @@ class FilterHostTree extends HostTree {
         const newBackend = new core_1.virtualFs.SimpleMemoryHost();
         // cast to allow access
         const originalBackend = tree._backend;
-        const recurse = (base) => {
-            return originalBackend.list(base).pipe((0, rxjs_1.mergeMap)((x) => x), (0, rxjs_1.map)((path) => (0, core_1.join)(base, path)), (0, rxjs_1.concatMap)((path) => {
-                let isDirectory = false;
-                originalBackend.isDirectory(path).subscribe((val) => (isDirectory = val));
-                if (isDirectory) {
-                    return recurse(path);
-                }
-                let isFile = false;
-                originalBackend.isFile(path).subscribe((val) => (isFile = val));
-                if (!isFile || !filter(path)) {
-                    return rxjs_1.EMPTY;
-                }
-                let content = null;
-                originalBackend.read(path).subscribe((val) => (content = val));
-                if (!content) {
-                    return rxjs_1.EMPTY;
-                }
-                return newBackend.write(path, content);
-            }));
-        };
-        recurse((0, core_1.normalize)('/')).subscribe();
+        // Walk the original backend and add files that match the filter to the new backend
+        const pendingPaths = ['/'];
+        while (pendingPaths.length > 0) {
+            const currentPath = pendingPaths.pop();
+            if (currentPath === undefined) {
+                break;
+            }
+            let isDirectory = false;
+            originalBackend.isDirectory(currentPath).subscribe((val) => (isDirectory = val));
+            if (isDirectory) {
+                originalBackend
+                    .list(currentPath)
+                    .subscribe((val) => pendingPaths.push(...val.map((p) => (0, core_1.join)(currentPath, p))));
+                continue;
+            }
+            let isFile = false;
+            originalBackend.isFile(currentPath).subscribe((val) => (isFile = val));
+            if (!isFile || !filter(currentPath)) {
+                continue;
+            }
+            let content = null;
+            originalBackend.read(currentPath).subscribe((val) => (content = val));
+            if (content !== null) {
+                newBackend.write(currentPath, content).subscribe();
+            }
+        }
         super(newBackend);
+        // Add actions that match the filter to new tree
         for (const action of tree.actions) {
             if (!filter(action.path)) {
                 continue;
