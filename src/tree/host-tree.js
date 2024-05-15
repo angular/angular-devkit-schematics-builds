@@ -227,7 +227,10 @@ class HostTree {
             return decoder.decode(data);
         }
         catch (e) {
-            if (e instanceof TypeError) {
+            // The second part should not be needed. But Jest does not support instanceof correctly.
+            // See: https://github.com/jestjs/jest/issues/2549
+            if (e instanceof TypeError ||
+                e.code === 'ERR_ENCODING_INVALID_ENCODED_DATA') {
                 throw new Error(`Failed to decode "${path}" as UTF-8 text.`);
             }
             throw e;
