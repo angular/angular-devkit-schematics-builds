@@ -7,7 +7,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.applyTemplates = exports.template = exports.renameTemplateFiles = exports.pathTemplate = exports.applyPathTemplate = exports.contentTemplate = exports.applyContentTemplate = exports.InvalidPipeException = exports.UnknownPipeException = exports.OptionIsNotDefinedException = exports.TEMPLATE_FILENAME_RE = void 0;
+exports.InvalidPipeException = exports.UnknownPipeException = exports.OptionIsNotDefinedException = exports.TEMPLATE_FILENAME_RE = void 0;
+exports.applyContentTemplate = applyContentTemplate;
+exports.contentTemplate = contentTemplate;
+exports.applyPathTemplate = applyPathTemplate;
+exports.pathTemplate = pathTemplate;
+exports.renameTemplateFiles = renameTemplateFiles;
+exports.template = template;
+exports.applyTemplates = applyTemplates;
 const core_1 = require("@angular-devkit/core");
 const node_os_1 = require("node:os");
 const base_1 = require("./base");
@@ -52,11 +59,9 @@ function applyContentTemplate(options) {
         }
     };
 }
-exports.applyContentTemplate = applyContentTemplate;
 function contentTemplate(options) {
     return (0, base_1.forEach)(applyContentTemplate(options));
 }
-exports.contentTemplate = contentTemplate;
 function applyPathTemplate(data, options = {
     interpolationStart: '__',
     interpolationEnd: '__',
@@ -115,11 +120,9 @@ function applyPathTemplate(data, options = {
         return { path: (0, core_1.normalize)(path), content };
     };
 }
-exports.applyPathTemplate = applyPathTemplate;
 function pathTemplate(options) {
     return (0, base_1.forEach)(applyPathTemplate(options));
 }
-exports.pathTemplate = pathTemplate;
 /**
  * Remove every `.template` suffix from file names.
  */
@@ -136,7 +139,6 @@ function renameTemplateFiles() {
         }
     });
 }
-exports.renameTemplateFiles = renameTemplateFiles;
 function template(options) {
     return (0, base_1.chain)([
         contentTemplate(options),
@@ -146,7 +148,6 @@ function template(options) {
         pathTemplate(options),
     ]);
 }
-exports.template = template;
 function applyTemplates(options) {
     return (0, base_1.forEach)((0, base_1.when)((path) => path.endsWith('.template'), (0, base_1.composeFileOperators)([
         applyContentTemplate(options),
@@ -160,4 +161,3 @@ function applyTemplates(options) {
         },
     ])));
 }
-exports.applyTemplates = applyTemplates;

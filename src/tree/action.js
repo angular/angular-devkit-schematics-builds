@@ -7,7 +7,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isContentAction = exports.ActionList = exports.UnknownActionException = void 0;
+exports.ActionList = exports.UnknownActionException = void 0;
+exports.isContentAction = isContentAction;
 const core_1 = require("@angular-devkit/core");
 class UnknownActionException extends core_1.BaseException {
     constructor(action) {
@@ -134,4 +135,3 @@ exports.ActionList = ActionList;
 function isContentAction(action) {
     return action.kind == 'c' || action.kind == 'o';
 }
-exports.isContentAction = isContentAction;

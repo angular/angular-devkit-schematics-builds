@@ -7,7 +7,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateOptionsWithSchema = exports.InvalidInputOptions = void 0;
+exports.InvalidInputOptions = void 0;
+exports.validateOptionsWithSchema = validateOptionsWithSchema;
 const core_1 = require("@angular-devkit/core");
 const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
@@ -35,4 +36,3 @@ function validateOptionsWithSchema(registry) {
         return (0, rxjs_1.of)(options);
     };
 }
-exports.validateOptionsWithSchema = validateOptionsWithSchema;

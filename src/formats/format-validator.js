@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatValidator = void 0;
+exports.formatValidator = formatValidator;
 const core_1 = require("@angular-devkit/core");
 async function formatValidator(data, dataSchema, formats) {
     const registry = new core_1.schema.CoreSchemaRegistry();
@@ -17,4 +17,3 @@ async function formatValidator(data, dataSchema, formats) {
     const validator = await registry.compile(dataSchema);
     return validator(data);
 }
-exports.formatValidator = formatValidator;

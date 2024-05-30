@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readJsonFile = void 0;
+exports.readJsonFile = readJsonFile;
 const schematics_1 = require("@angular-devkit/schematics");
 const fs_1 = require("fs");
 const jsonc_parser_1 = require("jsonc-parser");
@@ -23,4 +23,3 @@ function readJsonFile(path) {
     }
     return content;
 }
-exports.readJsonFile = readJsonFile;

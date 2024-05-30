@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.move = void 0;
+exports.move = move;
 const core_1 = require("@angular-devkit/core");
 const base_1 = require("./base");
 function move(from, to) {
@@ -34,4 +34,3 @@ function move(from, to) {
         return tree;
     };
 }
-exports.move = move;

@@ -30,6 +30,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = default_1;
 const core_1 = require("@angular-devkit/core");
 const child_process_1 = require("child_process");
 const path = __importStar(require("path"));
@@ -91,4 +92,3 @@ function default_1(factoryOptions = {}) {
         catch { }
     };
 }
-exports.default = default_1;

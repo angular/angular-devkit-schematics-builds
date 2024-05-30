@@ -7,7 +7,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.applyToSubtree = exports.composeFileOperators = exports.forEach = exports.partitionApplyMerge = exports.when = exports.branchAndMerge = exports.asSource = exports.filter = exports.noop = exports.mergeWith = exports.apply = exports.chain = exports.empty = exports.source = void 0;
+exports.source = source;
+exports.empty = empty;
+exports.chain = chain;
+exports.apply = apply;
+exports.mergeWith = mergeWith;
+exports.noop = noop;
+exports.filter = filter;
+exports.asSource = asSource;
+exports.branchAndMerge = branchAndMerge;
+exports.when = when;
+exports.partitionApplyMerge = partitionApplyMerge;
+exports.forEach = forEach;
+exports.composeFileOperators = composeFileOperators;
+exports.applyToSubtree = applyToSubtree;
 const rxjs_1 = require("rxjs");
 const exception_1 = require("../exception/exception");
 const host_tree_1 = require("../tree/host-tree");
@@ -21,14 +34,12 @@ const call_1 = require("./call");
 function source(tree) {
     return () => tree;
 }
-exports.source = source;
 /**
  * A source that returns an empty tree.
  */
 function empty() {
     return () => (0, static_1.empty)();
 }
-exports.empty = empty;
 /**
  * Chain multiple rules into a single rule.
  */
@@ -41,14 +52,12 @@ function chain(rules) {
         return () => intermediateTree;
     };
 }
-exports.chain = chain;
 /**
  * Apply multiple rules to a source, and returns the source transformed.
  */
 function apply(source, rules) {
     return (context) => (0, call_1.callRule)(chain(rules), (0, call_1.callSource)(source, context), context);
 }
-exports.apply = apply;
 /**
  * Merge an input tree with the source passed in.
  */
@@ -57,11 +66,9 @@ function mergeWith(source, strategy = interface_1.MergeStrategy.Default) {
         return (0, call_1.callSource)(source, context).pipe((0, rxjs_1.map)((sourceTree) => tree.merge(sourceTree, strategy || context.strategy)), (0, rxjs_1.mapTo)(tree));
     };
 }
-exports.mergeWith = mergeWith;
 function noop() {
     return () => { };
 }
-exports.noop = noop;
 function filter(predicate) {
     return (tree) => {
         if (host_tree_1.HostTree.isHostTree(tree)) {
@@ -72,17 +79,14 @@ function filter(predicate) {
         }
     };
 }
-exports.filter = filter;
 function asSource(rule) {
     return (context) => (0, call_1.callRule)(rule, (0, static_1.empty)(), context);
 }
-exports.asSource = asSource;
 function branchAndMerge(rule, strategy = interface_1.MergeStrategy.Default) {
     return (tree, context) => {
         return (0, call_1.callRule)(rule, tree.branch(), context).pipe((0, rxjs_1.map)((branch) => tree.merge(branch, strategy || context.strategy)), (0, rxjs_1.mapTo)(tree));
     };
 }
-exports.branchAndMerge = branchAndMerge;
 function when(predicate, operator) {
     return (entry) => {
         if (predicate(entry.path, entry)) {
@@ -93,7 +97,6 @@ function when(predicate, operator) {
         }
     };
 }
-exports.when = when;
 function partitionApplyMerge(predicate, ruleYes, ruleNo) {
     return (tree, context) => {
         const [yes, no] = (0, static_1.partition)(tree, predicate);
@@ -103,7 +106,6 @@ function partitionApplyMerge(predicate, ruleYes, ruleNo) {
         }));
     };
 }
-exports.partitionApplyMerge = partitionApplyMerge;
 function forEach(operator) {
     return (tree) => {
         tree.visit((path, entry) => {
@@ -127,7 +129,6 @@ function forEach(operator) {
         });
     };
 }
-exports.forEach = forEach;
 function composeFileOperators(operators) {
     return (entry) => {
         let current = entry;
@@ -141,7 +142,6 @@ function composeFileOperators(operators) {
         return current;
     };
 }
-exports.composeFileOperators = composeFileOperators;
 function applyToSubtree(path, rules) {
     return (tree, context) => {
         const scoped = new scoped_1.ScopedTree(tree, path);
@@ -155,4 +155,3 @@ function applyToSubtree(path, rules) {
         }));
     };
 }
-exports.applyToSubtree = applyToSubtree;

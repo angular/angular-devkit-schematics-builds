@@ -7,7 +7,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.schematic = exports.externalSchematic = void 0;
+exports.externalSchematic = externalSchematic;
+exports.schematic = schematic;
 const rxjs_1 = require("rxjs");
 const interface_1 = require("../tree/interface");
 const static_1 = require("../tree/static");
@@ -28,7 +29,6 @@ function externalSchematic(collectionName, schematicName, options, executionOpti
         }));
     };
 }
-exports.externalSchematic = externalSchematic;
 /**
  * Run a schematic from the same collection.
  *
@@ -47,4 +47,3 @@ function schematic(schematicName, options, executionOptions) {
         }));
     };
 }
-exports.schematic = schematic;

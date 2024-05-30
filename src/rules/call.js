@@ -7,7 +7,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.callRule = exports.callSource = exports.InvalidSourceResultException = exports.InvalidRuleResultException = void 0;
+exports.InvalidSourceResultException = exports.InvalidRuleResultException = void 0;
+exports.callSource = callSource;
+exports.callRule = callRule;
 const core_1 = require("@angular-devkit/core");
 const rxjs_1 = require("rxjs");
 const interface_1 = require("../tree/interface");
@@ -63,7 +65,6 @@ function callSource(source, context) {
         throw new InvalidSourceResultException(result);
     });
 }
-exports.callSource = callSource;
 function callRule(rule, input, context) {
     if ((0, rxjs_1.isObservable)(input)) {
         return input.pipe((0, rxjs_1.mergeMap)((inputTree) => callRuleAsync(rule, inputTree, context)));
@@ -72,7 +73,6 @@ function callRule(rule, input, context) {
         return (0, rxjs_1.defer)(() => callRuleAsync(rule, input, context));
     }
 }
-exports.callRule = callRule;
 async function callRuleAsync(rule, tree, context) {
     let result = await rule(tree, context);
     while (typeof result === 'function') {

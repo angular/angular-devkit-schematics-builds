@@ -34,6 +34,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnknownPackageManagerException = void 0;
+exports.default = default_1;
 const core_1 = require("@angular-devkit/core");
 const child_process_1 = require("child_process");
 const ora_1 = __importDefault(require("ora"));
@@ -165,4 +166,3 @@ function default_1(factoryOptions = {}) {
         });
     };
 }
-exports.default = default_1;

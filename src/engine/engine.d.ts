@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/// <reference types="node" />
 import { BaseException } from '@angular-devkit/core';
 import { Observable } from 'rxjs';
 import { Url } from 'url';
@@ -39,8 +38,8 @@ export declare class UnknownTaskDependencyException extends BaseException {
 export declare class CollectionImpl<CollectionT extends object, SchematicT extends object> implements Collection<CollectionT, SchematicT> {
     private _description;
     private _engine;
-    readonly baseDescriptions?: CollectionDescription<CollectionT>[] | undefined;
-    constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: CollectionDescription<CollectionT>[] | undefined);
+    readonly baseDescriptions?: Array<CollectionDescription<CollectionT>> | undefined;
+    constructor(_description: CollectionDescription<CollectionT>, _engine: SchematicEngine<CollectionT, SchematicT>, baseDescriptions?: Array<CollectionDescription<CollectionT>> | undefined);
     get description(): CollectionDescription<CollectionT>;
     get name(): string;
     createSchematic(name: string, allowPrivate?: boolean): Schematic<CollectionT, SchematicT>;
