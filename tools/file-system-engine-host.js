@@ -107,7 +107,7 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
             try {
                 const path = require.resolve((0, path_1.join)(this._root, name));
                 // Default handling code is for old tasks that incorrectly export `default` with non-ESM module
-                return (0, rxjs_1.from)(Promise.resolve(`${path}`).then(s => __importStar(require(s))).then((mod) => (mod.default?.default || mod.default)())).pipe((0, rxjs_1.catchError)(() => (0, rxjs_1.throwError)(new src_1.UnregisteredTaskException(name))));
+                return (0, rxjs_1.from)(Promise.resolve(`${path}`).then(s => __importStar(require(s))).then((mod) => (mod.default?.default || mod.default)())).pipe((0, rxjs_1.catchError)(() => (0, rxjs_1.throwError)(() => new src_1.UnregisteredTaskException(name))));
             }
             catch { }
         }
