@@ -14,31 +14,27 @@ const node_module_engine_host_1 = require("./node-module-engine-host");
  * revert back to using node modules resolution. This is done for testing.
  */
 class NodeModulesTestEngineHost extends node_module_engine_host_1.NodeModulesEngineHost {
-    _collections = new Map();
-    _tasks = [];
+    #collections = new Map();
+    #tasks = [];
     get tasks() {
-        return this._tasks;
+        return this.#tasks;
     }
     clearTasks() {
-        this._tasks = [];
+        this.#tasks = [];
     }
     registerCollection(name, path) {
-        this._collections.set(name, path);
+        this.#collections.set(name, path);
     }
     transformContext(context) {
-        const oldAddTask = context.addTask;
+        const oldAddTask = context.addTask.bind(context);
         context.addTask = (task, dependencies) => {
-            this._tasks.push(task.toConfiguration());
-            return oldAddTask.call(context, task, dependencies);
+            this.#tasks.push(task.toConfiguration());
+            return oldAddTask(task, dependencies);
         };
         return context;
     }
     _resolveCollectionPath(name, requester) {
-        const maybePath = this._collections.get(name);
-        if (maybePath) {
-            return maybePath;
-        }
-        return super._resolveCollectionPath(name, requester);
+        return this.#collections.get(name) ?? super._resolveCollectionPath(name, requester);
     }
 }
 exports.NodeModulesTestEngineHost = NodeModulesTestEngineHost;

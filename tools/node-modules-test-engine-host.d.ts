@@ -13,8 +13,7 @@ import { NodeModulesEngineHost } from './node-module-engine-host';
  * revert back to using node modules resolution. This is done for testing.
  */
 export declare class NodeModulesTestEngineHost extends NodeModulesEngineHost {
-    private _collections;
-    private _tasks;
+    #private;
     get tasks(): TaskConfiguration<{}>[];
     clearTasks(): void;
     registerCollection(name: string, path: string): void;
