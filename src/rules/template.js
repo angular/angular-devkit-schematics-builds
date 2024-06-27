@@ -105,11 +105,12 @@ function applyPathTemplate(data, options = {
                     if (!(pipe in data)) {
                         throw new UnknownPipeException(pipe);
                     }
-                    if (typeof data[pipe] != 'function') {
+                    const pipeFn = data[pipe];
+                    if (typeof pipeFn != 'function') {
                         throw new InvalidPipeException(pipe);
                     }
                     // Coerce to string.
-                    return '' + data[pipe](acc);
+                    return '' + pipeFn(acc);
                 }, '' + replacement);
             }
             path = path.substring(0, start) + replacement + path.substring(end + ieL);
