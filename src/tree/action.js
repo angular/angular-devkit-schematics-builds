@@ -59,7 +59,7 @@ class ActionList {
                 case 'd':
                     toDelete.add(action.path);
                     break;
-                case 'r':
+                case 'r': {
                     const maybeCreate = toCreate.get(action.path);
                     const maybeOverwrite = toOverwrite.get(action.path);
                     if (maybeCreate) {
@@ -84,6 +84,7 @@ class ActionList {
                         toRename.set(action.path, action.to);
                     }
                     break;
+                }
             }
         }
         this._actions = [];

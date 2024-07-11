@@ -273,13 +273,12 @@ class SchematicEngine {
                 return () => new null_1.NullTree();
             case 'empty:':
                 return () => (0, static_1.empty)();
-            default:
-                const hostSource = this._host.createSourceFromUrl(url, context);
-                if (!hostSource) {
-                    throw new UnknownUrlSourceProtocol(url.toString());
-                }
-                return hostSource;
         }
+        const hostSource = this._host.createSourceFromUrl(url, context);
+        if (!hostSource) {
+            throw new UnknownUrlSourceProtocol(url.toString());
+        }
+        return hostSource;
     }
     executePostTasks() {
         const executors = new Map();
