@@ -46,8 +46,15 @@ function empty() {
 function chain(rules) {
     return async (initialTree, context) => {
         let intermediateTree;
-        for await (const rule of rules) {
-            intermediateTree = (0, call_1.callRule)(rule, intermediateTree ?? initialTree, context);
+        if (Symbol.asyncIterator in rules) {
+            for await (const rule of rules) {
+                intermediateTree = (0, call_1.callRule)(rule, intermediateTree ?? initialTree, context);
+            }
+        }
+        else {
+            for (const rule of rules) {
+                intermediateTree = (0, call_1.callRule)(rule, intermediateTree ?? initialTree, context);
+            }
         }
         return () => intermediateTree;
     };
