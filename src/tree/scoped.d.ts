@@ -21,6 +21,7 @@ declare class ScopedDirEntry implements DirEntry {
     visit(visitor: FileVisitor): void;
 }
 export declare class ScopedTree implements Tree {
+    [x: symbol]: () => this;
     private _base;
     readonly _root: ScopedDirEntry;
     constructor(_base: Tree, scope: string);

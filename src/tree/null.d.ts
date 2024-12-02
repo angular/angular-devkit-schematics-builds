@@ -22,6 +22,7 @@ export declare class NullTreeDirEntry implements DirEntry {
     visit(): void;
 }
 export declare class NullTree implements Tree {
+    [x: symbol]: () => this;
     branch(): Tree;
     merge(_other: Tree, _strategy?: MergeStrategy): void;
     readonly root: DirEntry;

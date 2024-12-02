@@ -22,6 +22,7 @@ export declare class HostDirEntry implements DirEntry {
     private getSubfilesRecursively;
 }
 export declare class HostTree implements Tree {
+    [x: symbol]: () => this;
     protected _backend: virtualFs.ReadonlyHost<{}>;
     private readonly _id;
     private _record;
