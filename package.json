@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "19.1.0-next.1+sha-1bf9381",
+  "version": "19.1.0-next.1+sha-b1500d3",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,13 +18,12 @@
     "tooling"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#1bf9381",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#b1500d3",
     "jsonc-parser": "3.3.1",
     "magic-string": "0.30.15",
     "ora": "5.4.1",
     "rxjs": "7.8.1"
   },
-  "packageManager": "yarn@4.5.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/angular-cli.git"
@@ -47,5 +46,8 @@
     "puppeteer": {
       "built": true
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
   }
 }
