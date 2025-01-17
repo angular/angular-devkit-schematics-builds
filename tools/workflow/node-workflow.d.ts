@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 import { Path, schema, virtualFs } from '@angular-devkit/core';
-import { workflow } from '@angular-devkit/schematics';
+import { workflow } from '../../src';
 import { FileSystemEngine } from '../description';
 import { OptionTransform } from '../file-system-engine-host-base';
 import { NodeModulesEngineHost } from '../node-module-engine-host';

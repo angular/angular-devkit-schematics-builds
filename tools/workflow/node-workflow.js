@@ -10,14 +10,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NodeWorkflow = void 0;
 const core_1 = require("@angular-devkit/core");
 const node_1 = require("@angular-devkit/core/node");
-const schematics_1 = require("@angular-devkit/schematics");
+const src_1 = require("../../src");
 const node_2 = require("../../tasks/node");
 const node_module_engine_host_1 = require("../node-module-engine-host");
 const schema_option_transform_1 = require("../schema-option-transform");
 /**
  * A workflow specifically for Node tools.
  */
-class NodeWorkflow extends schematics_1.workflow.BaseWorkflow {
+class NodeWorkflow extends src_1.workflow.BaseWorkflow {
     constructor(hostOrRoot, options) {
         let host;
         let root;
