@@ -8,9 +8,9 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.readJsonFile = readJsonFile;
-const schematics_1 = require("@angular-devkit/schematics");
 const fs_1 = require("fs");
 const jsonc_parser_1 = require("jsonc-parser");
+const exception_1 = require("../src/exception/exception");
 function readJsonFile(path) {
     let data;
     try {
@@ -18,7 +18,7 @@ function readJsonFile(path) {
     }
     catch (e) {
         if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
-            throw new schematics_1.FileDoesNotExistException(path);
+            throw new exception_1.FileDoesNotExistException(path);
         }
         throw e;
     }
