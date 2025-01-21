@@ -31,12 +31,19 @@ class UnitTestTree extends src_1.DelegateTree {
 exports.UnitTestTree = UnitTestTree;
 class SchematicTestRunner {
     _collectionName;
-    _engineHost = new tools_1.NodeModulesTestEngineHost();
-    _engine = new src_1.SchematicEngine(this._engineHost);
+    _engineHost;
+    _engine;
     _collection;
     _logger;
     constructor(_collectionName, collectionPath) {
         this._collectionName = _collectionName;
+        this._engineHost = new tools_1.NodeModulesTestEngineHost([
+            // Leverage the specified collection path as an additional base for resolving other
+            // collections by name. This is useful in e.g. pnpm workspaces where `@angular-devkit/schematics`
+            // doesn't necessarily have access to e.g. `@schematics/angular`.
+            collectionPath,
+        ]);
+        this._engine = new src_1.SchematicEngine(this._engineHost);
         this._engineHost.registerCollection(_collectionName, collectionPath);
         this._logger = new core_1.logging.Logger('test');
         const registry = new core_1.schema.CoreSchemaRegistry(src_1.formats.standardFormats);
