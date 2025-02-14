@@ -7,7 +7,7 @@
  */
 import { JsonValue, Path, PathFragment } from '@angular-devkit/core';
 import { Action } from './action';
-import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
+import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, TreeSymbol, UpdateRecorder } from './interface';
 declare class ScopedDirEntry implements DirEntry {
     private _base;
     readonly scope: Path;
@@ -21,7 +21,7 @@ declare class ScopedDirEntry implements DirEntry {
     visit(visitor: FileVisitor): void;
 }
 export declare class ScopedTree implements Tree {
-    [x: symbol]: () => this;
+    [TreeSymbol]: () => this;
     private _base;
     readonly _root: ScopedDirEntry;
     constructor(_base: Tree, scope: string);

@@ -7,9 +7,9 @@
  */
 import { JsonValue } from '@angular-devkit/core';
 import { Action } from './action';
-import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
+import { DirEntry, FileEntry, FileVisitor, MergeStrategy, Tree, TreeSymbol, UpdateRecorder } from './interface';
 export declare class DelegateTree implements Tree {
-    [x: symbol]: () => this;
+    [TreeSymbol]: () => this;
     protected _other: Tree;
     constructor(_other: Tree);
     branch(): Tree;

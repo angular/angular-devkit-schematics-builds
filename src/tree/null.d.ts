@@ -7,7 +7,7 @@
  */
 import { BaseException, JsonValue, Path, PathFragment } from '@angular-devkit/core';
 import { Action } from './action';
-import { DirEntry, MergeStrategy, Tree, UpdateRecorder } from './interface';
+import { DirEntry, MergeStrategy, Tree, TreeSymbol, UpdateRecorder } from './interface';
 export declare class CannotCreateFileException extends BaseException {
     constructor(path: string);
 }
@@ -22,7 +22,7 @@ export declare class NullTreeDirEntry implements DirEntry {
     visit(): void;
 }
 export declare class NullTree implements Tree {
-    [x: symbol]: () => this;
+    [TreeSymbol]: () => this;
     branch(): Tree;
     merge(_other: Tree, _strategy?: MergeStrategy): void;
     readonly root: DirEntry;

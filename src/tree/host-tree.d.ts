@@ -7,7 +7,7 @@
  */
 import { JsonValue, Path, PathFragment, virtualFs } from '@angular-devkit/core';
 import { Action } from './action';
-import { DirEntry, FileEntry, FilePredicate, FileVisitor, MergeStrategy, Tree, UpdateRecorder } from './interface';
+import { DirEntry, FileEntry, FilePredicate, FileVisitor, MergeStrategy, Tree, TreeSymbol, UpdateRecorder } from './interface';
 export declare class HostDirEntry implements DirEntry {
     readonly parent: DirEntry | null;
     readonly path: Path;
@@ -22,7 +22,7 @@ export declare class HostDirEntry implements DirEntry {
     private getSubfilesRecursively;
 }
 export declare class HostTree implements Tree {
-    [x: symbol]: () => this;
+    [TreeSymbol]: () => this;
     protected _backend: virtualFs.ReadonlyHost<{}>;
     private readonly _id;
     private _record;
