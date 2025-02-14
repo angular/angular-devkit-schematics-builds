@@ -8,8 +8,8 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.url = url;
-const url_1 = require("url");
+const node_url_1 = require("node:url");
 function url(urlString) {
-    const url = (0, url_1.parse)(urlString);
+    const url = (0, node_url_1.parse)(urlString);
     return (context) => context.engine.createSourceFromUrl(url, context)(context);
 }

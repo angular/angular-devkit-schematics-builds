@@ -8,16 +8,16 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExportStringRef = void 0;
-const path_1 = require("path");
+const node_path_1 = require("node:path");
 class ExportStringRef {
     _ref;
     _module;
     _path;
     constructor(ref, parentPath = process.cwd(), inner = true) {
         const [path, name] = ref.split('#', 2);
-        this._module = path[0] == '.' ? (0, path_1.resolve)(parentPath, path) : path;
+        this._module = path[0] == '.' ? (0, node_path_1.resolve)(parentPath, path) : path;
         this._module = require.resolve(this._module);
-        this._path = (0, path_1.dirname)(this._module);
+        this._path = (0, node_path_1.dirname)(this._module);
         if (inner) {
             this._ref = require(this._module)[name || 'default'];
         }

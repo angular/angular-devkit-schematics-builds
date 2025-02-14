@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 import { BaseException } from '@angular-devkit/core';
+import { Url } from 'node:url';
 import { Observable } from 'rxjs';
-import { Url } from 'url';
 import { MergeStrategy } from '../tree/interface';
 import { Workflow } from '../workflow/interface';
 import { Collection, CollectionDescription, Engine, EngineHost, ExecutionOptions, Schematic, SchematicContext, SchematicDescription, Source, TaskConfiguration, TaskId, TaskInfo, TypedSchematicContext } from './interface';

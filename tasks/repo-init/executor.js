@@ -42,8 +42,8 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 const core_1 = require("@angular-devkit/core");
-const child_process_1 = require("child_process");
-const path = __importStar(require("path"));
+const node_child_process_1 = require("node:child_process");
+const path = __importStar(require("node:path"));
 function default_1(factoryOptions = {}) {
     const rootDirectory = factoryOptions.rootDirectory || process.cwd();
     return async (options = {}, context) => {
@@ -65,7 +65,7 @@ function default_1(factoryOptions = {}) {
                 },
             };
             return new Promise((resolve, reject) => {
-                (0, child_process_1.spawn)('git', args, spawnOptions).on('close', (code) => {
+                (0, node_child_process_1.spawn)('git', args, spawnOptions).on('close', (code) => {
                     if (code === 0) {
                         resolve();
                     }

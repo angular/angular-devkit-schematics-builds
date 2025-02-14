@@ -41,8 +41,8 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystemEngineHost = void 0;
-const fs_1 = require("fs");
-const path_1 = require("path");
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
 const rxjs_1 = require("rxjs");
 const src_1 = require("../src");
 const export_ref_1 = require("./export-ref");
@@ -60,16 +60,16 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
     _resolveCollectionPath(name) {
         try {
             // Allow `${_root}/${name}.json` as a collection.
-            const maybePath = require.resolve((0, path_1.join)(this._root, name + '.json'));
-            if ((0, fs_1.existsSync)(maybePath)) {
+            const maybePath = require.resolve((0, node_path_1.join)(this._root, name + '.json'));
+            if ((0, node_fs_1.existsSync)(maybePath)) {
                 return maybePath;
             }
         }
         catch (error) { }
         try {
             // Allow `${_root}/${name}/collection.json.
-            const maybePath = require.resolve((0, path_1.join)(this._root, name, 'collection.json'));
-            if ((0, fs_1.existsSync)(maybePath)) {
+            const maybePath = require.resolve((0, node_path_1.join)(this._root, name, 'collection.json'));
+            if ((0, node_fs_1.existsSync)(maybePath)) {
                 return maybePath;
             }
         }
@@ -104,8 +104,8 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
             return true;
         }
         try {
-            const maybePath = require.resolve((0, path_1.join)(this._root, name));
-            if ((0, fs_1.existsSync)(maybePath)) {
+            const maybePath = require.resolve((0, node_path_1.join)(this._root, name));
+            if ((0, node_fs_1.existsSync)(maybePath)) {
                 return true;
             }
         }
@@ -115,7 +115,7 @@ class FileSystemEngineHost extends file_system_engine_host_base_1.FileSystemEngi
     createTaskExecutor(name) {
         if (!super.hasTaskExecutor(name)) {
             try {
-                const path = require.resolve((0, path_1.join)(this._root, name));
+                const path = require.resolve((0, node_path_1.join)(this._root, name));
                 // Default handling code is for old tasks that incorrectly export `default` with non-ESM module
                 return (0, rxjs_1.from)(Promise.resolve(`${path}`).then(s => __importStar(require(s))).then((mod) => (mod.default?.default || mod.default)())).pipe((0, rxjs_1.catchError)(() => (0, rxjs_1.throwError)(() => new src_1.UnregisteredTaskException(name))));
             }

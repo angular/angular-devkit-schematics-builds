@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NodeModulesEngineHost = exports.NodePackageDoesNotSupportSchematics = void 0;
 const core_1 = require("@angular-devkit/core");
-const path_1 = require("path");
+const node_path_1 = require("node:path");
 const export_ref_1 = require("./export-ref");
 const file_system_engine_host_base_1 = require("./file-system-engine-host-base");
 const file_system_utility_1 = require("./file-system-utility");
@@ -39,17 +39,17 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
                 references.add(requester);
             }
         }
-        const relativeBase = requester ? (0, path_1.dirname)(requester) : process.cwd();
+        const relativeBase = requester ? (0, node_path_1.dirname)(requester) : process.cwd();
         let collectionPath = undefined;
         if (name.startsWith('.')) {
-            name = (0, path_1.resolve)(relativeBase, name);
+            name = (0, node_path_1.resolve)(relativeBase, name);
         }
         const resolveOptions = {
-            paths: requester ? [(0, path_1.dirname)(requester), ...(this.paths || [])] : this.paths,
+            paths: requester ? [(0, node_path_1.dirname)(requester), ...(this.paths || [])] : this.paths,
         };
         // Try to resolve as a package
         try {
-            const packageJsonPath = require.resolve((0, path_1.join)(name, 'package.json'), resolveOptions);
+            const packageJsonPath = require.resolve((0, node_path_1.join)(name, 'package.json'), resolveOptions);
             const { schematics } = require(packageJsonPath);
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
@@ -57,8 +57,8 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
             // If this is a relative path to the collection, then create the collection
             // path in relation to the package path
             if (schematics.startsWith('.')) {
-                const packageDirectory = (0, path_1.dirname)(packageJsonPath);
-                collectionPath = (0, path_1.resolve)(packageDirectory, schematics);
+                const packageDirectory = (0, node_path_1.dirname)(packageJsonPath);
+                collectionPath = (0, node_path_1.resolve)(packageDirectory, schematics);
             }
             // Otherwise treat this as a package, and recurse to find the collection path
             else {

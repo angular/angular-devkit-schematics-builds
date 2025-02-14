@@ -10,8 +10,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileSystemEngineHostBase = exports.SchematicNameCollisionException = exports.SchematicMissingDescriptionException = exports.SchematicMissingFieldsException = exports.CollectionMissingFieldsException = exports.CollectionMissingSchematicsMapException = exports.FactoryCannotBeResolvedException = exports.SchematicMissingFactoryException = exports.InvalidCollectionJsonException = exports.CollectionCannotBeResolvedException = void 0;
 const core_1 = require("@angular-devkit/core");
 const node_1 = require("@angular-devkit/core/node");
-const fs_1 = require("fs");
-const path_1 = require("path");
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
 const rxjs_1 = require("rxjs");
 const src_1 = require("../src");
 const file_system_utility_1 = require("./file-system-utility");
@@ -154,7 +154,7 @@ class FileSystemEngineHostBase {
         if (!(name in collection.schematics)) {
             return null;
         }
-        const collectionPath = (0, path_1.dirname)(collection.path);
+        const collectionPath = (0, node_path_1.dirname)(collection.path);
         const partialDesc = collection.schematics[name];
         if (!partialDesc) {
             return null;
@@ -183,8 +183,8 @@ class FileSystemEngineHostBase {
         let schema = partialDesc.schema;
         let schemaJson = undefined;
         if (schema) {
-            if (!(0, path_1.isAbsolute)(schema)) {
-                schema = (0, path_1.join)(collectionPath, schema);
+            if (!(0, node_path_1.isAbsolute)(schema)) {
+                schema = (0, node_path_1.join)(collectionPath, schema);
             }
             schemaJson = (0, file_system_utility_1.readJsonFile)(schema);
         }
@@ -193,8 +193,8 @@ class FileSystemEngineHostBase {
         // Bazel under Windows this directory needs to be resolved from the collection instead.
         // This is needed because on Bazel under Windows the data files (such as the collection or
         // url files) are not in the same place as the compiled JS.
-        const maybePath = (0, path_1.join)(collectionPath, partialDesc.factory);
-        const path = (0, fs_1.existsSync)(maybePath) && (0, fs_1.statSync)(maybePath).isDirectory() ? maybePath : (0, path_1.dirname)(maybePath);
+        const maybePath = (0, node_path_1.join)(collectionPath, partialDesc.factory);
+        const path = (0, node_fs_1.existsSync)(maybePath) && (0, node_fs_1.statSync)(maybePath).isDirectory() ? maybePath : (0, node_path_1.dirname)(maybePath);
         return this._transformSchematicDescription(name, collection, {
             ...partialDesc,
             schema,
@@ -217,7 +217,7 @@ class FileSystemEngineHostBase {
                     }
                     // Resolve all file:///a/b/c/d from the schematic's own path, and not the current
                     // path.
-                    const root = (0, core_1.normalize)((0, path_1.resolve)(fileDescription.path, url.path || ''));
+                    const root = (0, core_1.normalize)((0, node_path_1.resolve)(fileDescription.path, url.path || ''));
                     return new src_1.HostCreateTree(new core_1.virtualFs.ScopedHost(new node_1.NodeJsSyncHost(), root));
                 };
         }

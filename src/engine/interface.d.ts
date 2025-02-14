@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 import { logging } from '@angular-devkit/core';
+import { Url } from 'node:url';
 import { Observable } from 'rxjs';
-import { Url } from 'url';
 import { FileEntry, MergeStrategy, Tree } from '../tree/interface';
 import { Workflow } from '../workflow/interface';
 export interface TaskConfiguration<T = {}> {

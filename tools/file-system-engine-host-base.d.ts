@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 import { BaseException } from '@angular-devkit/core';
+import { Url } from 'node:url';
 import { Observable } from 'rxjs';
-import { Url } from 'url';
 import { RuleFactory, Source, TaskExecutor, TaskExecutorFactory } from '../src';
 import { FileSystemCollectionDesc, FileSystemEngineHost, FileSystemSchematicContext, FileSystemSchematicDesc, FileSystemSchematicDescription } from './description';
 export declare type OptionTransform<T extends object | null, R extends object> = (schematic: FileSystemSchematicDescription, options: T, context?: FileSystemSchematicContext) => Observable<R> | PromiseLike<R> | R;
