@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.dev/license
  */
+import { Url } from 'node:url';
 import { Observable } from 'rxjs';
-import { Url } from 'url';
 import { CollectionDescription, EngineHost, RuleFactory, SchematicDescription, Source, TaskExecutor, TypedSchematicContext } from '../src';
 export type FallbackCollectionDescription = {
     host: EngineHost<{}, {}>;

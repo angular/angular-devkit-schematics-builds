@@ -46,9 +46,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnknownPackageManagerException = void 0;
 exports.default = default_1;
 const core_1 = require("@angular-devkit/core");
-const child_process_1 = require("child_process");
+const node_child_process_1 = require("node:child_process");
+const path = __importStar(require("node:path"));
 const ora_1 = __importDefault(require("ora"));
-const path = __importStar(require("path"));
 const rxjs_1 = require("rxjs");
 const src_1 = require("../../src");
 const packageManagers = {
@@ -154,7 +154,7 @@ function default_1(factoryOptions = {}) {
                 // Workaround for https://github.com/sindresorhus/ora/issues/136.
                 discardStdin: process.platform != 'win32',
             }).start();
-            const childProcess = (0, child_process_1.spawn)(taskPackageManagerName, args, spawnOptions).on('close', (code) => {
+            const childProcess = (0, node_child_process_1.spawn)(taskPackageManagerName, args, spawnOptions).on('close', (code) => {
                 if (code === 0) {
                     spinner.succeed('Packages installed successfully.');
                     spinner.stop();
