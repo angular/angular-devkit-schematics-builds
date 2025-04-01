@@ -39,17 +39,13 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
                 references.add(requester);
             }
         }
-        const relativeBase = requester ? (0, node_path_1.dirname)(requester) : process.cwd();
         let collectionPath = undefined;
-        if (name.startsWith('.')) {
-            name = (0, node_path_1.resolve)(relativeBase, name);
-        }
         const resolveOptions = {
             paths: requester ? [(0, node_path_1.dirname)(requester), ...(this.paths || [])] : this.paths,
         };
         // Try to resolve as a package
         try {
-            const packageJsonPath = require.resolve((0, node_path_1.join)(name, 'package.json'), resolveOptions);
+            const packageJsonPath = require.resolve(`${name}/package.json`, resolveOptions);
             const { schematics } = require(packageJsonPath);
             if (!schematics || typeof schematics !== 'string') {
                 throw new NodePackageDoesNotSupportSchematics(name);
