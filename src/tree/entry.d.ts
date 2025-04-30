@@ -12,7 +12,7 @@ export declare class SimpleFileEntry implements FileEntry {
     private _content;
     constructor(_path: Path, _content: Buffer);
     get path(): Path;
-    get content(): Buffer<ArrayBufferLike>;
+    get content(): Buffer;
 }
 export declare class LazyFileEntry implements FileEntry {
     private _path;
@@ -20,5 +20,5 @@ export declare class LazyFileEntry implements FileEntry {
     private _content;
     constructor(_path: Path, _load: (path?: Path) => Buffer);
     get path(): Path;
-    get content(): Buffer<ArrayBufferLike>;
+    get content(): Buffer;
 }
