@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "20.1.0-next.0+sha-f9b9e4e",
+  "version": "20.1.0-next.0+sha-1d26eb5",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
