@@ -49,7 +49,6 @@ const core_1 = require("@angular-devkit/core");
 const node_child_process_1 = require("node:child_process");
 const path = __importStar(require("node:path"));
 const ora_1 = __importDefault(require("ora"));
-const rxjs_1 = require("rxjs");
 const src_1 = require("../../src");
 const packageManagers = {
     'npm': {
@@ -148,7 +147,7 @@ function default_1(factoryOptions = {}) {
         if (factoryOptions.force) {
             args.push('--force');
         }
-        return new rxjs_1.Observable((obs) => {
+        return new Promise((resolve, reject) => {
             const spinner = (0, ora_1.default)({
                 text: `Installing packages (${taskPackageManagerName})...`,
                 // Workaround for https://github.com/sindresorhus/ora/issues/136.
@@ -158,15 +157,14 @@ function default_1(factoryOptions = {}) {
                 if (code === 0) {
                     spinner.succeed('Packages installed successfully.');
                     spinner.stop();
-                    obs.next();
-                    obs.complete();
+                    resolve();
                 }
                 else {
                     if (options.hideOutput) {
                         bufferedOutput.forEach(({ stream, data }) => stream.write(data));
                     }
                     spinner.fail('Package install failed, see above.');
-                    obs.error(new src_1.UnsuccessfulWorkflowExecution());
+                    reject(new src_1.UnsuccessfulWorkflowExecution());
                 }
             });
             if (options.hideOutput) {
