@@ -65,7 +65,7 @@ function default_1(factoryOptions = {}) {
                 },
             };
             return new Promise((resolve, reject) => {
-                (0, node_child_process_1.spawn)('git', args, spawnOptions).on('close', (code) => {
+                (0, node_child_process_1.spawn)(`git ${args.join(' ')}`, spawnOptions).on('close', (code) => {
                     if (code === 0) {
                         resolve();
                     }
