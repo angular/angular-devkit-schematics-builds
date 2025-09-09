@@ -57,6 +57,12 @@ const packageManagers = {
             installPackage: 'install',
         },
     },
+    'cnpm': {
+        commands: {
+            installAll: 'install',
+            installPackage: 'install',
+        },
+    },
     'yarn': {
         commands: {
             installAll: 'install',
