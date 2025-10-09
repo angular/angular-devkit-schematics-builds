@@ -179,3 +179,4 @@ class ScopedTree {
     }
 }
 exports.ScopedTree = ScopedTree;
+//# sourceMappingURL=scoped.js.map

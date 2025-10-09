@@ -36,3 +36,4 @@ function validateOptionsWithSchema(registry) {
         return (0, rxjs_1.of)(options);
     };
 }
+//# sourceMappingURL=schema-option-transform.js.map

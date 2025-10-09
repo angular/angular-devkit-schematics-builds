@@ -72,3 +72,4 @@ class HostSink extends sink_1.SimpleSinkBase {
     }
 }
 exports.HostSink = HostSink;
+//# sourceMappingURL=host.js.map
