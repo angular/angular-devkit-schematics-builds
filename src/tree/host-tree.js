@@ -315,12 +315,8 @@ class HostTree {
     }
     // Structural methods.
     create(path, content) {
-        const p = this._normalizePath(path);
-        if (this._recordSync.exists(p)) {
-            throw new exception_1.FileAlreadyExistException(p);
-        }
         const c = typeof content == 'string' ? Buffer.from(content) : content;
-        this._record.create(p, c).subscribe();
+        this._record.create(this._normalizePath(path), c).subscribe();
     }
     delete(path) {
         this._recordSync.delete(this._normalizePath(path));
