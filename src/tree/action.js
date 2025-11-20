@@ -23,7 +23,7 @@ class ActionList {
         this._actions.push({
             ...action,
             id: _id++,
-            parent: this._actions[this._actions.length - 1]?.id ?? 0,
+            parent: this._actions.at(-1)?.id ?? 0,
         });
     }
     create(path, content) {
