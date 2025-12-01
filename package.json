@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "21.0.1+sha-6e25bde",
+  "version": "21.0.1+sha-f8a1939",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,7 +18,7 @@
     "tooling"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#6e25bde",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#f8a1939",
     "jsonc-parser": "3.3.1",
     "magic-string": "0.30.19",
     "ora": "9.0.0",
