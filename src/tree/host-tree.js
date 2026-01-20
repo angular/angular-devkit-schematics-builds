@@ -62,6 +62,7 @@ class HostDirEntry {
     }
 }
 exports.HostDirEntry = HostDirEntry;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 class HostTree {
     _backend;
     _id = --_uniqueId;
@@ -69,9 +70,6 @@ class HostTree {
     _recordSync;
     _ancestry = new Set();
     _dirCache = new Map();
-    [interface_1.TreeSymbol]() {
-        return this;
-    }
     static isHostTree(tree) {
         if (tree instanceof HostTree) {
             return true;
@@ -83,6 +81,7 @@ class HostTree {
     }
     constructor(_backend = new core_1.virtualFs.Empty()) {
         this._backend = _backend;
+        this[interface_1.TreeSymbol] = () => this;
         this._record = new core_1.virtualFs.CordHost(new core_1.virtualFs.SafeReadonlyHost(_backend));
         this._recordSync = new core_1.virtualFs.SyncDelegateHost(this._record);
     }

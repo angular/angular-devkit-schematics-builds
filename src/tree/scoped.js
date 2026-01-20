@@ -61,11 +61,13 @@ class ScopedDirEntry {
         });
     }
 }
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 class ScopedTree {
     _base;
     _root;
     constructor(_base, scope) {
         this._base = _base;
+        this[interface_1.TreeSymbol] = () => this;
         const normalizedScope = (0, core_1.normalize)('/' + scope);
         this._root = new ScopedDirEntry(this._base.getDir(normalizedScope), normalizedScope);
     }
@@ -153,9 +155,6 @@ class ScopedTree {
             }
         }
         return scopedActions;
-    }
-    [interface_1.TreeSymbol]() {
-        return this;
     }
     _fullPath(path) {
         return (0, core_1.join)(this._root.scope, (0, core_1.normalize)('/' + path));
