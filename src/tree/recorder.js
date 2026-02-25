@@ -34,7 +34,7 @@ class UpdateRecorderBase {
         }
         catch (e) {
             if (e instanceof TypeError) {
-                throw new Error(`Failed to decode "${path}" as ${encoding} text.`);
+                throw new Error(`Failed to decode "${path}" as ${encoding} text.`, { cause: e });
             }
             throw e;
         }

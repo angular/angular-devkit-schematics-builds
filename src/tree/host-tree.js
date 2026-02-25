@@ -228,7 +228,7 @@ class HostTree {
             // See: https://github.com/jestjs/jest/issues/2549
             if (e instanceof TypeError ||
                 e.code === 'ERR_ENCODING_INVALID_ENCODED_DATA') {
-                throw new Error(`Failed to decode "${path}" as UTF-8 text.`);
+                throw new Error(`Failed to decode "${path}" as UTF-8 text.`, { cause: e });
             }
             throw e;
         }
