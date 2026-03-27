@@ -54,7 +54,6 @@ function default_1(factoryOptions = {}) {
             const errorStream = ignoreErrorStream ? 'ignore' : process.stderr;
             const spawnOptions = {
                 stdio: [process.stdin, outputStream, errorStream],
-                shell: true,
                 cwd: path.join(rootDirectory, options.workingDirectory || ''),
                 env: {
                     ...process.env,
@@ -65,7 +64,7 @@ function default_1(factoryOptions = {}) {
                 },
             };
             return new Promise((resolve, reject) => {
-                (0, node_child_process_1.spawn)(`git ${args.join(' ')}`, spawnOptions).on('close', (code) => {
+                (0, node_child_process_1.spawn)('git', args, spawnOptions).on('close', (code) => {
                     if (code === 0) {
                         resolve();
                     }
@@ -95,7 +94,7 @@ function default_1(factoryOptions = {}) {
             await execute(['add', '.']);
             if (options.commit) {
                 const message = options.message || 'initial commit';
-                await execute(['commit', `-m "${message}"`]);
+                await execute(['commit', '-m', message]);
             }
             context.logger.info('Successfully initialized git.');
         }
