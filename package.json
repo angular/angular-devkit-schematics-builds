@@ -1,6 +1,6 @@
 {
   "name": "@angular-devkit/schematics",
-  "version": "22.2.0-next.4+sha-9a1b250",
+  "version": "22.2.0-next.4+sha-204eafc",
   "description": "Angular Schematics - Library",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -18,9 +18,9 @@
     "tooling"
   ],
   "dependencies": {
-    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#9a1b250",
+    "@angular-devkit/core": "github:angular/angular-devkit-core-builds#204eafc",
     "jsonc-parser": "3.3.1",
-    "magic-string": "1.2.1",
+    "magic-string": "1.2.2",
     "ora": "9.4.1",
     "rxjs": "7.8.2"
   },
