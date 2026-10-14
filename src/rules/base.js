@@ -45,18 +45,18 @@ function empty() {
  */
 function chain(rules) {
     return async (initialTree, context) => {
-        let intermediateTree;
+        let intermediateTree = initialTree;
         if (Symbol.asyncIterator in rules) {
             for await (const rule of rules) {
-                intermediateTree = (0, call_1.callRule)(rule, intermediateTree ?? initialTree, context);
+                intermediateTree = await (0, rxjs_1.lastValueFrom)((0, call_1.callRule)(rule, intermediateTree, context));
             }
         }
         else {
             for (const rule of rules) {
-                intermediateTree = (0, call_1.callRule)(rule, intermediateTree ?? initialTree, context);
+                intermediateTree = await (0, rxjs_1.lastValueFrom)((0, call_1.callRule)(rule, intermediateTree, context));
             }
         }
-        return () => intermediateTree;
+        return intermediateTree;
     };
 }
 /**
