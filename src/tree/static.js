@@ -12,6 +12,7 @@ exports.branch = branch;
 exports.merge = merge;
 exports.partition = partition;
 const exception_1 = require("../exception/exception");
+const delegate_1 = require("./delegate");
 const host_tree_1 = require("./host-tree");
 const interface_1 = require("./interface");
 function empty() {
@@ -25,6 +26,9 @@ function merge(tree, other, strategy = interface_1.MergeStrategy.Default) {
     return tree;
 }
 function partition(tree, predicate) {
+    if (tree instanceof delegate_1.DelegateTree) {
+        tree = tree.branch();
+    }
     if (tree instanceof host_tree_1.HostTree) {
         return [
             new host_tree_1.FilterHostTree(tree, predicate),

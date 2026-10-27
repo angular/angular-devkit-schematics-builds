@@ -23,6 +23,7 @@ exports.composeFileOperators = composeFileOperators;
 exports.applyToSubtree = applyToSubtree;
 const rxjs_1 = require("rxjs");
 const exception_1 = require("../exception/exception");
+const delegate_1 = require("../tree/delegate");
 const host_tree_1 = require("../tree/host-tree");
 const interface_1 = require("../tree/interface");
 const scoped_1 = require("../tree/scoped");
@@ -78,6 +79,9 @@ function noop() {
 }
 function filter(predicate) {
     return (tree) => {
+        if (tree instanceof delegate_1.DelegateTree) {
+            tree = tree.branch();
+        }
         if (host_tree_1.HostTree.isHostTree(tree)) {
             return new host_tree_1.FilterHostTree(tree, predicate);
         }
