@@ -7,7 +7,6 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InvalidInputOptions = void 0;
 exports.validateOptionsWithSchema = validateOptionsWithSchema;
 const core_1 = require("@angular-devkit/core");
 const rxjs_1 = require("rxjs");
@@ -17,7 +16,6 @@ class InvalidInputOptions extends core_1.schema.SchemaValidationException {
         super(errors, `Schematic input does not validate against the Schema: ${JSON.stringify(options)}\nErrors:\n`);
     }
 }
-exports.InvalidInputOptions = InvalidInputOptions;
 // This can only be used in NodeJS.
 function validateOptionsWithSchema(registry) {
     return (schematic, options, context) => {

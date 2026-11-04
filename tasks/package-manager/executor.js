@@ -43,7 +43,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UnknownPackageManagerException = void 0;
 exports.default = default_1;
 const core_1 = require("@angular-devkit/core");
 const node_child_process_1 = require("node:child_process");
@@ -81,7 +80,6 @@ class UnknownPackageManagerException extends core_1.BaseException {
         super(`Unknown package manager "${name}".`);
     }
 }
-exports.UnknownPackageManagerException = UnknownPackageManagerException;
 function default_1(factoryOptions = {}) {
     const packageManagerName = factoryOptions.packageManager || 'npm';
     const packageManagerProfile = packageManagers[packageManagerName];

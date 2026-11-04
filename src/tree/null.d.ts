@@ -5,12 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.dev/license
  */
-import { BaseException, JsonValue, Path, PathFragment } from '@angular-devkit/core';
+import { JsonValue, Path, PathFragment } from '@angular-devkit/core';
 import { Action } from './action';
 import { DirEntry, MergeStrategy, Tree, TreeSymbol, UpdateRecorder } from './interface';
-export declare class CannotCreateFileException extends BaseException {
-    constructor(path: string);
-}
 export declare class NullTreeDirEntry implements DirEntry {
     readonly path: Path;
     get parent(): DirEntry | null;

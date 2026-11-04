@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateRecorderBase = exports.IndexOutOfBoundException = void 0;
+exports.UpdateRecorderBase = void 0;
 const core_1 = require("@angular-devkit/core");
 const magic_string_1 = require("magic-string");
 const exception_1 = require("../exception/exception");
@@ -16,7 +16,6 @@ class IndexOutOfBoundException extends core_1.BaseException {
         super(`Index ${index} outside of range [${min}, ${max}].`);
     }
 }
-exports.IndexOutOfBoundException = IndexOutOfBoundException;
 class UpdateRecorderBase {
     data;
     bom;

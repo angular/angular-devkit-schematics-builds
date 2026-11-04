@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NullTree = exports.NullTreeDirEntry = exports.CannotCreateFileException = void 0;
+exports.NullTree = exports.NullTreeDirEntry = void 0;
 const core_1 = require("@angular-devkit/core");
 const exception_1 = require("../exception/exception");
 const interface_1 = require("./interface");
@@ -17,7 +17,6 @@ class CannotCreateFileException extends core_1.BaseException {
         super(`Cannot create file "${path}".`);
     }
 }
-exports.CannotCreateFileException = CannotCreateFileException;
 class NullTreeDirEntry {
     path;
     get parent() {

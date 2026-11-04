@@ -5,12 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.dev/license
  */
-import { BaseException } from '@angular-devkit/core';
 import { MagicString } from 'magic-string';
 import { FileEntry, UpdateRecorder } from './interface';
-export declare class IndexOutOfBoundException extends BaseException {
-    constructor(index: number, min: number, max?: number);
-}
 export declare class UpdateRecorderBase implements UpdateRecorder {
     private readonly data;
     private readonly bom;
