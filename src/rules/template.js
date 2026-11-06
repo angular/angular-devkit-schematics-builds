@@ -41,12 +41,9 @@ const decoder = new TextDecoder('utf-8', { fatal: true });
 function applyContentTemplate(options) {
     return (entry) => {
         const { path, content } = entry;
+        let decodedContent;
         try {
-            const decodedContent = decoder.decode(content).replace(/\r?\n/g, node_os_1.EOL);
-            return {
-                path,
-                content: Buffer.from((0, core_1.template)(decodedContent, {})(options)),
-            };
+            decodedContent = decoder.decode(content);
         }
         catch (e) {
             // The second part should not be needed. But Jest does not support instanceof correctly.
@@ -56,6 +53,17 @@ function applyContentTemplate(options) {
                 return entry;
             }
             throw e;
+        }
+        decodedContent = decodedContent.replace(/\r?\n/g, node_os_1.EOL);
+        try {
+            return {
+                path,
+                content: Buffer.from((0, core_1.template)(decodedContent, {})(options)),
+            };
+        }
+        catch (e) {
+            const message = e instanceof Error ? e.message : String(e);
+            throw new Error(`Failed to apply content template to "${path}": ${message}`, { cause: e });
         }
     };
 }
